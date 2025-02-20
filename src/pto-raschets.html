@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <%= require(`html-loader!./inner-google${isDevServer ? '-dev-server' : ''}.html`).default %>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link href="<%= canonicalURL %>/plastinchatye-teploobmenniki/raschets/"  rel="canonical" />
+</head>
+<body class="page">
+  <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
+  <div>
+    <header class="header header-up content">
+      <a href="/" class="header__logo"><img class="header__logo-img" src="<%=require('./images/header-logo-1.svg')%>" alt="Лого Термблок"></a>
+      <div class="header__right">
+        <%= require('html-loader!./insets/asides/inner-header.html').default %>
+      </div>
+    </header>
+    <main class="content">
+      <div class="flexburton__breadcrumbs flexburton__breadcrumbs_spec">
+        <a class="flexburton__breadcrumbs-link flexburton__breadcrumbs-link_spec" href="/">Главная</a>
+        <a class="flexburton__breadcrumbs-link flexburton__breadcrumbs-link_spec" href="/plastinchatye-teploobmenniki/">Пластинчатые теплообменники</a>
+        <a class="flexburton__breadcrumbs-link flexburton__breadcrumbs-link_spec flexburton__breadcrumbs-link_type_here" href="/<%= htmlWebpackPlugin.options.filename %>"><%= htmlWebpackPlugin.options.heading %></a>
+      </div>
+      <h1 class="title-page"><%= htmlWebpackPlugin.options.heading %></h1>
+      <p class="text-sm text-gray-300 max-w-3xl mobile:text-xs"><%= htmlWebpackPlugin.options.intro %></p>
+      <div class="container-2 col-span-2 border-t border-primary-strokke1">
+        <h2 class="upsubtitle mt-4  row-span-2">Для гвс</h2>
+        <ul class="">
+          <% raschetsExamples.filter(i => i.naznach ==='гвс').map((item,index) => { %>
+            <li class="">
+              <a class="link-beauty text-m py-4 block <%= index!==0 ? `border-t border-primary-strokke1` : '' %>" target="_blank" href="/plastinchatye-teploobmenniki/<%-item.categoryPath%>/<%-item.path%>.html">
+               Теплообменник <%-item.naznach %> <%-item.sreda1%>-<%-item.sreda2%>
+              <span class="span-no-wrap text-orange font-semibold font-['Golos']">• <%-item.moshnostNumber%> <%-item.moshnostMeasure%></span>
+            </a>
+          </li>
+          <% }); %>
+        </ul>
+        <div class="py-4 border-t border-primary-strokke1 my-2">
+          <a class="text-orange text-m max-w-[338px] font-semibold link-beauty  block" href="/plastinchatye-teploobmenniki/goryachee-vodosnabzhenie-gvs/">Пластинчатые теплообменники для гвс --></a>
+        </div>
+      </div>
+      <div class="container-2 col-span-2 border-t border-primary-strokke1">
+        <h2 class="upsubtitle mt-4 row-span-2">Для отопления</h2>
+        <ul class="">
+          <% raschetsExamples.filter(i => i.naznach ==='отопление').map((item,index) => { %>
+            <li class="">
+              <a class="link-beauty text-m py-4 block <%= index!==0 ? `border-t border-primary-strokke1` : '' %>" target="_blank" href="/plastinchatye-teploobmenniki/<%-item.categoryPath%>/<%-item.path%>.html">
+               Теплообменник <%-item.naznach %> <%-item.sreda1%>-<%-item.sreda2%>
+                <span class="span-no-wrap text-orange font-semibold font-['Golos']">• <%-item.moshnostNumber%> <%-item.moshnostMeasure%></span>
+              </a>
+          </li>
+          <% }); %>
+        </ul>
+        <div class="py-4 border-t border-primary-strokke1 my-2">
+          <a class="text-orange text-m max-w-[338px] font-semibold link-beauty block" href="/plastinchatye-teploobmenniki/otoplenie/">Пластинчатые теплообменники для отопления --></a>
+        </div>
+      </div>
+      <div class="container-2 col-span-2 border-t border-primary-strokke1">
+        <h2 class="upsubtitle mt-4">Специальные</h2>
+        <ul class="">
+          <% raschetsExamples.filter(i => !i.naznach).map((item,index) => { %>
+            <li class="">
+              <a class="link-beauty text-m py-4 block <%= index!==0 ? `border-t border-primary-strokke1` : '' %>" target="_blank" href="/plastinchatye-teploobmenniki/<%-item.categoryPath%>/<%-item.path%>.html">
+               Теплообменник <%-item.naznach %> <%-item.sreda1%>-<%-item.sreda2%>
+              <span class="span-no-wrap text-orange font-semibold font-['Golos']">• <%-item.moshnostNumber%> <%-item.moshnostMeasure%></span>
+            </a>
+          </li>
+          <% }); %>
+        </ul>
+      </div>
+    </main>
+
+    <%= require('html-loader!./insets/asides/map-section.html').default %>
+    <%= require('html-loader!./insets/asides/inner-footer.html').default %>
+
+  <!--Шаблон формы-->
+  <template class="form-big-template">
+    <%= require('html-loader!./insets/big-form-template.html').default %>
+  </template>
+  <!--Шаблон элемента партнера на карте-->
+
+</body>
+</html>

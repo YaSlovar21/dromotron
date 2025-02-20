@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <%= require(`html-loader!./inner-google${isDevServer ? '-dev-server' : ''}.html`).default %>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link href="<%= canonicalURL %>"  rel="canonical" />
+</head>
+
+<body class="page bg-primary-lightgray">
+  <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
+  <% if (isDevServer) { %>
+    <p class="text-4xl absolute top-0 left-0 text-red-600">Включен режим разработчика</p>
+  <% } %>
+  <header class="header bg-primary-black">
+    <div class="header__up py-8">
+      <div class="flex justify-between content pb-4 border-b border-primary-red">
+        <a href="/" class="header__logo"><img src="<%=require('./images/header-logo-theme-dark.svg')%>" class="header__logo-img" alt="Лого Термоблок"/></a>
+        <%= require('html-loader!./insets/asides/inner-header.html').default %>
+        <div class="flex items-center text-white uppercase">
+          <a class="mr-7" href="tel:73852772638">8 (3852)77-26-38</a>
+          <a  href="mailto:market@termoblok.ru">market@termoblok.ru</a>
+        </div>
+        <button class="text-white border border-white px-4 pt-1 flex items-center justify-center">Связаться</button>
+      </div>
+    </div>
+    <div class="hero relative overflow-hidden content">
+      <h1 class="text-[180px] font-['YFF'] text-white max-w-[1100px] uppercase leading-none">Производство комплектующих <br>для теплообменников</h1>
+      <p class="mt-5 text-white mb-2">Российское производство комплектующих для теплообменного оборудования</p>
+      <a class="block mb-5 text-white max-w-[400px] w-full text-center p-4 lowercase bg-primary-red" href="#">Связаться</a>
+      <img class="absolute right-48 -bottom-20 w-[572px]" src="<%=require('./images/bg-hero.svg')%>" alt="пластина теплообменника схематично">
+    </div>
+  </header>
+  <main class="content">
+    <section class="my-[130px] container-2 items-start grid-rows-3 grid-flow-col">
+      <h2 class="up-title up-title_svg row-span-3">О компании</h2>
+      <p class="text-3xl font-medium">Индивидуальный подход, качественные материалы, собственное производство - основа деятельности компании</p>
+      <p class="text-base">Компания ООО «Дромотрон» создано в 2023 году. Основная сфера деятельности – производство комплектующих для разборных пластинчатых теплообменников. Инженерный персонал компании обладает огромным опытом... </p>
+      <a class="bg-primary-red p-4 max-w-[400px] text-xl text-white w-full lowercase text-center block mt-8" href="<%= ROUTES.about %>">Подробнее</a>
+    </section>
+    <section>
+      <h2 class="up-title up-title_svg">Категории товаров</h2>
+      <ul class="container-2">
+        <li class="relative group bg-white p-[30px] container-2 items-stretch h-full">
+          <div class="flex flex-col">
+            <h3 class="text-[40px] text-primary-red mb-5">Комплектующие для тепллобменников</h3>
+            <p class="text-xl text-primary-gray">Пластины, плиты, станины, уплотнения...</p>
+            <a class="p-4  mt-auto  border border-primary-red text-center text-primary-red text-xl lowercase" href="<%= ROUTES.catalog %>">
+              <span class="inset0"></span>
+              Перейти
+            </a>
+          </div>
+          <figure class="bg-primary-lightgray">
+            <img class="max-w-[calc(100%-80px)] m-auto" src="<%=require('./images/_dr/plita-mainpage.png')%>" alt="плита - комплектующая для теплообменника">
+          </figure>
+
+          <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
+          <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
+          <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
+          <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
+        </li>
+        <li class="relative group bg-white p-[30px] container-2 items-stretch h-full">
+          <div class="flex flex-col">
+            <h3 class="text-[40px] text-primary-red mb-5">Теплообменники для пищевых производств</h3>
+            <p class="text-xl mb-auto text-primary-gray">Пастеризаторы, охладители, нагреватели...</p>
+
+            <a class="p-4 mt-auto border border-primary-red text-center text-primary-red text-xl lowercase" href="<%= ROUTES.foodTis %>">
+              <span class="inset0"></span>
+              Перейти
+            </a>
+          </div>
+
+          <figure class="bg-primary-lightgray">
+            <img class="max-w-[calc(100%-80px)] m-auto" src="<%=require('./images/pasteriz-article.png')%>" alt="плита - комплектующая для теплообменника">
+          </figure>
+          <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
+          <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
+          <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
+          <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
+        </li>
+      </ul>
+    </section>
+    <section class="container-2 my-[130px] relative">
+      <h2 class="up-title up-title_svg">Услуги</h2>
+      <img class="absolute left-0 bottom-0 w-[calc(50%-40px)]" src="<%=require('./images/_dr/test-laser.png')%>" alt="лазерная и плазменная резка металла">
+      <ul class="list-uslugi">
+        <% uslugiList.map((u)=> { %>
+        <li class="list-uslugi__item">
+          <a class="list-uslugi__link group " href="#">
+            <%= u.name %>
+            <svg class="shrink-0 group-hover:fill-primary-red" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="35.5" y="0.5" width="35" height="35" rx="2.5" transform="rotate(90 35.5 0.5)" stroke="#CD2C2C"/>
+              <path class="fill-primary-red origin-center group-hover:-rotate-45 group-hover:fill-primary-white" d="M20.206 12.7957C20.0955 12.6927 20.0068 12.5685 19.9453 12.4305C19.8838 12.2925 19.8508 12.1436 19.8481 11.9925C19.8454 11.8414 19.8732 11.6914 19.9298 11.5513C19.9864 11.4112 20.0706 11.284 20.1774 11.1772C20.2843 11.0703 20.4115 10.9861 20.5516 10.9295C20.6917 10.873 20.8417 10.8452 20.9928 10.8478C21.1438 10.8505 21.2928 10.8836 21.4308 10.945C21.5688 11.0065 21.693 11.0952 21.796 11.2057L27.796 17.2057C28.0067 17.4167 28.125 17.7026 28.125 18.0007C28.125 18.2988 28.0067 18.5848 27.796 18.7957L21.796 24.7957C21.693 24.9062 21.5688 24.9949 21.4308 25.0564C21.2928 25.1179 21.1438 25.1509 20.9928 25.1536C20.8417 25.1563 20.6917 25.1285 20.5516 25.0719C20.4115 25.0153 20.2843 24.9311 20.1774 24.8243C20.0706 24.7174 19.9864 24.5902 19.9298 24.4501C19.8732 24.31 19.8454 24.16 19.8481 24.0089C19.8508 23.8579 19.8838 23.7089 19.9453 23.5709C20.0068 23.4329 20.0955 23.3087 20.206 23.2057L24.286 19.1257L9.75099 19.1257C9.45262 19.1257 9.16647 19.0072 8.95549 18.7962C8.74452 18.5852 8.62599 18.2991 8.62599 18.0007C8.62599 17.7023 8.74452 17.4162 8.95549 17.2052C9.16647 16.9942 9.45262 16.8757 9.75099 16.8757L24.286 16.8757L20.206 12.7957Z"/>
+            </svg>
+          </a>
+        </li>
+        <% }); %>
+      </ul>
+    </section>
+    <section class="container-2">
+      <div>
+        <h2 class="up-title up-title_svg">Наши преимущества</h2>
+        <p class="text-3xl font-medium max-w-[777px] h-full text-primary-black">Мы предлагаем Вам <span class="text-primary-red">широкий выбор</span> комплектующих для теплообменного оборудования по <span class="text-primary-red">доступным</span> ценам.</p>
+      </div>
+      <ul class="list-adv row-span-2">
+        <li class="list-adv__item">Полностью российское производство</li>
+        <li class="list-adv__item">Оптимизация конструкции под требования заказчика</li>
+        <li class="list-adv__item">Инженерная поддержка в течение всего цикла жизни теплообменника</li>
+        <li class="list-adv__item">Короткий срок выполнения заявок</li>
+      </ul>
+    </section>
+    <section class="mt-[130px]">
+      <h2 class="up-title up-title_svg">Примеры работ</h2>
+      <ul  class="grid grid-cols-4 gap-10">
+        <% refs.map((ref, i)=> { %>
+        <li>
+            <div class="w-full py-12 relative bg-white flex items-center justify-center">
+              <img class="w-2/3" src="<%= require(`./images/_dr/refs/${i+1}.png`)%>" alt="<%= ref.name %>">
+              <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
+              <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
+              <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
+              <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
+            </div>
+            <h3 class="text-xl text-primary-black mt-5 mb-3 uppercase"><%= ref.name %></h3>
+            <p class="text-primary-gray text-lg"><%= ref.desc %></p>
+        </li>
+        <% }); %>
+      </ul>
+    </section>
+    <%= _.template(require('html-loader!./insets/form-section-test.html').default)({title: false}) %>
+  </main>
+  <footer class="bg-primary-black py-10">
+    <div class="content container-2">
+      <img src="<%=require('./images/header-logo-theme-dark.svg')%>" alt="">
+      <div class="flex w-full justify-between">
+        <ul>
+          <a class="block mb-4 text-3xl text-white" href="tel:73852772638">8 (3852)77-26-38</a>
+          <a  class="block text-white" href="mailto:info@dromotron.ru">info@dromotron.ru</a>
+        </ul>
+        <p class="text-xl text-white">Рабочие часы: 08:00-17:00</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

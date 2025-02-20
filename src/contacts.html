@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <%= require(`html-loader!./inner-google${isDevServer ? '-dev-server' : ''}.html`).default %>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename %>"  rel="canonical" />
+  </head>
+  <body class="page">
+    <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
+    <header class="header header-up content">
+      <a href="/" class="header__logo"><img src="<%=require('./images/header-logo-1.svg')%>" class="header__logo-img" alt="Лого Термоблок"/></a>
+      <div class="header__right">
+        <%= require('html-loader!./insets/asides/inner-header.html').default %>
+      </div>
+    </header>
+    <main class="content">
+    <div class="flexburton__breadcrumbs">
+            <a class="flexburton__breadcrumbs-link" href="/">Главная</a>
+            <a class=" flexburton__breadcrumbs-link flexburton__breadcrumbs-link_type_here" href="/<%= htmlWebpackPlugin.options.filename %>">Контакты</a>
+          </div>
+      <section class="container-12 gap-y-28 pt-4 border-t border-primary-strokke1 mt-12  mobile:grid-cols-1 mobile:*:col-start-1 mobile:*:col-span-1">
+        <div class="col-span-5">
+          <img class="opacity-75 rounded-xl" src="<%=require('./images/place_new_1.jpg')%>" alt="Вид сверху на ООО Термоблок">
+          <h3 class="contacts__main-title">Производство и отдел продаж:</h3>
+          <p class="contacts__paragraph" style="max-width: 300px;">
+            г. Барнаул, ул. Кулагина 28
+            <span class="span-no-wrap span-bsz">(Барнаульский станкостроительный завод)</span>
+          </p>
+        </div>
+        <div class="relative flex flex-col h-full col-span-6 col-start-7">
+          <h1 class="title-page mb-32 mt-0">Контакты</h1>
+          <ul class=" mt-auto mb-12">
+            <li>
+              <!--<h3 class="contacts__main-title">Email:</h3>-->
+              <a class="contacts__tel contacts__link" href="mailto:market@termoblok.ru">market@termoblok.ru</a></li>
+            </li>
+            <li class="mt-2">
+              <!--<<h3 class="contacts__main-title">Городской телефон:</h3>>-->
+              <a  class="contacts__tel contacts__link span-no-wrap" href="tel:+73852996980">+7 (385) 299-69-80</a>
+            </li>
+            <li class="mt-2">
+              <!--<<h3 class="contacts__main-title">Мобильный / WhatsApp</h3>>-->
+              <a  class="contacts__tel contacts__link span-no-wrap" href="tel:+79640866981">+7 (964) 086-69-81</a>
+            </li>
+          </ul>
+          <div class="actions max-w-[60%]">
+            <button class="actions__button callback-button">Перезвоните мне</button>
+            <button class="actions__button raschet-button">Рассчитать теплообменник</button>
+            <button class="actions__button callback-partner-button">Вопрос о сотрудничестве</button>
+          </div>
+        </div>
+        <div class="contacts__ya-map col-span-5 h-96">
+          <script type="text/javascript" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A397d4c8a0bcca922b57633d6c446b7c965f2df02e0e40f00addca2ad1b45d0da&amp;width=100%25&amp;lang=ru_RU&amp;scroll=false"></script>
+        </div>
+        <div class="col-span-6 col-start-7 flex flex-col items-start">
+          <h2 class="subtitle-smm">Реквизиты ООО "Термоблок"</h2>
+          <ul class="text-m text-base mobile:text-sm">
+              <li>ООО "Термоблок"</li>
+              <li>ИНН/КПП: <span class="span-decoration-none">2224044880</span>/222401001</li>
+              <li>Банк: Алтайское отделение № 8644 Сбербанка России г. Барнаул</li>
+              <li>БИК: <span class="span-decoration-none">040173604</span></li>
+              <li>к/с: 30101810200000000604</li>
+              <li>р/с: 40702810502140012418</li>
+              <li>Управляющий директор: </li>
+              <li>Чернов Максим Васильевич</li>
+              <li>(на основании генеральной доверенности б/н от 16.12.2024 г.)</li>
+              <li>Главный бухгалтер:</li>
+              <li>Бедарева Элла Владимировна</li>
+          </ul>
+          <p class="text-blacktheme-white">Приёмная: <a  class="contacts__tel contacts__tel_small contacts__link span-no-wrap" href="tel:+73852775592"> +7 (3852) 77-55-92</a></p>
+          <p class="text-blacktheme-white">Отдел металлообработки: <a  class="contacts__tel contacts__tel_small contacts__link span-no-wrap" href="tel:+73852532843"> +7 (3852) 53-28-43</a></p>
+          <a class="flex justify-start items-center my-6 text-orange relative" href="/docu/Rekviziti_OOO_Termoblok.doc" download="">
+            <span class="inset0"></span>
+            <svg class="w-7 h-7 mr-2 stroke-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path>
+            </svg>
+            Скачать реквизиты
+          </a>
+        </div>
+      </section>
+
+      <section class="contacts">
+
+
+
+
+        <div class="contacts__msk contact-padding-in-grid">
+
+          <!--<h3 class="contacts__main-title">Дополнительный офис</h3>
+            <ul class="contact-list">
+                <li class="contacts__tel">Адрес: г. Одинцово, поселок Акулова, ул. Новая. д. 144</li>
+                <li class="contacts__tel">Телефон: <a  class="contacts__tel contacts__link" href="tel:+74951222452">8 (495) 122-24-52</a></li>
+            </ul>-->
+        </div>
+      </section>
+    </main>
+    <%= require('html-loader!./insets/asides/map-section.html').default %>
+    <%= require('html-loader!./insets/asides/inner-footer.html').default %>
+    <%= require('html-loader!./insets/popup-mini-form.html').default %>
+    <%= require('html-loader!./insets/popup-big-form.html').default %>
+
+    <script async src="//callkeeper.ru/w/?8e469928"></script>
+  </body>
+</html>

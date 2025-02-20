@@ -1,0 +1,13 @@
+.nav__mobile-icon {
+  background: none;
+  display: none;
+  border: none;
+  outline: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .nav__mobile-icon {
+    display: block;
+    padding-right: 0;
+  }
+}

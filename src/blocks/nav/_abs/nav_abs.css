@@ -1,0 +1,7 @@
+.nav_abs {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  z-index: 22;
+  max-width: 895px;
+}

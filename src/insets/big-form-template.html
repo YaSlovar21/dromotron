@@ -1,0 +1,117 @@
+<form  class="popup__form raschet-bem raschet-bem_bg_none" style="padding-top: 20px;" method="post" action="#" id="formRaschetPopup" name="formRaschetPopup" novalidate>
+  <!--Среды вход/выход-->
+  <div class="raschet-bem__substantions">
+    <div class="raschet-bem__subst-selection-block">
+      <h3 class="raschet-bem__subst-title raschet-bem__subst-title_hot">Греющая сторона</h3>
+      <select data-alias="Греющая сторона" class="raschet-bem__input raschet-bem__select" id="sreda_gr" name="sredaGr">
+        <option selected value="Вода">вода</option>
+        <option value="Пар">пар</option>
+        <option value="Масло">масло</option>
+        <option value="гликоль">гликоль</option>
+        <option value="другое">другое</option>
+      </select>
+      <span class="raschet-bem__input-error sreda_gr-error"></span>
+    </div>
+    <div class="raschet-bem__subst-selection-block">
+      <h3 class="raschet-bem__subst-title raschet-bem__subst-title_cold">Нагреваемая сторона</h3>
+      <select data-alias="Нагреваемая сторона" class="raschet-bem__input raschet-bem__select" id="sreda_nagr" name="sredaNagr">
+        <option selected value="Вода">вода</option>
+        <option value="Пар">пар</option>
+        <option value="Масло">масло</option>
+        <option value="гликоль">гликоль</option>
+        <option value="другое">другое</option>
+      </select>
+      <span class="raschet-bem__input-error sreda_nagr-error"></span>
+    </div>
+  </div>
+  <!--Температурные графики (темп - изображения - темп)-->
+  <div class="raschet-bem__temperatures">
+    <div class="raschet-bem__temperature-set">
+      <label class="raschet-bem__field">
+        <span class="raschet-bem__label-title ">Температура среды на входе</span>
+        <input data-alias="Температура греющей среды на входе" type="text" name="tGrIn" id="temp-grin-input" class="raschet-bem__input raschet-bem__input_type_flex" required minlength="1">
+
+        <span class="raschet-bem__input-error temp-grin-input-error"></span>
+      </label>
+      <label class="raschet-bem__field">
+        <span class="raschet-bem__label-title">Температура среды на выходе</span>
+        <input data-alias="Температура греющей среды на выходе" type="text" name="tGrOut" id="temp-grout-input" class="raschet-bem__input raschet-bem__input_type_flex" required minlength="1">
+        <span class="raschet-bem__input-error temp-grout-input-error"></span>
+      </label>
+    </div>
+    <img class="raschet-bem__temperature-img" src="../images/to_online.png" alt="Рассчитываемый теплообменник">
+    <div class="raschet-bem__temperature-set">
+      <label class="raschet-bem__field">
+        <span class="raschet-bem__label-title">Температура среды на выходе</span>
+        <input data-alias="Температура нагреваемой среды на выходе" type="text" name="tNagrOut"  id="temp-nagrout-input" class="raschet-bem__input raschet-bem__input_type_flex" required  minlength="1">
+        <span class="raschet-bem__input-error temp-nagrout-input-error"></span>
+      </label>
+      <label class="raschet-bem__field">
+        <span class="raschet-bem__label-title">Температура среды на входе</span>
+        <input data-alias="Температура нагреваемой среды на входе" type="text"  name="tNagrIn" id="temp-nagrin-input" class="raschet-bem__input raschet-bem__input_type_flex" minlength="1" required>
+        <span class="raschet-bem__input-error temp-nagrin-input-error"></span>
+      </label>
+    </div>
+  </div>
+  <!--Дополнительные параметры (мощность, расход по нагреваемой среде)-->
+  <div class="raschet-bem__parameters">
+    <p class="raschet-bem__comment">Для расчёта необходима мощность теплообменника <span class="span_color_orange">или</span> расход по нагреваемой среде</p>
+    <div class="raschet-bem__subst-selection-block" style="flex-basis: 187px; align-items: stretch; margin-right: 30px;">
+        <div class="raschet-bem__field">
+          <label for="q-input">
+            <span class="raschet-bem__label-title">Мощность теплообменника</span>
+          </label>
+          <div style="display: flex; margin: 0; padding: 0; border: none;">
+            <input data-alias="Мощность" type="text" name="moshnost"  id="q-input" class="raschet-bem__input raschet-bem__input_type_flex">
+            <select class="raschet-bem__select raschet-bem__input raschet-bem__select_dop" name="moshnostMeasure" id="q-meas-input">
+              <option selected value="квт">кВт</option>
+              <option value="мвт">мВт</option>
+              <option value="ккал">Ккал</option>
+              <option value="гкал">Гкал</option>
+            </select>
+            <span class="raschet-bem__input-error q-input-error"></span>
+            <span class="raschet-bem__input-error q-meas-input-error"></span>
+          </div>
+      </div>
+    </div>
+
+    <div class="raschet-bem__subst-selection-block" style="flex-basis: 199px;align-items: stretch;">
+      <div class="raschet-bem__field">
+        <label for="rash-input">
+          <span class="raschet-bem__label-title">Расход нагреваемой среды</span>
+        </label>
+        <div style="display: flex; margin: 0; padding: 0; border: none;">
+          <input data-alias="Расход нагреваемой среды" name="rashod" type="text"  id="rash-input" class="raschet-bem__input raschet-bem__input_type_flex">
+          <select class="raschet-bem__select raschet-bem__input raschet-bem__select_dop" name="rashodMeasure" id="rash-meas-input">
+            <option selected value="м3/ч">м3/ч</option>
+            <option value="т/ч">т/ч</option>
+          </select>
+          <span class="raschet-bem__input-error rash-meas-input-error"></span>
+          <span class="raschet-bem__input-error rash-input-error"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+    <h3 class="raschet-bem__title raschet-bem__title_subtitle">Куда мы можем отправить расчёт?</h3>
+      <fieldset class="p-0">
+      <label class="raschet-bem__field raschet-bem__contact-field">
+        <span class="raschet-bem__label-title">Как к Вам обращаться?</span>
+        <input name="name" data-alias="Имя" type="text"  id="fio-input" class="raschet-bem__input"  required minlength="1">
+        <span class="raschet-bem__input-error fio-input-error"></span>
+      </label>
+      <label class="raschet-bem__field  raschet-bem__contact-field">
+        <span class="raschet-bem__label-title">Почта, куда удобнее принять расчёт</span>
+        <input name="email" data-alias="Контакт" type="email"  id="contact-input" class="raschet-bem__input"  required>
+        <span class="raschet-bem__input-error contact-input-error"></span>
+      </label>
+      <label class="raschet-bem__field raschet-bem__contact-field">
+        <span class="raschet-bem__label-title">Контактный телефон</span>
+        <input name="tel" data-alias="Телефон" type="text"  id="tel-raschet-input" class="raschet-bem__input"  required>
+        <span class="raschet-bem__input-error tel-raschet-input-error"></span>
+      </label>
+    </fieldset>
+    <div style="display: flex;  flex-basis: 100%;align-items: flex-end;">
+
+      <button type="submit" class="raschet-bem__submit-button ui-button" style="flex-basis: 100%;">Отправить</button>
+    </div>
+</form>

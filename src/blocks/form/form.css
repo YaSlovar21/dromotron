@@ -1,0 +1,59 @@
+.form__field {
+    @apply  rounded-sm relative mobile:mr-0 mobile:mb-4;
+}
+
+.form__field:last-child {
+
+}
+
+.form__field_type_textarea {
+    @apply flex flex-col h-48 mr-0;
+}
+
+.form__label-title {
+    @apply px-5 py-1 text-base text-primary-black;
+}
+
+.form__input {
+    @apply w-full px-5 py-5 text-xl bg-[#D7E6F2]  border border-primary-black text-primary-black rounded-md text-gray-800 outline-none mobile:text-base mobile:p-3;
+}
+
+
+
+.form__input::placeholder {
+    @apply text-primary-gray;
+}
+
+.form__input_type_textarea {
+    @apply block basis-full  py-5;
+}
+
+.form__submit-button {
+    @apply bg-primary-red text-lg rounded-lg hover:bg-primary-black text-primary-black transition-all duration-300 p-4 uppercase font-bold text-white mt-8;
+}
+
+.form__input_up {
+    border: 1px solid #1B70BB;
+    @apply bg-transparent p-4;
+}
+
+.form__submit-button_disabled {
+    @apply bg-gray-700 hover:bg-gray-700 cursor-not-allowed;
+}
+
+.form__input-error {
+    font-size: 10px;
+    letter-spacing: .04em;
+    color: var(--theme-main-color);
+    opacity: 0;
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    transition: 0.3s;
+    width: 100%;
+  }
+
+  .form__input-error_visible {
+    opacity: 1;
+  }
+

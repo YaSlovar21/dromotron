@@ -1,0 +1,19 @@
+.list-uslugi {
+  display: flex;
+  flex-direction: column;
+  @apply border-b border-primary-red;
+}
+
+.list-uslugi::before {
+  content: '';
+  height: 20px;
+  width: 100%;
+  background-image: url(../../images/_dr/svg/bg-geom-uslugi.svg);
+  display: block;
+  margin-bottom: 30px;
+}
+
+.list-uslugi__link {
+  padding: 30px 0;
+  @apply font-medium w-full justify-between flex text-2xl border-t border-primary-red;
+}

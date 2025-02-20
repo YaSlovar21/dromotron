@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <%= require(`html-loader!./inner-google${isDevServer ? '-dev-server' : ''}.html`).default %>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename %>"  rel="canonical" />
+
+</head>
+<body>
+  <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
+  <div class="page">
+      <header class="header header-up content">
+        <a href="/" class="header__logo">
+          <img class="header__logo-img" src="<%=require('./images/header-logo-1.svg')%>" alt="Лого Термоблок"/></a>
+        <div class="header__right">
+          <%= require('html-loader!./insets/asides/inner-header.html').default %>
+        </div>
+      </header>
+
+      <main class="">
+        <div class="flexburton__breadcrumbs  content">
+          <a class="flexburton__breadcrumbs-link" href="/">Главная</a>
+          <a class=" flexburton__breadcrumbs-link flexburton__breadcrumbs-link_type_here" href="/<%= htmlWebpackPlugin.options.filename %>">Продукция</a>
+        </div>
+        <h1 class="title-page content mt-4">Продукция</h1>
+        <ul class="grid grid-cols-4 border-t border-b border-primary-strokke1 laptop:grid-cols-2 laptop:*:border laptop:border mobile:grid-cols-1">
+            <li class="relative pb-[100%] w-full border-r  border-primary-strokke1">
+              <a class="flex flex-col absolute w-full h-full p-8 pl-[--aside-width] laptop:p-8" href="/plastinchatye-teploobmenniki/">
+                <h3 class="up-title up-title_svg font-semibold">Пластинчатые теплообменники</h3>
+                <img class="productcard__image" src="<%=require('./images/main_mini/ti45_new.png')%>" alt="Пластинчатые теплообменники">
+               </a>
+            </li>
+            <li class="relative pb-[100%] w-full border-r border-primary-strokke1">
+              <a class="flex flex-col absolute w-full h-full p-8"  href="/pishchevye-teploobmenniki.html">
+                  <h3 class="up-title up-title_svg font-semibold">Пищевые теплообменники</h3>
+                  <img class="productcard__image"   src="<%=require('./images/main_mini/many-section-grid.png')%>" alt="Пищевые теплообменники">
+              </a>
+            </li>
+            <li  class="relative pb-[100%] w-full border-r border-primary-strokke1">
+              <a class="flex flex-col absolute w-full h-full p-8"  href="/blochnye-teplovye-punkty/">
+                  <h3 class="up-title up-title_svg font-semibold">Блочные тепловые пункты</h3>
+                  <img class="productcard__image"  src="<%=require('./images/main_mini/btp_now.png')%>" alt="Блочные тепловые пункты">
+              </a>
+            </li>
+            <li  class="relative pb-[100%] w-full border-primary-strokke1">
+              <a class="flex flex-col absolute w-full h-full p-8"  href="/pasterizatsionno-okhladitelnye-ustanovki.html">
+                  <h3 class="up-title up-title_svg font-semibold">Установки ПОУ</h3>
+                  <img class="productcard__image"  src="<%=require('./images/main_mini/teplojit-pou.png')%>" alt="Пастеризационная охладительная установка">
+              </a>
+            </li>
+        </ul>
+        <section class="container-2 py-12 content">
+          <span class="up-title up-title_svg">Дополнительно</span>
+          <div>
+            <h2 class="subtitle">Сопутствующая продукция</h2>
+            <p class="text-white text-m max-w-xl">Вместе с теплообменником могут быть поставлены теплоизоляция, разработанная специально под нашу линейку теплообменников</p>
+            <ul class="py-8 w-2/3 laptop:w-full">
+              <li class="mb-4">
+                <a class="flex h-full group items-start text-gray-200" href="<%= ROUTES.ptoTeploizol%>">
+                  <div class="basis-1/3 overflow-hidden rounded mvpc:mt-1">
+                    <img class="object-cover object-left-top w-full h-full  min-w-[100px] transition-all group-hover:scale-110" src="<%=require('./images/pagepto/teplo-page-pto.png')%>" alt="Теплоизоляция пластинчатого теплообменника">
+                  </div>
+                  <div class="basis-2/3 ml-4">
+                    <h3 class="text-2xl font-semibold my-1 group-hover:opacity-70 transition-all mvpc:my-0 mvpc:text-lg laptop:my-0 laptop:text-lg">Теплоизоляция теплообменника в комплекте</h3>
+                    <p class="text-base group-hover:opacity-70 transition-all laptop:mt-2">Теплоизоляция пластинчатого теплообменника точно в размер</p>
+                  </div>
+                </a>
+              </li>
+              <li class="mb-4">
+                <a class="flex h-full group items-start text-gray-200" href="<%= ROUTES.ptoPoddony%>">
+                  <div class="basis-1/3 overflow-hidden rounded mvpc:mt-1">
+                    <img class="object-cover object-left-top w-full h-full  min-w-[100px] transition-all group-hover:scale-110" src="<%=require('./images/2024content/poddon-nerzh-mini.png')%>" alt="Теплоизоляция пластинчатого теплообменника">
+                  </div>
+                  <div class="basis-2/3 ml-4">
+                    <h3 class="text-2xl font-semibold my-1 group-hover:opacity-70 transition-all mvpc:my-0 mvpc:text-lg laptop:my-0 laptop:text-lg">Поддоны из нержавеющей стали</h3>
+                    <p class="text-base group-hover:opacity-70 transition-all laptop:mt-2">Для сбора конденсата, удобного проведения сервисных работ</p>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <div class="container-2 mb-12 content">
+          <h2 class="up-title up-title_svg">О производстве</h2>
+          <div>
+            <p class="text-m mb-3">
+              Опыт производства теплообменного оборудования предприятия более 25 лет. Основной
+              продукцией компании являются разборные пластинчатые теплообменники. На базе них изготавливаются готовые теплообменные
+              установки. Производство теплообменных аппаратов 100% локализовано. Оборудование широко используется во многих сферах промышленности и жилищно-коммунального хозяйства.
+            </p>
+            <p class="text-m">
+              Конструкторским бюро завода постоянно ведется разработка новых тепплообменных пластин и уплотнений. В 2019 году запущены пластины ДУ200 и ДУ250 в серийное производство. Пресс-формы и
+              оснастка проектируются и изготавливаются также на нашем предприятии.
+            </p>
+          </div>
+        </div>
+        </section>
+
+      </main>
+
+
+      <%= require('html-loader!./insets/asides/inner-footer.html').default %>
+      <%= require('html-loader!./insets/popup-mini-form.html').default %>
+    </div>
+
+</body>
+</html>
