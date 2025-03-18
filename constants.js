@@ -1,22 +1,11 @@
 const ROUTES = {
-    catalog: '/catalog/',
-    calc: '/equipment-selection/',
-    productuion: '/production.html',
-    blog: '/blog-proizvodstva/',
-
-    pto: '/plastinchatye-teploobmenniki/',
-    ptoRaschets: '/plastinchatye-teploobmenniki/raschets/',
-    ptoOtopAgr: '/plastinchatye-teploobmenniki/otoplenie/',
-    ptoGvsAgr: '/plastinchatye-teploobmenniki/goryachee-vodosnabzhenie-gvs/',
-  
-    ptoFood: '/pishchevye-teploobmenniki.html',
-
-    btp: '/blochnye-teplovye-punkty/',
-    pou: '/pasterizatsionno-okhladitelnye-ustanovki.html',
+  //основные категории
+    kompls: '/komplektuyushchie-dlya-teploobmennikov/',
+    ptoFood: '/pishchevye-teploobmenniki/',
+    uslugi: '/uslugi/',
+    
     about: '/about/',
-    service: '/service.html',
-    contacts: '/contacts.html',
-    //vacs: '/about/vakansii/',
+    contacts: '/contacts/',
 };
 
 const ROUTES_SPEC = {
@@ -29,49 +18,48 @@ const ROUTES_SPEC = {
 
 
 const uslugiList = [{
-  name: "Laser cutting of ferrous steels up to 25mm thick, stainless steels and non-ferrous metals up to 20mm thick",
+  name: "Лазерная резка чёрных сталей толщиной до 25мм, нержавеющих сталей и цветных металлов толщиной до 20мм",
   linkPath: "#",
   },
   {
-  name: "Gas cutting of black steels up to 100mm thick",
+  name: "Газовая резка чёрных сталей толщиной до 100 мм",
   linkPath: "#",
   },
   {
-  name: "CNC turning (serialized parts)",
+  name: "Токарная обработка с ЧПУ (серийные детали)",
   linkPath: "#",
   },
   {
-  name: "Milling (including production of stamps and molds)",
+  name: "Фрезерная обработка (в том числе изготовление штампов и пресс-форм)",
   linkPath: "#",
   },
   {
-  name: "Argon welding",
+  name: "Сварка в среде аргона",
   linkPath: "#",
   },
   {
-  name: "CNC bending",
+  name: "Гибка с ЧПУ",
   linkPath: "#",
   },
-  ]
-  ;
+];
 
 
 const refs = [
   {
     name: "Теплообменник P077-150 ",
-    desc: "Food heat exchanger for pasteurization and further cooling of wort in 2 stages",
+    desc: "Пищевой теплообменный аппарат для пастеризации и дальнейшего охлаждения сусла в 2 ступени",
   },
   {
-    name: "Laser cutting and hardening of metal",
-    desc: "Food heat exchanger for pasteurization and further cooling of wort in 2 stages",
+    name: "Лазерная резка и закалка металла",
+    desc: "",
   },
   {
-    name: "Stainless steel heat exchanger trays",
-    desc: "Food heat exchanger for pasteurization and further cooling of wort in 2 stages",
+    name: "Поддоны из нержавеющей стали",
+    desc: "",
   },
   {
-    name: "Gear for Kamaz",
-    desc: "Food heat exchanger for pasteurization and further cooling of wort in 2 stages",
+    name: "Индивидуальное изготоаление деталей",
+    desc: "",
   },
 ]
 

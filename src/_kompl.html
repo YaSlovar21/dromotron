@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <%= require(`html-loader!./inner-google${isDevServer ? '-dev-server' : ''}.html`).default %>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>"  rel="canonical" />
+  </head>
+  <body class="page bg-primary-lightgray">
+    <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
+    <header class="header__up py-8">
+      <div class="flex justify-between content pb-4 border-b border-primary-red">
+        <a href="/" class="header__logo"><img src="<%=require('./images/header-logo-theme-white.svg')%>" class="header__logo-img" alt="Лого Дромотрон"/></a>
+        <%=_.template(require('html-loader!./insets/asides/inner-header.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
+        <div class="flex items-center text-primary-black">
+          <a class="mr-7" href="tel:79039123177">+7(903)912-31-77</a>
+          <a  href="mailto:info@dromotron.ru">info@dromotron.ru</a>
+        </div>
+        <button class="text-primary-black border border-primary-black px-4 flex items-center justify-center lowercase rounded">Связаться</button>
+      </div>
+    </header>
+    <main class="content contacts-sect relative mt-10 mb-20">
+      <h1 class="up-title up-title_svg up-title_h1 mb-10">Комплектующие для теплообменников</h1>
+      <ul class="container-4 gap-10">
+        <% kompls.map((category) => { %>
+          <li class="flex flex-col p-6 bg-white relative">
+            <h2 class="text-3xl font-semibold text-primary-red mb-2"><%= category.name %></h2>
+            <img class="basis-96 min-h-0 object-contain object-center max-w-[calc(100%-80px)] mx-auto" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/categories/<%= category.images[0] %>" alt="<%= category.name %>">
+            <button class="ui-button block mt-8">Запросить стоимость</button>
+            <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
+              <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
+              <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
+              <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
+          </li>
+        <% }) %>
+      </ul>
+    </main>
+    <%= require('html-loader!./insets/asides/inner-footer.html').default %>
+  </body>
+</html>

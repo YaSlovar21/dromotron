@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link href="<%= canonicalURL %>/contacts/"  rel="canonical" />
+    <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>"  rel="canonical" />
   </head>
   <body class="page bg-primary-lightgray">
     <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
@@ -21,23 +21,21 @@
         <button class="text-primary-black border border-primary-black px-4 flex items-center justify-center lowercase rounded">Связаться</button>
       </div>
     </header>
-    <div class="content contacts-sect relative mt-10">
-      <h1 class="up-title up-title_svg up-title_h1 mb-10">Контакты</h1>
-      <ul class="container-2 gap-y-10 gap-x-0 grid-rows-2 grid-flow-col">
-        <li class="row-span-2">
-          <h3 class="contacts-sect_subhead">Адрес производства</h3>
-          <h4 class="text-4xl uppercase text-primary-black font-bold mt-5 mb-10">ООО «Дромотрон»</h4>
-          <p class="text-3xl max-w-sm">Россия, г. Барнаул, ул. Ткацкая, 75А, оф. 2</p>
-        </li>
-        <li>
-          <h3 class="contacts-sect_subhead mb-4">Директор</h3>
-          <a class="text-4xl " href="tel:79039123177">+7(903)912-31-77</a>
-        </li>
-        <li>
-          <h3 class="contacts-sect_subhead mb-4">Email</h3>
-          <a class="text-4xl"  href="mailto:info@dromotron.ru">info@dromotron.ru</a>
-        </li>
+    <main class="content contacts-sect relative mt-10 mb-20">
+      <h1 class="up-title up-title_svg up-title_h1 mb-10">Услуги</h1>
+      <ul class="">
+        <% uslugiList.map((category) => { %>
+          <li class="p-7 container-2 mb-10 items-stretch gap-24 bg-white">
+            <div class="flex flex-col">
+              <h2 class="text-4xl font-semibold max-w-[700px] text-primary-red mb-2"><%= category.name %></h2>
+              <p class="text-xl font-medium max-w-xl mt-4 text-primary-gray"><%= category.desc %></p>
+              <button class="ui-button block mt-auto w-full">Запросить стоимость</button>
+            </div>
+            <img class="w-full" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/uslugi/<%= category.images[0] %>" alt="<%= category.name %>">
+          </li>
+        <% }) %>
       </ul>
-    </div>
+    </main>
+    <%= require('html-loader!./insets/asides/inner-footer.html').default %>
   </body>
 </html>

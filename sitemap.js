@@ -1,5 +1,5 @@
 //const { ROUTES_SITEMAP } = require("./constants");
-const { dataForSitemap } = require("./raschets");
+//const { dataForSitemap } = require("./raschets");
 const dateNow = (new Date()).toString();
 
 module.exports.paths = [
@@ -10,7 +10,7 @@ module.exports.paths = [
       changefreq: 'monthly'
     },
      
-].concat( dataForSitemap.map((item)=>{
+]/*.concat( dataForSitemap.map((item)=>{
   return {
     //в ${item} содержится подкатегория гвс или отопление или спец расчёт(пищевой на данный момент): подкатегория/слаг названия расчёта.html
     path: `/plastinchatye-teploobmenniki/${item}.html`,

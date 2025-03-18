@@ -9,8 +9,8 @@ const fetch1 = require('node-fetch');
 const canonicalURL = 'https://www.dromotron.ru'
 
 const { paths } = require('./sitemap');
-const { rawData, razbegPoMoshnosti } = require('./raschets');
-const { ROUTES, uslugiList, refs } = require('./constants');
+
+const { ROUTES,  refs } = require('./constants');
 
 
 
@@ -94,11 +94,11 @@ function generateBlogPagesHtmlPlugins(articles, isDevServer) {
   })
 }
 //function generateConfig(infoBlogData, isDevServer) {
-function generateConfig(isDevServer) {
-  const htmlRaschetPlugins = generateRaschetHtmlPlugins(isDevServer);
+function generateConfig(isDevServer, categories, uslugiList) {
+  //const htmlRaschetPlugins = generateRaschetHtmlPlugins(isDevServer);
   //const htmlArticlesPlugins = generateBlogPagesHtmlPlugins(infoBlogData, isDevServer);
   //const htmlSpecPagesPluginst = generateSpecPagesHtmlPlugins(isDevServer);
-
+  console.log(categories);
   return {
     entry: {
       index: "./src/pages/index.js",
@@ -259,7 +259,53 @@ function generateConfig(isDevServer) {
         template: "./src/index.html", // путь к файлу index.html
         chunks: ["index"],
       }),
-
+      new HtmlWebpackPlugin({
+        templateParameters: { 
+          canonicalURL,
+          ROUTES,
+          isDevServer,
+          kompls: categories,
+        },
+        title: "Пластины, уплотнения, плиты и другие комплектующие к теплообменникам",
+        meta: {
+          keywords: "российское производство",
+          description: ``,
+        },
+        filename: "komplektuyushchie-dlya-teploobmennikov/index.html",
+        template: "./src/_kompl.html", // путь к файлу index.html
+        chunks: ["index"],
+      }),
+      new HtmlWebpackPlugin({
+        templateParameters: { 
+          canonicalURL,
+          ROUTES,
+          isDevServer,
+          uslugiList,
+        },
+        title: "Пластины, уплотнения, плиты и другие комплектующие к теплообменникам",
+        meta: {
+          keywords: "российское производство",
+          description: ``,
+        },
+        filename: "uslugi/index.html",
+        template: "./src/_uslugi.html", // путь к файлу index.html
+        chunks: ["index"],
+      }),
+      new HtmlWebpackPlugin({
+        templateParameters: { 
+          canonicalURL,
+          ROUTES,
+          isDevServer
+        },
+        title: "Контакты ООО Дромотрон",
+        meta: {
+          keywords: "российское производство",
+          description: ``,
+        },
+        filename: "contacts/index.html",
+        template: "./src/contacts.html", // путь к файлу index.html
+        chunks: ["index"],
+      }),
   
 
       new CleanWebpackPlugin(),
@@ -286,17 +332,36 @@ function articleDateMapper(newsArr) {
             })
 }
 
+function categoriesMapper(cats) {
+  return cats.map(c => ({...c, images: JSON.parse(c.images)}));
+}
+
 module.exports = () => {
   const isDevServer = process.env.WEBPACK_SERVE;
   console.log(isDevServer);
   return new Promise((resolve, reject) => {
       Promise.all([
-          fetch1('https://api.termoblok.ru/blogcards').then(res => res.json()), 
-          //fetch1('https://functions.yandexcloud.net/d4e9aq1evmfdb0cc7uo4?base=news', { agent: proxyAgent}).then(res => res.json()), 
-          //fetch1('https://functions.yandexcloud.net/d4e9aq1evmfdb0cc7uo4?base=objects', { agent: proxyAgent}).then(res => res.json()), 
+          //data[0] - categories
+          fetch1('https://api.dromotron.ru/data/categories', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjIjoiZHJvbW90cm9uIiwiaWF0IjoxNzQyMjAxMjE0fQ.uDGcewQnXnfoc64I7tiTcvo6hpeblN-5QN2xc0MUz0k'
+            },
+          }).then(res => res.json()), 
+
+          //data[1] - uslugi
+          fetch1('https://api.dromotron.ru/data/uslugi', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjIjoiZHJvbW90cm9uIiwiaWF0IjoxNzQyMjAxMjE0fQ.uDGcewQnXnfoc64I7tiTcvo6hpeblN-5QN2xc0MUz0k'
+            },
+          }).then(res => res.json()), 
+
         ])
         .then((data) => {
-          resolve(generateConfig(isDevServer));
+          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]) ));
         })
      
   });

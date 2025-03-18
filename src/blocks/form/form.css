@@ -15,7 +15,7 @@
 }
 
 .form__input {
-    @apply w-full px-5 py-5 text-xl bg-[#D7E6F2]  border border-primary-black text-primary-black rounded-md text-gray-800 outline-none mobile:text-base mobile:p-3;
+    @apply w-full px-5 py-5 text-lg bg-[#D7E6F2] text-primary-black rounded-md outline-none mobile:text-base mobile:p-3;
 }
 
 
@@ -29,12 +29,11 @@
 }
 
 .form__submit-button {
-    @apply bg-primary-red text-lg rounded-lg hover:bg-primary-black text-primary-black transition-all duration-300 p-4 uppercase font-bold text-white mt-8;
+    @apply bg-primary-red text-lg rounded-lg hover:bg-primary-black transition-all duration-300 p-4 lowercase text-white mt-8;
 }
 
 .form__input_up {
-    border: 1px solid #1B70BB;
-    @apply bg-transparent p-4;
+    @apply bg-transparent p-4 border-b border-primary-gray;
 }
 
 .form__submit-button_disabled {

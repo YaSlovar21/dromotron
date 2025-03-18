@@ -1,90 +1,82 @@
-<nav class="nav">
-  <ul class="nav__menu-links">
-    <!--<li class="nav__ul-item"><a class="nav__link" href="/">Главная</a></li>-->
-    <li class="nav__ul-item">
-      <a class="nav__link" href="/production.html">Продукция</a>
-      <ul class="nav__submenu nav__submenu_prod">
-        <li class="flex items-center relative pl-4 pt-4 pb-2 pr-2 group">
-          <div class="min-w-max h-16 overflow-hidden rounded-md">
-            <img class="w-16 h-16 object-contain transition-all group-hover:scale-105" src="../../images/menu/menu-pto.png" alt="пластинчатые теплообменники">
-          </div>
-          <a class="nav__sub-link transition-all group-hover:text-orange" href="/plastinchatye-teploobmenniki/">
-            <span class="absolute inset-0"></span>
-            Пластинчатые теплообменники
-            <span class="block text-xs uppercase mt-1 text-gray-600">Разборные<!-- • Паяные--></span>
-          </a>
-        </li>
-        <li class="flex items-center relative pl-4 py-2 pr-2 group">
-          <div class="min-w-max h-16 overflow-hidden rounded-md">
-            <img class="w-16 h-16 object-contain transition-all group-hover:scale-105" src="../../images/menu/menu-food.png" alt="пищевой теплообменник">
-          </div>
-          <a class="nav__sub-link transition-all group-hover:text-orange" href="/pishchevye-teploobmenniki.html">
-            <span class="absolute inset-0"></span>
-            Пищевые теплообменники
-          </a>
-        </li>
-        <li class="flex items-center relative pl-4 py-2 pr-2 group/subb">
-          <div class="min-w-max h-16 overflow-hidden rounded-md">
-            <img class="w-16 h-16 object-cover transition-all group-hover/subb:scale-105" src="../../images/pagepto/teplo-page-pto.png" alt="дополнительные опции к теплообменникам">
-          </div>
-          <div class="nav__sub-link transition-all group-hover/subb:text-orange relative">
-            Дополнительные опции
-            <span class="block text-xs uppercase mt-1 text-gray-600">К теплообменникам</span>
-            <span class="absolute top-5 right-0 transition-opacity duration-300 opacity-10 group-hover/subb:opacity-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+<% if (page=== 'main') { %>
+  <nav class="nav">
+    <ul class="nav__menu-links">
+      <!--<li class="nav__ul-item"><a class="nav__link" href="/">Главная</a></li>-->
+      <li class="nav__ul-item">
+        <span class="nav__link">Продукция</span>
+        <ul class="nav__submenu nav__submenu_prod">
+          <!--<li class="flex items-center relative pl-4 pt-4 pb-2 pr-2 group">
+            <div class="min-w-max h-16 overflow-hidden rounded-md">
+              <img class="w-16 h-16 object-contain transition-all group-hover:scale-105" src="../../images/menu/menu-pto.png" alt="пластинчатые теплообменники">
+            </div>
+            <a class="nav__sub-link transition-all group-hover:text-orange" href="/plastinchatye-teploobmenniki/">
+              <span class="absolute inset-0"></span>
+              Комплектующие к теплообменникам
+              <span class="block text-xs uppercase mt-1 text-gray-600">Разборные</span>
+            </a>
+          </li>
+          <li class="flex items-center relative pl-4 py-2 pr-2 group">
+            <div class="min-w-max h-16 overflow-hidden rounded-md">
+              <img class="w-16 h-16 object-contain transition-all group-hover:scale-105" src="../../images/menu/menu-food.png" alt="пищевой теплообменник">
+            </div>
+            <a class="nav__sub-link transition-all group-hover:text-orange" href="/pishchevye-teploobmenniki.html">
+              <span class="absolute inset-0"></span>
+              Пищевые теплообменники
+            </a>
+          </li>-->
+          <li class="nav__sub-ul-item border-b border-primary-red">
+            <a class="nav__sub-link group flex justify-between" href="<%= ROUTES.kompls %>">
+              <span>Комплектующие к теплообменникам<span class="block text-xs uppercase mt-1 text-gray-600">пластины уплотнения рамы</span></span>
+              <svg class="shrink-0 group-hover:fill-primary-red" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="35.5" y="0.5" width="35" height="35" rx="2.5" transform="rotate(90 35.5 0.5)" stroke="#CD2C2C"/>
+                <path class="fill-primary-red origin-center group-hover:-rotate-45 group-hover:fill-primary-white" d="M20.206 12.7957C20.0955 12.6927 20.0068 12.5685 19.9453 12.4305C19.8838 12.2925 19.8508 12.1436 19.8481 11.9925C19.8454 11.8414 19.8732 11.6914 19.9298 11.5513C19.9864 11.4112 20.0706 11.284 20.1774 11.1772C20.2843 11.0703 20.4115 10.9861 20.5516 10.9295C20.6917 10.873 20.8417 10.8452 20.9928 10.8478C21.1438 10.8505 21.2928 10.8836 21.4308 10.945C21.5688 11.0065 21.693 11.0952 21.796 11.2057L27.796 17.2057C28.0067 17.4167 28.125 17.7026 28.125 18.0007C28.125 18.2988 28.0067 18.5848 27.796 18.7957L21.796 24.7957C21.693 24.9062 21.5688 24.9949 21.4308 25.0564C21.2928 25.1179 21.1438 25.1509 20.9928 25.1536C20.8417 25.1563 20.6917 25.1285 20.5516 25.0719C20.4115 25.0153 20.2843 24.9311 20.1774 24.8243C20.0706 24.7174 19.9864 24.5902 19.9298 24.4501C19.8732 24.31 19.8454 24.16 19.8481 24.0089C19.8508 23.8579 19.8838 23.7089 19.9453 23.5709C20.0068 23.4329 20.0955 23.3087 20.206 23.2057L24.286 19.1257L9.75099 19.1257C9.45262 19.1257 9.16647 19.0072 8.95549 18.7962C8.74452 18.5852 8.62599 18.2991 8.62599 18.0007C8.62599 17.7023 8.74452 17.4162 8.95549 17.2052C9.16647 16.9942 9.45262 16.8757 9.75099 16.8757L24.286 16.8757L20.206 12.7957Z"/>
               </svg>
-            </span>
-          </div>
-          <ul class="absolute left-full top-0 hidden bg-[#1f1f1fe6] rounded-xl w-full group-hover/subb:block">
-            <li class="flex items-center relative pl-4 pt-4 pb-2 pr-2">
-              <div class="min-w-max h-16 overflow-hidden rounded-md">
-                <img class="w-16 h-16 object-cover transition-all" src="../../images/pagepto/teplo-page-pto.png" alt="теплоизоляция теплообменника">
-              </div>
-              <a class="nav__sub-link nav__sub-link_subb transition-all hover:text-orange" href="/plastinchatye-teploobmenniki/teploizolyaciya.html">
-                <span class="absolute inset-0"></span>
-                Теплоизоляция в комплекте
-              </a>
-            </li>
-            <!--<li class="flex items-center relative pl-4 pt-4 pb-2 pr-2">
-              <div class="min-w-max h-16 overflow-hidden rounded-md bg-gradient-to-tr from-gray-800 to-gray-400">
-                <img class="w-16 h-16 object-cover transition-all" src="../../images/2024content/poddon-nerzh.png">
-              </div>
-              <a class="nav__sub-link nav__sub-link_subb transition-all hover:text-orange" href="/plastinchatye-teploobmenniki/">
-                <span class="absolute inset-0"></span>
-                Поддоны из нержавеющей стали
-              </a>
-            </li>-->
-          </ul>
-        </li>
-        <li class="nav__sub-ul-item"><a class="nav__sub-link" href="/blochnye-teplovye-punkty/">Блочные тепловые пункты</a></li>
-        <li class="nav__sub-ul-item"><a class="nav__sub-link" href="/pasterizatsionno-okhladitelnye-ustanovki.html" >Пастеризационные охладительные установки</a></li>
-        <li class="nav__sub-ul-item nav__sub-ul-item_cat divide-x divide-orange-dark bg-[#ff5e3ad0] overflow-hidden">
-          <a class="text-base px-3 py-3 font-normal text-[#1a1a1a] group flex font-['Golos']  transition duration-700 relative w-full h-full" href="/catalog/">
-            <span class="absolute inset-0"></span>
-            Каталог • 3D модели • Чертежи
-            <figure class="absolute w-10 px-2 right-0 top-0 h-full items-center flex bg-gradient-to-l from-gray-500 opacity-20 transition-opacity duration-700 group-hover:opacity-100 mobile:w-8">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+            </a>
+          </li>
+          <li class="nav__sub-ul-item">
+            <a class="nav__sub-link group flex justify-between" href="#" >
+              Пищевые теплообменники
+              <svg class="shrink-0 group-hover:fill-primary-red" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="35.5" y="0.5" width="35" height="35" rx="2.5" transform="rotate(90 35.5 0.5)" stroke="#CD2C2C"/>
+                <path class="fill-primary-red origin-center group-hover:-rotate-45 group-hover:fill-primary-white" d="M20.206 12.7957C20.0955 12.6927 20.0068 12.5685 19.9453 12.4305C19.8838 12.2925 19.8508 12.1436 19.8481 11.9925C19.8454 11.8414 19.8732 11.6914 19.9298 11.5513C19.9864 11.4112 20.0706 11.284 20.1774 11.1772C20.2843 11.0703 20.4115 10.9861 20.5516 10.9295C20.6917 10.873 20.8417 10.8452 20.9928 10.8478C21.1438 10.8505 21.2928 10.8836 21.4308 10.945C21.5688 11.0065 21.693 11.0952 21.796 11.2057L27.796 17.2057C28.0067 17.4167 28.125 17.7026 28.125 18.0007C28.125 18.2988 28.0067 18.5848 27.796 18.7957L21.796 24.7957C21.693 24.9062 21.5688 24.9949 21.4308 25.0564C21.2928 25.1179 21.1438 25.1509 20.9928 25.1536C20.8417 25.1563 20.6917 25.1285 20.5516 25.0719C20.4115 25.0153 20.2843 24.9311 20.1774 24.8243C20.0706 24.7174 19.9864 24.5902 19.9298 24.4501C19.8732 24.31 19.8454 24.16 19.8481 24.0089C19.8508 23.8579 19.8838 23.7089 19.9453 23.5709C20.0068 23.4329 20.0955 23.3087 20.206 23.2057L24.286 19.1257L9.75099 19.1257C9.45262 19.1257 9.16647 19.0072 8.95549 18.7962C8.74452 18.5852 8.62599 18.2991 8.62599 18.0007C8.62599 17.7023 8.74452 17.4162 8.95549 17.2052C9.16647 16.9942 9.45262 16.8757 9.75099 16.8757L24.286 16.8757L20.206 12.7957Z"/>
               </svg>
-            </figure>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li class="nav__ul-item"><a class="nav__link" href="/service.html">Сервис</a></li>
-    <li class="nav__ul-item"><a class="nav__link" href="/blog-proizvodstva/">Блог</a></li>
-    <li class="nav__ul-item">
-      <a class="nav__link" href="/about/">О компании</a>
-      <ul class="nav__submenu">
-        <li class="nav__sub-ul-item"><a class="nav__sub-link " href="/about/">О производстве</a></li>
-       <!-- <li class="nav__sub-ul-item"><a class="nav__sub-link " href="/about/partners/">Партнёрам</a></li>
-        <li class="nav__sub-ul-item"><a class="nav__sub-link " href="/about/vakansii/">Вакансии</a></li>
-        <li class="nav__sub-ul-item"><a class="nav__sub-link " href="/about/vakansii/">Галерея</a></li>-->
-      </ul>
-    </li>
-    <li class="nav__ul-item"><a class="nav__link" href="/contacts.html">Контакты</a></li>
-  </ul>
-  <button class="nav__mobile-icon"><img src="../../images/menu-link-mobile.svg" alt="Кнопка меню" ></button>
-</nav>
-
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav__ul-item"><a class="nav__link" href="/about/">О компании</a></li>
+      <li class="nav__ul-item"><a class="nav__link" href="/contacts/">Контакты</a></li>
+    </ul>
+    <!--<button class="nav__mobile-icon"><img src="../../images/menu-link-mobile.svg" alt="Кнопка меню" ></button>-->
+  </nav>
+<% } else { %>
+  <nav class="nav">
+    <ul class="nav__menu-links">
+      <li class="nav__ul-item">
+        <span class="nav__link nav__link_black">Продукция</span>
+        <ul class="nav__submenu nav__submenu_prod">
+          <li class="nav__sub-ul-item border-b border-primary-red">
+            <a class="nav__sub-link group flex justify-between" href="<%= ROUTES.kompls %>">
+              <span>Комплектующие к теплообменникам<span class="block text-xs uppercase mt-1 text-gray-600">пластины уплотнения рамы</span></span>
+              <svg class="shrink-0 group-hover:fill-primary-red" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="35.5" y="0.5" width="35" height="35" rx="2.5" transform="rotate(90 35.5 0.5)" stroke="#CD2C2C"/>
+                <path class="fill-primary-red origin-center group-hover:-rotate-45 group-hover:fill-primary-white" d="M20.206 12.7957C20.0955 12.6927 20.0068 12.5685 19.9453 12.4305C19.8838 12.2925 19.8508 12.1436 19.8481 11.9925C19.8454 11.8414 19.8732 11.6914 19.9298 11.5513C19.9864 11.4112 20.0706 11.284 20.1774 11.1772C20.2843 11.0703 20.4115 10.9861 20.5516 10.9295C20.6917 10.873 20.8417 10.8452 20.9928 10.8478C21.1438 10.8505 21.2928 10.8836 21.4308 10.945C21.5688 11.0065 21.693 11.0952 21.796 11.2057L27.796 17.2057C28.0067 17.4167 28.125 17.7026 28.125 18.0007C28.125 18.2988 28.0067 18.5848 27.796 18.7957L21.796 24.7957C21.693 24.9062 21.5688 24.9949 21.4308 25.0564C21.2928 25.1179 21.1438 25.1509 20.9928 25.1536C20.8417 25.1563 20.6917 25.1285 20.5516 25.0719C20.4115 25.0153 20.2843 24.9311 20.1774 24.8243C20.0706 24.7174 19.9864 24.5902 19.9298 24.4501C19.8732 24.31 19.8454 24.16 19.8481 24.0089C19.8508 23.8579 19.8838 23.7089 19.9453 23.5709C20.0068 23.4329 20.0955 23.3087 20.206 23.2057L24.286 19.1257L9.75099 19.1257C9.45262 19.1257 9.16647 19.0072 8.95549 18.7962C8.74452 18.5852 8.62599 18.2991 8.62599 18.0007C8.62599 17.7023 8.74452 17.4162 8.95549 17.2052C9.16647 16.9942 9.45262 16.8757 9.75099 16.8757L24.286 16.8757L20.206 12.7957Z"/>
+              </svg>
+            </a>
+          </li>
+          <li class="nav__sub-ul-item">
+            <a class="nav__sub-link group flex justify-between" href="#" >
+              Пищевые теплообменники
+              <svg class="shrink-0 group-hover:fill-primary-red" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="35.5" y="0.5" width="35" height="35" rx="2.5" transform="rotate(90 35.5 0.5)" stroke="#CD2C2C"/>
+                <path class="fill-primary-red origin-center group-hover:-rotate-45 group-hover:fill-primary-white" d="M20.206 12.7957C20.0955 12.6927 20.0068 12.5685 19.9453 12.4305C19.8838 12.2925 19.8508 12.1436 19.8481 11.9925C19.8454 11.8414 19.8732 11.6914 19.9298 11.5513C19.9864 11.4112 20.0706 11.284 20.1774 11.1772C20.2843 11.0703 20.4115 10.9861 20.5516 10.9295C20.6917 10.873 20.8417 10.8452 20.9928 10.8478C21.1438 10.8505 21.2928 10.8836 21.4308 10.945C21.5688 11.0065 21.693 11.0952 21.796 11.2057L27.796 17.2057C28.0067 17.4167 28.125 17.7026 28.125 18.0007C28.125 18.2988 28.0067 18.5848 27.796 18.7957L21.796 24.7957C21.693 24.9062 21.5688 24.9949 21.4308 25.0564C21.2928 25.1179 21.1438 25.1509 20.9928 25.1536C20.8417 25.1563 20.6917 25.1285 20.5516 25.0719C20.4115 25.0153 20.2843 24.9311 20.1774 24.8243C20.0706 24.7174 19.9864 24.5902 19.9298 24.4501C19.8732 24.31 19.8454 24.16 19.8481 24.0089C19.8508 23.8579 19.8838 23.7089 19.9453 23.5709C20.0068 23.4329 20.0955 23.3087 20.206 23.2057L24.286 19.1257L9.75099 19.1257C9.45262 19.1257 9.16647 19.0072 8.95549 18.7962C8.74452 18.5852 8.62599 18.2991 8.62599 18.0007C8.62599 17.7023 8.74452 17.4162 8.95549 17.2052C9.16647 16.9942 9.45262 16.8757 9.75099 16.8757L24.286 16.8757L20.206 12.7957Z"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav__ul-item"><a class="nav__link nav__link_black" href="/about/">О компании</a></li>
+      <li class="nav__ul-item"><a class="nav__link nav__link_black" href="/contacts/">Контакты</a></li>
+    </ul>
+  </nav>
+<% }%>

@@ -45,6 +45,28 @@ html, body, main {
 h1,h2,h3,h4 {
   /*font-family: 'OS';*/
 }
+
+.contacts-sect::before {
+  content: '';
+  height: 20px;
+  width: 50%;
+  position: absolute;
+  top: 8px;
+  right: 0;
+  background-image: url(../../images/_dr/svg/bg-geom-uslugi.svg);
+  display: block;
+  margin-bottom: 30px;
+}
+
+.contacts-sect_subhead {
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 120%;
+  letter-spacing: -3%;
+
+  @apply text-primary-gray;
+}
+
 /*
 .swiper-container {
     width: 100%;

@@ -11,3 +11,7 @@
 
   @apply text-white text-base uppercase mr-7;
 }
+
+.nav__link_black {
+  @apply text-primary-black;
+}
