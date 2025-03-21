@@ -15,3 +15,7 @@
 .nav__link_black {
   @apply text-primary-black;
 }
+
+.nav__link_flex {
+  @apply flex p-0;
+}

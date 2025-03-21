@@ -15,7 +15,7 @@
 }
 
 .form__input {
-    @apply w-full px-5 py-5 text-lg bg-[#D7E6F2] text-primary-black rounded-md outline-none mobile:text-base mobile:p-3;
+    @apply w-full px-0 py-5 text-lg bg-[#D7E6F2] text-primary-black outline-none mobile:text-base mobile:p-3;
 }
 
 
@@ -25,15 +25,15 @@
 }
 
 .form__input_type_textarea {
-    @apply block basis-full  py-5;
+    @apply block basis-full py-5;
 }
 
 .form__submit-button {
-    @apply bg-primary-red text-lg rounded-lg hover:bg-primary-black transition-all duration-300 p-4 lowercase text-white mt-8;
+    @apply  transition-all duration-300 lowercase text-white mt-8;
 }
 
 .form__input_up {
-    @apply bg-transparent p-4 border-b border-primary-gray;
+    @apply bg-transparent py-4 border-b border-primary-gray;
 }
 
 .form__submit-button_disabled {

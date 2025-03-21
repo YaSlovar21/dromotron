@@ -32,6 +32,9 @@
   width: 40px;
   height: 40px;
   margin-right: 30px;
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .list-adv__item:nth-of-type(1)::before {

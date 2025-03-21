@@ -280,9 +280,24 @@ function generateConfig(isDevServer, categories, uslugiList) {
           canonicalURL,
           ROUTES,
           isDevServer,
+        },
+        title: "Теплообменники для пищевой промышленности",
+        meta: {
+          keywords: "российское производство",
+          description: ``,
+        },
+        filename: `${ROUTES.ptoFood.split('/')[1]}/index.html`,
+        template: "./src/_food.html", // путь к файлу index.html
+        chunks: ["index"],
+      }),
+      new HtmlWebpackPlugin({
+        templateParameters: { 
+          canonicalURL,
+          ROUTES,
+          isDevServer,
           uslugiList,
         },
-        title: "Пластины, уплотнения, плиты и другие комплектующие к теплообменникам",
+        title: "Услуги по лазерной резке, гибке металла в Барнауле",
         meta: {
           keywords: "российское производство",
           description: ``,
