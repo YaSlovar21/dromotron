@@ -33,7 +33,7 @@ export default class Api {
 
 
     sendCallForm(formDataJson) {
-        return fetch(`${this._baseUrl}/small-form`, {
+        return fetch(`${this._baseUrl}`, {
             method : 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export default class Api {
     }
 
     sendBigForm(formDataJson) {
-      return fetch(`${this._baseUrl}/big-form`, {
+      return fetch(`${this._baseUrl}/forms/base-form`, {
         method : 'POST',
         headers: {
 

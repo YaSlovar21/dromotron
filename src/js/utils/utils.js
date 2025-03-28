@@ -1,11 +1,18 @@
-export function renderLoading(boolOnLoading, buttonElement, textDefault, textOnLoading) {
-    if (boolOnLoading) {
-      buttonElement.textContent = textOnLoading;
-    } else {
+export function renderLoading(state, buttonElement, textDefault, textOnLoading, textOnSended) {
+  switch (state) {
+    case 'default':
       buttonElement.textContent = textDefault;
-    }
+      break;
+    case 'loading':
+      buttonElement.textContent = textOnLoading;
+      break;
+    case 'sended':
+      buttonElement.textContent = textOnSended;
+      break;
+    default:
+      buttonElement.textContent = textDefault;
+  }
 }
-
 /* Фильтры статей в блоге */
 
 // нигде не используется

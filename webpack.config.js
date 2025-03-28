@@ -102,7 +102,8 @@ function generateConfig(isDevServer, categories, uslugiList) {
   return {
     entry: {
       index: "./src/pages/index.js",
-
+      form: "./src/pages/form.js",
+      cta: "./src/pages/cta-reaction.js"
     },
     output: {
       path: path.resolve(__dirname, "dist"),
@@ -257,7 +258,7 @@ function generateConfig(isDevServer, categories, uslugiList) {
           description: ``,
         },
         template: "./src/index.html", // путь к файлу index.html
-        chunks: ["index"],
+        chunks: ["index", "form"],
       }),
       new HtmlWebpackPlugin({
         templateParameters: { 
@@ -273,7 +274,22 @@ function generateConfig(isDevServer, categories, uslugiList) {
         },
         filename: "komplektuyushchie-dlya-teploobmennikov/index.html",
         template: "./src/_kompl.html", // путь к файлу index.html
-        chunks: ["index"],
+        chunks: ["index", "cta", "form"],
+      }),
+      new HtmlWebpackPlugin({
+        templateParameters: { 
+          canonicalURL,
+          ROUTES,
+          isDevServer,
+        },
+        title: "О производстве пластинчатых теплообменников в компании Дромотрон",
+        meta: {
+          keywords: "российское производство",
+          description: ``,
+        },
+        filename: "about/index.html",
+        template: "./src/_about.html", // путь к файлу index.html
+        chunks: ["index", "cta", "form"],
       }),
       new HtmlWebpackPlugin({
         templateParameters: { 
@@ -304,7 +320,7 @@ function generateConfig(isDevServer, categories, uslugiList) {
         },
         filename: "uslugi/index.html",
         template: "./src/_uslugi.html", // путь к файлу index.html
-        chunks: ["index"],
+        chunks: ["index", "cta", "form"],
       }),
       new HtmlWebpackPlugin({
         templateParameters: { 

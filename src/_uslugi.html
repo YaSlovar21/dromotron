@@ -29,12 +29,13 @@
             <div class="flex flex-col">
               <h2 class="text-4xl font-semibold max-w-[700px] text-primary-red mb-2"><%= category.name %></h2>
               <p class="text-xl font-medium max-w-xl mt-4 text-primary-gray"><%= category.desc %></p>
-              <button class="ui-button block mt-auto w-full">Запросить стоимость</button>
+              <button class="ui-button block mt-auto w-full cta-button" data-additional="услугу <%= category.name.toLowerCase() %>">Запросить стоимость</button>
             </div>
             <img class="w-full" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/uslugi/<%= category.images[0] %>" alt="<%= category.name %>">
           </li>
         <% }) %>
       </ul>
+      <%= _.template(require('html-loader!./insets/form-section-test.html').default)({title: "Рассчитаем стоимость и срок оказания услуги по металлообработке и"}) %>
     </main>
     <%= require('html-loader!./insets/asides/inner-footer.html').default %>
   </body>
