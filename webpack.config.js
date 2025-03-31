@@ -10,7 +10,7 @@ const canonicalURL = 'https://www.dromotron.ru'
 
 const { paths } = require('./sitemap');
 
-const { ROUTES,  refs } = require('./constants');
+const { ROUTES } = require('./constants');
 
 
 
@@ -94,11 +94,11 @@ function generateBlogPagesHtmlPlugins(articles, isDevServer) {
   })
 }
 //function generateConfig(infoBlogData, isDevServer) {
-function generateConfig(isDevServer, categories, uslugiList) {
+function generateConfig(isDevServer, categories, uslugiList, refs) {
   //const htmlRaschetPlugins = generateRaschetHtmlPlugins(isDevServer);
   //const htmlArticlesPlugins = generateBlogPagesHtmlPlugins(infoBlogData, isDevServer);
   //const htmlSpecPagesPluginst = generateSpecPagesHtmlPlugins(isDevServer);
-  console.log(categories);
+  console.log(refs);
   return {
     entry: {
       index: "./src/pages/index.js",
@@ -280,6 +280,7 @@ function generateConfig(isDevServer, categories, uslugiList) {
         templateParameters: { 
           canonicalURL,
           ROUTES,
+          refs,
           isDevServer,
         },
         title: "О производстве пластинчатых теплообменников в компании Дромотрон",
@@ -289,7 +290,7 @@ function generateConfig(isDevServer, categories, uslugiList) {
         },
         filename: "about/index.html",
         template: "./src/_about.html", // путь к файлу index.html
-        chunks: ["index", "cta", "form"],
+        chunks: ["index"],
       }),
       new HtmlWebpackPlugin({
         templateParameters: { 
@@ -367,6 +368,14 @@ function categoriesMapper(cats) {
   return cats.map(c => ({...c, images: JSON.parse(c.images)}));
 }
 
+function refsMapper(items) {
+  return items.map(i => ({
+    ...i, 
+    tags: JSON.parse(i.tags),
+    poster: `refs/${i.poster}`
+  }))
+}
+
 module.exports = () => {
   const isDevServer = process.env.WEBPACK_SERVE;
   console.log(isDevServer);
@@ -390,9 +399,19 @@ module.exports = () => {
             },
           }).then(res => res.json()), 
 
+
+           //data[2] - refs
+           fetch1('https://api.dromotron.ru/data/refs', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjIjoiZHJvbW90cm9uIiwiaWF0IjoxNzQyMjAxMjE0fQ.uDGcewQnXnfoc64I7tiTcvo6hpeblN-5QN2xc0MUz0k'
+            },
+          }).then(res => res.json()), 
+
         ])
         .then((data) => {
-          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]) ));
+          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]) ));
         })
      
   });

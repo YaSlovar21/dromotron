@@ -37,7 +37,7 @@
 }
 
 .form__submit-button_disabled {
-    @apply bg-gray-700 hover:bg-gray-700 cursor-not-allowed;
+    @apply bg-gray-700 hover:bg-gray-700 cursor-not-allowed border-none hover:text-primary-white;
 }
 
 .form__input-error {

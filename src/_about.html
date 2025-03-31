@@ -23,8 +23,41 @@
     </header>
     <main class="content relative mt-10 mb-20">
       <h1 class="up-title up-title_svg up-title_h1 mb-10 bg-primary-lightgray">О производстве</h1>
-      <h2 class="up-title up-title_svg mb-10">Производство комплектующих для теплообменников</h3>
-      <h2 class="up-title up-title_svg mb-10">Производство пищевых пластинчатых теплообменников</h3>
+      <div class="grid grid-cols-3 gap-10">
+        <img class="contrast-125" src="<%=require('./images/_dr/view1.png')%>" alt="фото цеха по производству коплектующих для теплообменников 1">
+        <img class="contrast-125" src="<%=require('./images/_dr/view2.png')%>" alt="фото цеха по производству коплектующих для теплообменников 2">
+        <img class="contrast-125" src="<%=require('./images/_dr/view3.png')%>" alt="фото цеха по производству коплектующих для теплообменников 3">
+      </div>
+      <h2 class="up-title up-title_svg mt-14 mb-10">Производство комплектующих для теплообменников</h3>
+      <ul class="container-4 items-start">
+        <% refs.filter(ref => ref.tags.includes('kompls')).map((ref)=> { %>
+          <li class="flex flex-col-reverse">
+            <h3 class="text-xl font-bold text-primary-black mt-5 mb-3 uppercase"><%= ref.name %></h3>
+            <div class="w-full py-12 relative bg-white flex items-center justify-center ">
+              <img class="w-2/3 transition-all duration-200 group-hover:scale-110" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/<%= ref.poster %>" alt="<%= ref.name %>">
+              <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
+              <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
+              <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
+              <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+      <h2 class="up-title up-title_svg mb-10  mt-14">Производство пищевых пластинчатых теплообменников</h3>
+        <ul class="container-4 items-start">
+          <% refs.filter(ref => ref.tags.includes('pto')).map((ref)=> { %>
+            <li class="flex flex-col-reverse relative">
+              <h3 class="text-xl font-bold text-primary-black mt-5 mb-3 uppercase"><%= ref.name %></h3>
+              <div class="w-full py-12 relative bg-white flex items-center justify-center ">
+                <img class="w-2/3 transition-all duration-200 group-hover:scale-110" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/<%= ref.poster %>" alt="<%= ref.name %>">
+                <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
+                <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
+                <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
+                <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
     </main>
     <%= require('html-loader!./insets/asides/inner-footer.html').default %>
   </body>

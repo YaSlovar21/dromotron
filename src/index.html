@@ -123,7 +123,7 @@
         <% refs.map((ref, i)=> { %>
         <li class="group">
             <div class="w-full py-12 relative bg-white flex items-center justify-center ">
-              <img class="w-2/3 transition-all duration-200 group-hover:scale-110" src="<%= require(`./images/_dr/refs/${i+1}.png`)%>" alt="<%= ref.name %>">
+              <img class="w-2/3 transition-all duration-200 group-hover:scale-110" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/<%= ref.poster %>" alt="<%= ref.name %>">
               <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
               <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
               <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>

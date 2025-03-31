@@ -19,26 +19,6 @@ const ROUTES_SPEC = {
 
 
 
-const refs = [
-  {
-    name: "Теплообменник P077-150 ",
-    desc: "Пищевой теплообменный аппарат для пастеризации и дальнейшего охлаждения сусла в 2 ступени",
-  },
-  {
-    name: "Лазерная резка и закалка металла",
-    desc: "",
-  },
-  {
-    name: "Поддоны из нержавеющей стали",
-    desc: "",
-  },
-  {
-    name: "Индивидуальное изготоаление деталей",
-    desc: "",
-  },
-]
-
-
 const standartClasses = {
   popupImageClass: 'popup-image-item',
   ctaButtonClass: 'cta-button',
@@ -48,5 +28,4 @@ module.exports = {
   ROUTES_SITEMAP: ROUTES,
   ROUTES: {...ROUTES, ...ROUTES_SPEC},
   standartClasses,
-  refs
 }
