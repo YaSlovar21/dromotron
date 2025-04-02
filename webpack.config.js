@@ -94,7 +94,7 @@ function generateBlogPagesHtmlPlugins(articles, isDevServer) {
   })
 }
 //function generateConfig(infoBlogData, isDevServer) {
-function generateConfig(isDevServer, categories, uslugiList, refs) {
+function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) {
   //const htmlRaschetPlugins = generateRaschetHtmlPlugins(isDevServer);
   //const htmlArticlesPlugins = generateBlogPagesHtmlPlugins(infoBlogData, isDevServer);
   //const htmlSpecPagesPluginst = generateSpecPagesHtmlPlugins(isDevServer);
@@ -297,6 +297,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs) {
           canonicalURL,
           ROUTES,
           isDevServer,
+          oprosFiles
         },
         title: "Теплообменники для пищевой промышленности",
         meta: {
@@ -386,7 +387,6 @@ module.exports = () => {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json;charset=utf-8',
-              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjIjoiZHJvbW90cm9uIiwiaWF0IjoxNzQyMjAxMjE0fQ.uDGcewQnXnfoc64I7tiTcvo6hpeblN-5QN2xc0MUz0k'
             },
           }).then(res => res.json()), 
 
@@ -395,7 +395,6 @@ module.exports = () => {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json;charset=utf-8',
-              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjIjoiZHJvbW90cm9uIiwiaWF0IjoxNzQyMjAxMjE0fQ.uDGcewQnXnfoc64I7tiTcvo6hpeblN-5QN2xc0MUz0k'
             },
           }).then(res => res.json()), 
 
@@ -405,13 +404,21 @@ module.exports = () => {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json;charset=utf-8',
+            },
+          }).then(res => res.json()), 
+
+          //data[3] - oprosnie listy
+          fetch1('https://api.dromotron.ru/data/oprosnye-listy', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
               'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjIjoiZHJvbW90cm9uIiwiaWF0IjoxNzQyMjAxMjE0fQ.uDGcewQnXnfoc64I7tiTcvo6hpeblN-5QN2xc0MUz0k'
             },
           }).then(res => res.json()), 
 
         ])
         .then((data) => {
-          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]) ));
+          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] ));
         })
      
   });
