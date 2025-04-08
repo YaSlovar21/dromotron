@@ -4,80 +4,75 @@ import './index.css';
 
 import '../images/favicon.svg';
 
+import Api from '../js/components/Api.js';
 import Popup from '../js/components/Popup';
+import PopupWithForm from '../js/components/PopupWithForm';
+import { renderLoading } from '../js/utils/utils';
+import FormValidatorNew from '../js/components/FormValidatorNew';
 
-import { gsap, ScrollTrigger } from "gsap/all";
+const formValidatorConfig = {
+  inputSelector: '.raschet-bem__input',
+  submitButtonSelector: '.button-bem_submit',
+  inactiveButtonClass: 'ui-button_disabled',
+  inputErrorClass: 'ui-button__type_error',
+  errorClass: 'raschet-bem__input-error_visible'
+}
 
-/*
-const popupMenu = new Popup('.popup-menu');
-popupMenu.setEventListeners();
-
-const navMobileButton = document.querySelector('.nav__mobile-icon');
-navMobileButton.addEventListener('click', () => {
-    popupMenu.open();
-    console.log('111');
+const formApi = new Api({
+  baseUrl: 'https://api.dromotron.ru',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json;charset=utf-8',
+  },
 });
-*/
-gsap.registerPlugin(ScrollTrigger);
 
-var panels1 = gsap.utils.toArray(".large-logo-img");
+const formCallBack= document.forms.formCallBack;
+const callbackSubmitButton = formCallBack.querySelector(formValidatorConfig.submitButtonSelector);
+const callBackPopupOpenButton = document.querySelector('.popup-callback-button');
+const formValidatorCallBack = new FormValidatorNew(formValidatorConfig, formCallBack);
+formValidatorCallBack.enableValidation();
 
-panels1.pop(); // get rid of the last one (don't need it in the loop)
-panels1.forEach((panel, i) => {
-  let tl = gsap.timeline({
-    scrollTrigger:{
-      trigger: panel,
-      start: "top center",
-      pinSpacing: false,
-      pin: false,
-      scrub: 0.3,
+
+const popupCallBack = new PopupWithForm({
+  formSubmitHandler: (formCallbackData) => {
+    //const name = formCallbackData.name;
+    //const tel = formCallbackData.tel;
+    renderLoading('loading', callbackSubmitButton, 'Оставить заявку', 'Отправляем...', 'Отправлено успешно!');
+   // formApi.sendCallForm(name, tel)
+    formApi.sendCallForm(formCallbackData)
+      .then((response) => {
+        console.log(response);
+        renderLoading('sended', callbackSubmitButton, 'Оставить заявку', 'Отправляем...', 'Отправлено успешно!');
+        //сделать сообщение об успешной отправке
+      })
+      .catch((err) => console.log(err)) //сделать сообщение об успешной ошибке
+      .finally(() => {
+        setTimeout(()=> {
+          popupCallBack.close();
+          formValidatorCallBack.disableSaveButton();
+          renderLoading('default', callbackSubmitButton, 'Оставить заявку', 'Отправляем...', 'Отправлено успешно!');
+        }, 900)
+      });
+  },
+  formCleanError: () => {
+    formValidatorCallBack.cleanAllErrors();
+  },
+  checherValidation: (formElement) => {
+    if (!formValidatorCallBack.hasInvalidInput()) {
+      return true;
+    } else {
+      formValidatorCallBack.showErrors();
+      return false;
     }
-  });
+  }
+}, '.popup-callback', '.popup__form','.raschet-bem__input');
 
-  tl.fromTo(panel,
-    1, {
-    y: 0,
-    yPercent: 0,
-    rotate:0,
+popupCallBack.setEventListeners();
 
-    opacity:1
-  }, {
+callBackPopupOpenButton.addEventListener("mousedown", () => {
+  popupCallBack.open();
+})
 
-    rotateX:0,
-
-    yPercent: 100,
-    opacity:0.5
-  }, 0)
-  .to(panel, 0.1, {opacity:0})
-
-});
-
-/*
-let tl = gsap.timeline({
-    scrollTrigger:{
-      trigger: '.panel',
-      start: "top center",
-      end: "top 20%",
-      pin: false,
-      snap: 0.1,
-      scrub: 0.3,
-    }
-});
-
-tl.from('.panel', {
-    scale: 1.1,
-}).fromTo('.svg-plus-in svg', {
-    opacity: 0,
-    delay: 0.5,
-    duration: 0.5,
-    rotation: -70,
-}, {
-    opacity: 1,
-    delay: 0.5,
-    duration: 0.5,
-    rotation: 0,
-}, "-=60%")
-*/
 
 
 /* MARKETING
@@ -87,3 +82,12 @@ function goalCallback () {
   document.addEventListener('copy', (evt)=> {
       ym(88973338,'reachGoal','copied', {path: evt.target.baseURI, el: evt.target.innerText}, goalCallback );
   });*/
+
+const popupMenu = new Popup('.popup-menu');
+popupMenu.setEventListeners();
+
+const navMobileButton = document.querySelector('.nav__mobile-icon');
+navMobileButton.addEventListener('click', () => {
+    popupMenu.open();
+    console.log('111');
+});

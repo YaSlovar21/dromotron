@@ -3,7 +3,6 @@ const ROUTES = {
     kompls: '/komplektuyushchie-dlya-teploobmennikov/',
     ptoFood: '/pishchevye-teploobmenniki/',
     uslugi: '/uslugi/',
-    
     about: '/about/',
     contacts: '/contacts/',
 };

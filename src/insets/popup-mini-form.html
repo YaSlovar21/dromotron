@@ -1,34 +1,15 @@
 <!--Форма обратного звонка  -->
-<div class="popup popup-callback bg-blacktheme">
+<div class="popup popup_opened popup-callback bg-blacktheme">
   <div class="max-w-[768px] w-full relative">
     <button class="popup__button-close popup__button-close_type_form link-beauty" type="button"></button>
     <form class="popup__form raschet-bem" method="post" action="#" id="formCallBack" name="formCallBack" novalidate>
         <h2 class="raschet-bem__title subtitle">Заявка в свободной форме</h2>
         <div class="free-form">
-          <div class="free-form__data-fields">
-            <label class="raschet-bem__field">
-              <span class="raschet-bem__label-title">Как к Вам можно обращаться?</span>
-              <input data-alias="Имя или название компании" type="text" name="nameFree" id="name-free-input" class="raschet-bem__input raschet-bem__input_type_flex" required minlength="1">
-              <span class="raschet-bem__input-error name-free-input-error">123</span>
-            </label>
-            <label class="raschet-bem__field">
-              <span class="raschet-bem__label-title">Контактный телефон</span>
-              <input data-alias="Телефон" type="text" name="telFree" id="tel-free-input" class="raschet-bem__input raschet-bem__input_type_flex" required minlength="1">
+            <label class="">
+              <span class="">Можете оставить свой номер</span>
+              <input data-alias="Телефон" type="text" name="tel" id="tel-free-input" class="raschet-bem__input raschet-bem__input_type_flex" required minlength="1">
               <span class="raschet-bem__input-error tel-free-input-error"></span>
             </label>
-            <label class="raschet-bem__field">
-              <span class="raschet-bem__label-title">Электронная почта</span>
-              <input data-alias="Телефон" type="email" name="emailFree" id="email-free-input" class="raschet-bem__input raschet-bem__input_type_flex" required>
-              <span class="raschet-bem__input-error email-free-input-error"></span>
-            </label>
-          </div>
-          <div class="free-form__desc-field">
-            <label class="raschet-bem__field raschet-bem__field_type_textarea">
-              <span class="raschet-bem__label-title">Опишите Вашу задачу</span>
-              <textarea data-alias="Текст заявки" name="commentFree" id="comment-free-input" style="height: 100%;" class="raschet-bem__input raschet-bem__input_type_flex" required minlength="1"></textarea>
-              <span class="raschet-bem__input-error comment-free-input-error"></span>
-            </label>
-          </div>
         </div>
         <button class="ui-button button-bem_submit" type="submit">Отправить</button>
     </form>

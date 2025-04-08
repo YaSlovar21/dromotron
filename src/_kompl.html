@@ -5,21 +5,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
     <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>"  rel="canonical" />
   </head>
   <body class="page bg-primary-lightgray">
     <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
     <header class="header__up py-8">
-      <div class="flex justify-between content pb-4 border-b border-primary-red">
-        <a href="/" class="header__logo"><img src="<%=require('./images/header-logo-theme-white.svg')%>" class="header__logo-img" alt="Лого Дромотрон"/></a>
         <%=_.template(require('html-loader!./insets/asides/inner-header.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
-        <div class="flex items-center text-primary-black">
-          <a class="mr-7" href="tel:79039123177">+7(903)912-31-77</a>
-          <a  href="mailto:info@dromotron.ru">info@dromotron.ru</a>
-        </div>
-        <button class="text-primary-black border border-primary-black px-4 flex items-center justify-center lowercase rounded">Связаться</button>
-      </div>
     </header>
     <main class="content contacts-sect relative mt-10 mb-20">
       <h1 class="up-title up-title_svg up-title_h1 mb-10">Комплектующие для теплообменников</h1>
@@ -38,6 +30,6 @@
       </ul>
       <%= _.template(require('html-loader!./insets/form-section-test.html').default)({title: "Предоставим КП на комплектующие к теплообменникам"}) %>
     </main>
-    <%= require('html-loader!./insets/asides/inner-footer.html').default %>
+    <%= _.template(require('html-loader!./insets/asides/inner-footer.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
   </body>
 </html>

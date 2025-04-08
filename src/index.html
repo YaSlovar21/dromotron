@@ -17,21 +17,13 @@
   <% } %>
   <header class="header bg-primary-black">
     <div class="header__up py-8">
-      <div class="flex justify-between content pb-4 border-b border-primary-red">
-        <a href="/" class="header__logo"><img src="<%=require('./images/header-logo-theme-dark.svg')%>" class="header__logo-img" alt="Лого Дромотрон"/></a>
         <%=_.template(require('html-loader!./insets/asides/inner-header.html').default)({ROUTES: ROUTES, page: 'main'}) %>
-        <div class="flex items-center text-white">
-          <a class="mr-7" href="tel:79039123177">+7(903)912-31-77</a>
-          <a  href="mailto:info@dromotron.ru">info@dromotron.ru</a>
-        </div>
-        <button class="text-white border border-white px-4 flex items-center justify-center lowercase rounded">Связаться</button>
-      </div>
     </div>
     <div class="hero relative overflow-hidden content">
-      <h1 class="text-[185px] font-['YFF'] mt-20 mb-0 text-white max-w-[1150px] uppercase leading-[90%]">Производство комплектующих <br>для теплообменников</h1>
+      <h1 class="text-[185px] font-['YFF'] mt-20 mb-0 text-white max-w-[1150px] uppercase leading-[90%] mobile:text-6xl">Производство комплектующих <br>для теплообменников</h1>
       <p class="mt-5 text-white mb-5 max-w-xs">Российское производство комплектующих для теплообменного оборудования</p>
-      <a class="ui-button block mb-5 max-w-[400px] w-full text-center bg-primary-red" href="#">Связаться</a>
-      <img class="absolute right-0 -bottom-20 w-[572px]" src="<%=require('./images/bg-hero.svg')%>" alt="пластина теплообменника схематично">
+      <a class="ui-button block mb-5 max-w-[400px] w-full text-center bg-primary-red" href="#products">Подробнее</a>
+      <img class="absolute right-0 -bottom-20 w-[572px] mobile:w-1/2 mobile:bottom-0" src="<%=require('./images/bg-hero.svg')%>" alt="пластина теплообменника схематично">
     </div>
   </header>
   <main class="content">
@@ -43,20 +35,23 @@
         <a class="ui-button max-w-[400px] mt-8" href="<%= ROUTES.about %>">Подробнее</a>
       </div>
     </section>
-    <section>
+    <section id="products">
       <h2 class="up-title up-title_svg">Категории товаров</h2>
       <ul class="container-2">
-        <li class="relative group bg-white p-[30px] container-2 items-stretch h-full">
+        <li class="relative group bg-white p-[30px] container-2 items-stretch h-full mobile:flex">
           <div class="flex flex-col">
-            <h3 class="text-4xl font-bold leading-none text-primary-red mb-5 tracking-tighter">Комплектующие для тепллобменников</h3>
+            <h3 class="text-4xl mvpc:text-3xl font-bold leading-none text-primary-red mb-5 tracking-tighter">Комплектующие для тепллобменников</h3>
+            <figure class="bg-primary-lightgray p-10 overflow-hidden hidden mobile:block my-3 group">
+              <img class="max-w-[calc(100%-120px)] mvpc:max-w-[calc(100%-80px)] m-auto transition-all duration-200 group-hover:scale-110" src="<%=require('./images/_dr/plita-mainpage.png')%>" alt="плита - комплектующая для теплообменника">
+            </figure>
             <p class="text-xl font-medium text-primary-gray">Пластины, плиты, станины, уплотнения</p>
             <a class="p-4  mt-auto  border rounded-lg border-primary-red text-center text-primary-red text-xl lowercase" href="<%= ROUTES.kompls %>">
-              <span class="inset0"></span>
+              <span class="inset0 z-10"></span>
               Перейти
             </a>
           </div>
-          <figure class="bg-primary-lightgray p-10 overflow-hidden group">
-            <img class="max-w-[calc(100%-120px)] m-auto transition-all duration-200 group-hover:scale-110" src="<%=require('./images/_dr/plita-mainpage.png')%>" alt="плита - комплектующая для теплообменника">
+          <figure class="bg-primary-lightgray p-10 overflow-hidden mobile:hidden group">
+            <img class="max-w-[calc(100%-120px)] mvpc:max-w-[calc(100%-80px)] m-auto transition-all duration-200 group-hover:scale-110" src="<%=require('./images/_dr/plita-mainpage.png')%>" alt="плита - комплектующая для теплообменника">
           </figure>
 
           <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
@@ -64,18 +59,21 @@
           <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
           <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
         </li>
-        <li class="relative group bg-white p-[30px] container-2 items-stretch h-full">
+        <li class="relative group bg-white p-[30px] container-2 items-stretch h-full mobile:flex">
           <div class="flex flex-col">
-            <h3 class="text-4xl font-bold leading-none text-primary-red mb-5 tracking-tighter">Теплообменники для пищевых производств</h3>
-            <p class="text-xl font-medium mb-auto text-primary-gray">Пастеризаторы, охладители, нагреватели</p>
+            <h3 class="text-4xl  mvpc:text-3xl font-bold leading-none text-primary-red mb-5 tracking-tighter">Теплообменники для пищевых производств</h3>
+            <figure class="bg-primary-lightgray p-10 overflow-hidden hidden mobile:block my-3 group">
+              <img class="max-w-[calc(100%-120px)] m-auto transition-all duration-200 group-hover:scale-110" src="<%=require('./images/_dr/food-pto.png')%>" alt="плита - комплектующая для теплообменника">
+            </figure>
 
+            <p class="text-xl font-medium mb-auto text-primary-gray">Пастеризаторы, охладители, нагреватели</p>
             <a class="p-4 mt-auto border rounded-lg border-primary-red text-center text-primary-red text-xl lowercase" href="<%= ROUTES.ptoFood %>">
-              <span class="inset0"></span>
+              <span class="inset0 z-10"></span>
               Перейти
             </a>
           </div>
 
-          <figure class="bg-primary-lightgray p-10 overflow-hidden group">
+          <figure class="bg-primary-lightgray p-10 overflow-hidden mobile:hidden group">
             <img class="max-w-[calc(100%-120px)] m-auto transition-all duration-200 group-hover:scale-110" src="<%=require('./images/_dr/food-pto.png')%>" alt="плита - комплектующая для теплообменника">
           </figure>
           <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
@@ -87,7 +85,7 @@
     </section>
     <section class="container-2 my-[130px] relative">
       <h2 class="up-title up-title_svg">Услуги</h2>
-      <img class="absolute left-0 bottom-0 w-[calc(50%-40px)]" src="<%=require('./images/_dr/test-laser.png')%>" alt="лазерная и плазменная резка металла">
+      <img class="absolute left-0 bottom-0 w-[calc(50%-40px)] mobile:relative mobile:w-full" src="<%=require('./images/_dr/test-laser.png')%>" alt="лазерная и плазменная резка металла">
       <ul class="list-uslugi ">
         <% uslugiList.map((u)=> { %>
         <li class="list-uslugi__item list-uslugi__link group ">
@@ -137,6 +135,6 @@
     </section>
     <%= _.template(require('html-loader!./insets/form-section-test.html').default)({title: false}) %>
   </main>
-  <%= require('html-loader!./insets/asides/inner-footer.html').default %>
+  <%= _.template(require('html-loader!./insets/asides/inner-footer.html').default)({ROUTES: ROUTES, page: 'main'}) %>
 </body>
 </html>

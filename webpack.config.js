@@ -107,7 +107,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) 
     },
     output: {
       path: path.resolve(__dirname, "dist"),
-      filename: "js/[name].js",
+      filename: "js/[name][hash].js",
       assetModuleFilename: "images/[hash][ext]",
       //publicPath: ''
     },
@@ -252,10 +252,10 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) 
           refs,
           newsData: [], //infoBlogData.filter(i=> i.type.includes('news')).toSorted((a,b) => b.id - a.id),
         },
-        title: "Комплектующие для теплообменников | Производство",
+        title: "Производство комплектующих для пластинчатых теплообменников",
         meta: {
-          keywords: "российское производство",
-          description: ``,
+          keywords: "российское производство комплектующих для пластинчатых теплообменников",
+          description: `Комплектующие для теплообменников, пластины и уплотнения пластинчатых теплообменников. Теплообменники для пищевой промышленности в сборе.`,
         },
         template: "./src/index.html", // путь к файлу index.html
         chunks: ["index", "form"],
@@ -269,13 +269,31 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) 
         },
         title: "Пластины, уплотнения, плиты и другие комплектующие к теплообменникам",
         meta: {
-          keywords: "российское производство",
-          description: ``,
+          keywords: "пластины и уплотнения к пластинчатым теплообменникам, комплектующие для теплообменников",
+          description: `Комплектующие (пластины, уплотнения, плиты, станины, облицовка из нержавеющей стали) к пластинчатым теплообменникам от производителя`,
         },
         filename: "komplektuyushchie-dlya-teploobmennikov/index.html",
         template: "./src/_kompl.html", // путь к файлу index.html
         chunks: ["index", "cta", "form"],
       }),
+      /*
+       пробная сборка template
+        new HtmlWebpackPlugin({
+        templateParameters: { 
+          canonicalURL,
+          ROUTES,
+          isDevServer,
+          kompls: categories,
+        },
+        title: "Пластины, уплотнения, плиты и другие комплектующие к теплообменникам",
+        meta: {
+          keywords: "российское производство",
+          description: ``,
+        },
+        filename: "templates/komplektuyushchie-dlya-teploobmennikov/index.html",
+        template: "!!html-loader!./src/_kompl.html", // путь к файлу index.html
+        chunks: ["index", "cta", "form"],
+      }),*/
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
@@ -285,10 +303,10 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) 
         },
         title: "О производстве пластинчатых теплообменников в компании Дромотрон",
         meta: {
-          keywords: "российское производство",
-          description: ``,
+          keywords: "российское производство пластин и уплотнений, производство пищевых теплообменников",
+          description: `ООО «Дромотрон» - компания, собравшая специалистов по производству комплектующих для теплообменных аппаратов. Компания также специализируется на производстве и сборке пищевых теплообменников любой сложности`,
         },
-        filename: "about/index.html",
+        filename: `${ROUTES.about.split('/')[1]}/index.html`,
         template: "./src/_about.html", // путь к файлу index.html
         chunks: ["index"],
       }),
@@ -301,8 +319,8 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) 
         },
         title: "Теплообменники для пищевой промышленности",
         meta: {
-          keywords: "российское производство",
-          description: ``,
+          keywords: "российское производство пищевых пластинчатых теплобоменников",
+          description: `На базе собственных комплектущих и опыте подбора и расчёта пищевых пластинчатых теплобоменников, мы предлагаем пищевые пластинчатые теплообменные аппараты любой сложности.`,
         },
         filename: `${ROUTES.ptoFood.split('/')[1]}/index.html`,
         template: "./src/_food.html", // путь к файлу index.html
@@ -317,10 +335,10 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) 
         },
         title: "Услуги по лазерной резке, гибке металла в Барнауле",
         meta: {
-          keywords: "российское производство",
-          description: ``,
+          keywords: "услуги завода",
+          description: `Парк оборудования ООО «Дромотрон» позволяет оказывать услуги по резке и гибке металла, фрезерной и токарной обработке. По оптимальной цене с привлечением квалифицированных специалистов.`,
         },
-        filename: "uslugi/index.html",
+        filename: `${ROUTES.uslugi.split('/')[1]}/index.html`,
         template: "./src/_uslugi.html", // путь к файлу index.html
         chunks: ["index", "cta", "form"],
       }),
@@ -332,10 +350,10 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) 
         },
         title: "Контакты ООО Дромотрон",
         meta: {
-          keywords: "российское производство",
-          description: ``,
+          keywords: "контакты",
+          description: `Контакты ООО Дромотрон, адрес производства и режим работы завода`,
         },
-        filename: "contacts/index.html",
+        filename: `${ROUTES.contacts.split('/')[1]}/index.html`,
         template: "./src/contacts.html", // путь к файлу index.html
         chunks: ["index"],
       }),

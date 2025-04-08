@@ -11,15 +11,7 @@
   <body class="page bg-primary-lightgray">
     <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
     <header class="header__up py-8">
-      <div class="flex justify-between content pb-4 border-b border-primary-red">
-        <a href="/" class="header__logo"><img src="<%=require('./images/header-logo-theme-white.svg')%>" class="header__logo-img" alt="Лого Дромотрон"/></a>
         <%=_.template(require('html-loader!./insets/asides/inner-header.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
-        <div class="flex items-center text-primary-black">
-          <a class="mr-7" href="tel:79039123177">+7(903)912-31-77</a>
-          <a  href="mailto:info@dromotron.ru">info@dromotron.ru</a>
-        </div>
-        <button class="text-primary-black border border-primary-black px-4 flex items-center justify-center lowercase rounded">Связаться</button>
-      </div>
     </header>
     <main class="content relative mt-10 mb-20">
       <h1 class="up-title up-title_svg up-title_h1 mb-10 bg-primary-lightgray">Теплообменники для пищевой промышленности</h1>
@@ -28,7 +20,7 @@
       <!--<img class="w-full mb-8" alt="пищевой теплообменник" src="<%=require('./images/_dr/food-hero.jpg')%>">-->
       <h2 class="up-title up-title_svg mt-12  mb-10">Пластинчатые пищевые теплообменники</h2>
       <img src="<%=require('./images/_dr/svg/bg-geom-full-screen.svg')%>" alt="декор">
-      <ul class="container-4 gap-10 items-start mt-10">
+      <ul class="container-4 gap-10 items-start mt-10 olpc:*:col-start-1">
         <li class="col-start-2 col-span-3 relative">
           <h3 class="up-title up-title_svg mb-10">Для молока</h3>
           <img class="max-w-full" src="<%=require('./images/_dr/dr-food-mol.png')%>" alt="пластинчатые теплообменника для молока пищевые">
@@ -94,7 +86,7 @@
                </ul>
             </li>
           </ul>
-          <div class="absolute top-20 right-0 w-1/4">
+          <div class="absolute top-20 right-0 w-1/4 mobile:relative mobile:top-0 mobile:w-full">
             <h4 class="up-title up-title_svg text-2xl before:w-2 before:h-2">Скачайте опросные листы</h4>
             <ul class="">
               <% oprosFiles.filter(i=> i.sphere==="moloko").map((list)=> { %>
@@ -157,7 +149,7 @@
                </ul>
             </li>
           </ul>
-          <div class="absolute top-20 right-0 w-1/4">
+          <div class="absolute top-20 right-0 w-1/4 mobile:relative mobile:top-0 mobile:w-full">
             <h4 class="up-title up-title_svg text-2xl before:w-2 before:h-2">Скачайте опросные листы</h4>
             <ul class="">
               <% oprosFiles.filter(i=> i.sphere==="piv").map((list)=> { %>
@@ -211,7 +203,7 @@
                </ul>
             </li>
           </ul>
-          <div class="absolute top-20 right-0 w-1/4">
+          <div class="absolute top-20 right-0 w-1/4 mobile:relative mobile:top-0 mobile:w-full">
             <h4 class="up-title up-title_svg text-2xl before:w-2 before:h-2">Скачайте опросные листы</h4>
             <ul class="">
               <% oprosFiles.filter(i=> i.sphere==="vino").map((list)=> { %>
@@ -227,6 +219,6 @@
 
 
     </main>
-    <%= require('html-loader!./insets/asides/inner-footer.html').default %>
+    <%= _.template(require('html-loader!./insets/asides/inner-footer.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
   </body>
 </html>

@@ -128,7 +128,7 @@
   }
 
   .up-title_h1 {
-    @apply text-[90px];
+    @apply text-[90px] mvpc:text-[60px]  ;
   }
 
   .title-page {
@@ -164,4 +164,25 @@
 
 .body-fixed {
  @apply pr-4 overflow-hidden;
+}
+
+.raschet-bem__input-error {
+  font-size: 12px;
+
+  opacity: 0;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  transition: 0.3s;
+  width: 100%;
+  @apply text-primary-red;
+}
+
+.raschet-bem__input-error_visible {
+  opacity: 1;
+}
+
+
+.ui-button_disabled {
+  @apply bg-opacity-40 border-opacity-40 cursor-not-allowed hover:bg-primary-red hover:bg-opacity-40;
 }

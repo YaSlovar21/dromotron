@@ -7,8 +7,8 @@ export default class PopupWithForm extends Popup {
         this._formCleanError = formCleanError;
         this._formElement = this._modal.querySelector(formSelector); //.popup__form
 
-        this._heading = this._modal.querySelector('.raschet-bem__title');
-        this._comment = this._modal.querySelector('#comment-free-input');
+        this._heading = this._modal.querySelector('.popup-form__title');
+        //this._comment = this._modal.querySelector('#comment-free-input');
 
         this._inputSelector = formInputSelector;
 
@@ -37,7 +37,7 @@ export default class PopupWithForm extends Popup {
 
     open(heading, comment) {
       this._heading.textContent = heading ? heading : 'Заявка в свободной форме';
-      this._comment.textContent = comment ? comment : '';
+      //this._comment.textContent = comment ? comment : '';
       super.open();
     }
 

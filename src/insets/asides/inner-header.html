@@ -1,3 +1,9 @@
+<div class="flex justify-between content pb-4 border-b border-primary-red">
+  <% if ( page!=='main') { %>
+    <a href="/" class="header__logo"><img src="../../images/header-logo-theme-white.svg" class="header__logo-img" alt="Лого Дромотрон"/></a>
+  <% } else { %>
+    <a href="/" class="header__logo"><img src="../../images/header-logo-theme-dark.svg" class="header__logo-img" alt="Лого Дромотрон"/></a>
+  <% } %>
   <nav class="nav">
     <ul class="nav__menu-links">
       <!--<li class="nav__ul-item"><a class="nav__link" href="/">Главная</a></li>-->
@@ -49,3 +55,10 @@
     </ul>
     <!--<button class="nav__mobile-icon"><img src="../../images/menu-link-mobile.svg" alt="Кнопка меню" ></button>-->
   </nav>
+  <div class="flex items-center text-primary-black olpc:flex-col mobile:hidden <%= page==='main' ? 'text-primary-white' : '' %>">
+    <a class="text-base mr-7" href="tel:79039123177">+7(903)912-31-77</a>
+    <a class="text-lg" href="mailto:info@dromotron.ru">info@dromotron.ru</a>
+  </div>
+  <button class="popup-callback-button text-primary-black border border-primary-black mobile:hidden <%= page==='main' ? 'border-primary-white text-primary-white' : '' %> px-4 flex items-center justify-center lowercase rounded">Связаться</button>
+  <button class="nav__mobile-icon"><img src="../../images/menu-link-mobile.svg" alt="Кнопка меню" ></button>
+</div>

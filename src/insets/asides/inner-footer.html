@@ -11,31 +11,56 @@
   </div>
 </footer>
 
-<!--Всплывающее меню
+<!--Всплывающее меню-->
 <div class="popup popup_type_menu popup-menu">
-  <div class="popup__container popup__container_menu">
-    <button class="popup__button-close popup__button-close_menu"></button>
+  <div class="popup__container popup__container_menu relative">
+    <button class="popup__button-close absolute -top-10 right-0 w-6 h-6">
+      <svg class="stroke-primary-lightgray" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </button>
     <nav class="popup__menu">
       <a class="popup__navlink" href="/">Главная</a>
       <div class="dropdown popup__navlink">
         <input type="checkbox" class="dropdown__checkbox" id="menu-checkbox">
         <label class="dropdown__label" for="menu-checkbox">Продукция</label>
         <ul class="dropdown__list">
-          <li class="dropdown__list-item"><a class="popup__navlink popup__navlink_sub" href="/production.html">Продукция</a></li>
-          <li class="dropdown__list-item"><a class="popup__navlink popup__navlink_sub" href="/plastinchatye-teploobmenniki/">Пластинчатые теплообменники</a></li>
-          <li class="dropdown__list-item"><a class="popup__navlink popup__navlink_sub" href="/pishchevye-teploobmenniki.html">Пищевые теплообменники</a></li>
-          <li class="dropdown__list-item"><a class="popup__navlink popup__navlink_sub" href="/blochnye-teplovye-punkty/">Блочные тепловые пункты</a></li>
+          <li class="dropdown__list-item"><a class="popup__navlink popup__navlink_sub" href="<%= ROUTES.kompls %>">Комплектующие для теплообменников</a></li>
+          <li class="dropdown__list-item"><a class="popup__navlink popup__navlink_sub" href="<%= ROUTES.ptoFood %>">Пищевые теплообменники</a></li>
         </ul>
       </div>
-      <a class="popup__navlink" href="/service.html">Сервис</a>
-      <a class="popup__navlink" href="/blog-proizvodstva/">Блог производителя</a>
-      <a class="popup__navlink" href="/about/">О компании</a>
-      <a class="popup__navlink" href="/contacts.html">Контакты</a>
+      <a class="popup__navlink" href="<%= ROUTES.uslugi %>">Услуги</a>
+      <a class="popup__navlink" href="<%= ROUTES.about %>">О компании</a>
+      <a class="popup__navlink" href="<%= ROUTES.contacts %>">Контакты</a>
     </nav>
+    <!--
     <div class="popup__menu">
       <a class="popup__navlink popup__navlink_dop" href="/equipment-selection">Рассчитать теплообменник</a>
       <a class="popup__navlink popup__navlink_dop" href="/catalog">Каталог</a>
-
     </div>
+    -->
   </div>
-</div>-->
+</div>
+
+
+<!--Форма обратного звонка  -->
+<div class="popup items-start justify-end popup-callback bg-primary-lightgray bg-opacity-10">
+  <div class="relative p-4 mt-24 rounded mr-16 pc:mr-5  <%= page!=='main' ? 'bg-primary-black' : 'bg-primary-lightgray' %>">
+    <button class="popup__button-close w-6 h-6 absolute top-5 right-6" type="button">
+      <svg class="stroke-primary-gray" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <form class="popup__form raschet-bem max-w-64 pt-6 <%= page!=='main' ? 'text-primary-white' : 'text-primary-black' %>" method="post" action="#" id="formCallBack" name="formCallBack" novalidate>
+        <h2 class="text-xl font-medium ">Оставьте свой номер и мы Вам перезвоним <span class="popup-form__title"></span></h2>
+        <div class="free-form">
+            <label class="block my-10 relative">
+              <span class="block mb-1">Номер телефона</span>
+              <input data-alias="Телефон" type="text" name="tel" id="tel-free-input" class="raschet-bem__input text-lg py-3 border-b border-primary-gray bg-transparent" required minlength="1">
+              <span class="raschet-bem__input-error tel-free-input-error"></span>
+            </label>
+        </div>
+        <button class="ui-button button-bem_submit" type="submit">Отправить</button>
+    </form>
+  </div>
+</div>
