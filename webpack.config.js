@@ -12,90 +12,61 @@ const { paths } = require('./sitemap');
 
 const { ROUTES } = require('./constants');
 
+const {slugify} = require('transliteration');
+  //конфиг для генератора url-адресов страниц
+  slugify.config({
+    unknown: '',
+    replace: [['.', '-', '№']],
+  });
 
-
-function generateRaschetHtmlPlugins(isDevServer) {
-    return rawData.map(ptoData => {
-      return new HtmlWebpackPlugin({
-        title: ptoData.title ? ptoData.title:  `Какой то расчёт`,
-        template: "./src/abstract-raschet-page.html", // шаблон
-        filename: `plastinchatye-teploobmenniki/${ptoData.naznach === 'гвс' ? 'goryachee-vodosnabzhenie-gvs' : ptoData.naznach === 'отопление' ? 'otoplenie' : 'raschets'}/${ptoData.path}.html`,
-        templateParameters: {...ptoData, isDevServer},
-        razbegPoMoshnosti,
-        chunks: ["blogSpecPage", "all", "map"],
-      })
-    })
-};
-
-function generateTisHtmlPlugins(isDevServer) {
-  return tis.concat(foodtis).map(ptoData => {
-    return new HtmlWebpackPlugin({
-      ...ptoData,
-      templateParameters: {
-        ...ptoData.templateParameters,
-        isDevServer
-      }
-    })
-  })
-}
-
-function generateSpecPagesHtmlPlugins(isDevServer) {
-  return specPages.map(articleData => {
-    return new HtmlWebpackPlugin({
-      ...articleData, 
-      templateParameters: {
-        isDevServer,
-        ...articleData.templateParameters,
-        specPages, 
-        upsubtitle: specPagesTypes[articleData.type]
-      }
-    })
-  })
-}
+let generatedPaths = [];
+const patchArr = []
 
 const dateNow = (new Date()).toString();
-let generatedPaths = [];
 
-function generateBlogPagesHtmlPlugins(articles, isDevServer) {
-  return articles.map(article => {
-    generatedPaths.push(
-      {
-        path: `${ROUTES.blog}${article.staticPage}`,
-        lastmod: dateNow,
-        priority: 0.7,
-        changefreq: 'monthly'
-      }
-    )
-    return new HtmlWebpackPlugin({
-      templateParameters: {
-        isDevServer,
-        canonicalURL: canonicalURL,
-        upsubtitle: article.type.includes('news') ? blogThemesDict['news'] : blogThemesDict[article.type[0]],
-        isGkh: article.type.includes('gkh'),
-        articleFile: `${article.articleInnerFile}.html`,
-        customPoster: article.type.includes('news') ? `${article.articleInnerFile}.png` : '',
-        /*relevanceArticles: [
-          {
-            name: "Теплобоменник для отопления частного дома",
-            link: "/blog-proizvodstva/teploobmenniki-otopleniya-chastnogo-doma.html",
-          },
-        ],*/
-      },
-      title: article.seoTitle,
-      heading: article.h1,
-      meta: {
-        keywords: article.seoKeywords,
-        description: article.seoDesc,
-      },
-      template: "./src/blog-page-abstract.html",
-      filename: `blog-proizvodstva/${article.staticPage}`,
-      chunks: ["blogPage", "all", "map", "popupImage"],
-    })
+function generatePtoPage(ptoFoodCard, isDevServer, oprosFiles, ptoFoodCards) {
+  const { capacity, desc, h1, heatent, max_pressue, id, naznach, pto_frame,refrigerant,title,type_of_proccess } = ptoFoodCard;
+  const textId = slugify(title);
+  patchArr.push ({
+    id,
+    textId
+  })
+  generatedPaths.push(
+    {
+      path: `${ROUTES.ptoFood}${textId}.html`,
+      lastmod: dateNow,
+      priority: 0.8,
+      changefreq: 'monthly'
+    }
+  )
+
+  return new HtmlWebpackPlugin({
+    
+    template: "./src/_food_item.html", // шаблон
+    filename: `${ROUTES.ptoFood}${textId}.html`,
+    templateParameters: {
+      ...ptoFoodCard, 
+      foodCardsRelativeByNaznach: ptoFoodCards.filter(i=> i.id!==id && i.naznach===naznach),
+      foodCardsRelativeByProccess: ptoFoodCards.filter(i=> i.id!==id && i.type_of_proccess===type_of_proccess),
+      isDevServer,
+      canonicalURL,
+      oprosFiles,
+      ROUTES
+    },
+    chunks: ["index"],
   })
 }
+
+
+function ptoFoodHtmlPlugins(ptoFoodCards, isDevServer, oprosFiles) {
+  return ptoFoodCards.map(c => generatePtoPage(c, isDevServer, oprosFiles, ptoFoodCards));
+}
+
+
 //function generateConfig(infoBlogData, isDevServer) {
-function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) {
-  //const htmlRaschetPlugins = generateRaschetHtmlPlugins(isDevServer);
+function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles , ptoFoodCards1) {
+  const ptoFoodCards = ptoFoodCards1.map(i=> ({...i, textId: slugify(i.title)}));
+  const htmlPtoPlugins = ptoFoodHtmlPlugins(ptoFoodCards, isDevServer, oprosFiles);
   //const htmlArticlesPlugins = generateBlogPagesHtmlPlugins(infoBlogData, isDevServer);
   //const htmlSpecPagesPluginst = generateSpecPagesHtmlPlugins(isDevServer);
   console.log(refs);
@@ -109,7 +80,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) 
       path: path.resolve(__dirname, "dist"),
       filename: "js/[name][hash].js",
       assetModuleFilename: "images/[hash][ext]",
-      //publicPath: ''
+      publicPath: '/'
     },
     // добавили режим разработчика
     mode: "development",
@@ -266,6 +237,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) 
           ROUTES,
           isDevServer,
           kompls: categories,
+          isTemplate: false,
         },
         title: "Пластины, уплотнения, плиты и другие комплектующие к теплообменникам",
         meta: {
@@ -276,24 +248,25 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) 
         template: "./src/_kompl.html", // путь к файлу index.html
         chunks: ["index", "cta", "form"],
       }),
-      /*
-       пробная сборка template
+      
+       //пробная сборка template
         new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
           ROUTES,
           isDevServer,
           kompls: categories,
+          isTemplate: true,
         },
         title: "Пластины, уплотнения, плиты и другие комплектующие к теплообменникам",
         meta: {
           keywords: "российское производство",
           description: ``,
         },
-        filename: "templates/komplektuyushchie-dlya-teploobmennikov/index.html",
+        filename: "templates/komplektuyushchie-dlya-teploobmennikov.html",
         template: "!!html-loader!./src/_kompl.html", // путь к файлу index.html
         chunks: ["index", "cta", "form"],
-      }),*/
+      }),
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
@@ -315,7 +288,8 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) 
           canonicalURL,
           ROUTES,
           isDevServer,
-          oprosFiles
+          oprosFiles,
+          ptoFoodCards,
         },
         title: "Теплообменники для пищевой промышленности",
         meta: {
@@ -324,6 +298,22 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) 
         },
         filename: `${ROUTES.ptoFood.split('/')[1]}/index.html`,
         template: "./src/_food.html", // путь к файлу index.html
+        chunks: ["index"],
+      }),
+      new HtmlWebpackPlugin({
+        templateParameters: { 
+          canonicalURL,
+          ROUTES,
+          isDevServer,
+          oprosFiles
+        },
+        title: "Опросные листы для подбора пищевого пластинчатого теплобменника",
+        meta: {
+          keywords: "российское производство пищевых пластинчатых теплобоменников",
+          description: `Подобрать пищевой пластинчатый теплообменник по опросному листу для различных отраслей: молочные теплообменники, теплообменники для пива и сусла, пароводяные подогреватели. Скачать опросный лист на теплообменник для подбора.`,
+        },
+        filename: `${ROUTES.ptoFoodOpros}/index.html`.substring(1),
+        template: "./src/_food_opros.html", // путь к файлу index.html
         chunks: ["index"],
       }),
       new HtmlWebpackPlugin({
@@ -364,7 +354,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles) 
         filename: "[name].css",
       }),
       new SitemapPlugin({ base: canonicalURL, paths: paths.concat(generatedPaths).sort((a,b)=> b.priority - a.priority) }),
-    ]//.concat(htmlRaschetPlugins)//, htmlTisPlugins, htmlArticlesPlugins,htmlSpecPagesPluginst),
+    ].concat(htmlPtoPlugins)//, htmlTisPlugins, htmlArticlesPlugins,htmlSpecPagesPluginst),
   }
 };
 
@@ -434,9 +424,17 @@ module.exports = () => {
             },
           }).then(res => res.json()), 
 
+          //data[4] - пищевые теплообменники карточки
+          fetch1('https://api.dromotron.ru/data/pto_products', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
+            },
+          }).then(res => res.json()),
+
         ])
         .then((data) => {
-          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] ));
+          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] , data[4] ));
         })
      
   });

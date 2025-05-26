@@ -1,0 +1,16 @@
+.router {
+
+}
+
+.router__fakecheckbox {
+  border: 1.65px solid;
+  @apply relative rounded border-primary-red w-9 h-9 mr-3;
+}
+
+.router__fakecheckbox_active::after {
+  content: '';
+  position: absolute;
+  top: 6.5px;
+  left: 6.5px;
+  @apply bg-primary-red w-[calc(100%-13px)] h-[calc(100%-13px)];
+}

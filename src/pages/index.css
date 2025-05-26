@@ -9,4 +9,6 @@
 @import url(../blocks/list-uslugi/list-uslugi.css);
 @import url(../blocks/form/form.css);
 
+@import url(../blocks/router/router.css);
+
 @import url(../blocks/popupmenu/popupmenu.css);

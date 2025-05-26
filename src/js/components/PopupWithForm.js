@@ -36,7 +36,7 @@ export default class PopupWithForm extends Popup {
     }
 
     open(heading, comment) {
-      this._heading.textContent = heading ? heading : 'Заявка в свободной форме';
+      this._heading.textContent = heading ? heading : '';
       //this._comment.textContent = comment ? comment : '';
       super.open();
     }

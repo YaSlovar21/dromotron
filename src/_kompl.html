@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= htmlWebpackPlugin.options.title %></title>
-
+    <link rel="icon" href="https://www.dromotron.ru/favicon.svg" type="image/svg+xml" />
     <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>"  rel="canonical" />
   </head>
   <body class="page bg-primary-lightgray">
@@ -22,9 +22,9 @@
             <img class="basis-96 min-h-0 object-contain object-center max-w-[calc(100%-80px)] mx-auto" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/categories/<%= category.images[0] %>" alt="<%= category.name %>">
             <button class="ui-button block mt-8 cta-button" data-additional="<%= category.name.toLowerCase()  %>">Запросить стоимость</button>
             <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
-              <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
-              <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
-              <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
+            <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
+            <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
+            <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
           </li>
         <% }) %>
       </ul>

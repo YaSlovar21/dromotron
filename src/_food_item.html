@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <%= require(`html-loader!./inner-google${isDevServer ? '-dev-server' : ''}.html`).default %>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>"  rel="canonical" />
+  </head>
+  <body class="page bg-primary-lightgray">
+    <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
+    <header class="header__up py-8">
+        <%=_.template(require('html-loader!./insets/asides/inner-header.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
+    </header>
+    <main class="relative mt-10 mb-20">
+      <div class="content">
+        <h1 class="up-title up-title_svg mt-12  mb-10 max-w-5xl"><%= title %></h1>
+        <div class="container-4 items-start">
+          <img src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/<%= poster %>" alt="<%= title %>">
+          <div class="col-span-2">
+            <p class="text-xl font-medium max-w-3xl "><%= h1 %>. <%= desc %></p>
+            <h2 class="up-title up-title_svg text-4xl mt-14">Характеристики</h2>
+            <ul class="max-w-full mt-8 text-lg mobile:text-lg w-full *:mb-5 *:border-b *:border-dotted *:border-primary-black *:w-full *:flex *:justify-between">
+                <li><h3 class="bg-primary-lightgray relative top-2 ">Производительность</h3> <p class="bg-primary-lightgray relative top-2"><%= capacity %></p></li>
+                <li><h3 class="bg-primary-lightgray relative top-2 ">Исполнение рамы</h3> <p class="bg-primary-lightgray relative top-2"><%= pto_frame %></p></li>
+                <% if (heatent) {  %>
+                  <li><h3 class="bg-primary-lightgray relative top-2 ">Теплоноситель</h3> <p class="bg-primary-lightgray relative top-2"><%= heatent %></p></li>
+                <% }  %>
+                <% if (refrigerant) {  %>
+                  <li><h3 class="bg-primary-lightgray relative top-2 ">Хладоноситель</h3> <p class="bg-primary-lightgray relative top-2"><%= refrigerant %></p></li>
+                <% }  %>
+                <% if (max_pressue) {  %>
+                  <li><h3 class="bg-primary-lightgray relative top-2 ">Максимальное давление</h3> <p class="bg-primary-lightgray relative top-2"><%= max_pressue %></p></li>
+                <% }  %>
+            </ul>
+            <h2 class="up-title up-title_svg text-4xl mt-14">Скачайте опросные листы</h2>
+            <ul class=" flex flex-col">
+              <% oprosFiles.filter(i=> i.sphere===oprosTextId).map((list)=> { %>
+                <li class="">
+                  <a class="flex gap-2 py-4 text-lg border-b border-primary-black" href="/files/<%= list.fileName%>">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg>
+                    <span><%= list.name %></span>
+                  </a>
+                </li>
+              <% }) %>
+            </ul>
+          <button class="ui-button cta-button mt-16 mb-32 w-1/2">Запросить цену</button>
+          </div>
+        </div>
+      <!--<img class="w-full mb-8" alt="пищевой теплообменник" src="<%=require('./images/_dr/food-hero.jpg')%>">-->
+      </div>
+      <div class="bg-primary-black pt-8 pb-16">
+        <div class="content">
+            <h2 class="up-title up-title_svg text-2xl mt-14 text-primary-lightgray">Смотрите также</h2>
+            <h3 class="up-title up-title_svg text-5xl mt-14 text-primary-lightgray">Пластинчатые теплообменники для <%=naznach%></h3>
+            <ul class="container-4">
+              <% foodCardsRelativeByNaznach.map((item) => { %>
+                <%= _.template(require('html-loader!./templates/card-pto.html').default)({ROUTES: ROUTES, item: item, isDevServer}) %>
+              <% }) %>
+            </ul>
+            <h3 class="up-title up-title_svg text-5xl mt-14 text-primary-lightgray">Пластинчатые теплообменники для процесса <%=type_of_proccess%></h3>
+            <ul class="container-4">
+              <% foodCardsRelativeByProccess.map((item) => { %>
+                <%= _.template(require('html-loader!./templates/card-pto.html').default)({ROUTES: ROUTES, item: item, isDevServer}) %>
+              <% }) %>
+            </ul>
+        </div>
+      </div>
+       <!--<<img src="<%=require('./images/_dr/svg/bg-geom-full-screen.svg')%>" alt="декор">-->
+       <div class="content">
+          <%= _.template(require('html-loader!./insets/form-section-test.html').default)({title: false}) %>
+       </div>
+    </main>
+    <%= _.template(require('html-loader!./insets/asides/inner-footer.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
+  </body>
+</html>
