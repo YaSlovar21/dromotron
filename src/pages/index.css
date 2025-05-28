@@ -2,13 +2,15 @@
 @import url(../blocks/_root/root.css);
 @import url(../vendor/fonts/fonts.css);
 
-
+@import url(../blocks/breadcrumbs/breadcrumbs.css);
 @import url(../blocks/nav/nav.css);
 @import url(../blocks/highliter/highliter.css);
 @import url(../blocks/list-adv/list-adv.css);
 @import url(../blocks/list-uslugi/list-uslugi.css);
 @import url(../blocks/form/form.css);
 
+
+@import url(../blocks/foodcatalog/foodcatalog.css);
 @import url(../blocks/router/router.css);
 
 @import url(../blocks/popupmenu/popupmenu.css);

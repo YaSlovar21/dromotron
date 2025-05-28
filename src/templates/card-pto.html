@@ -1,7 +1,7 @@
-<li class="flex flex-col p-6 bg-white relative">
-  <h2 class="text-3xl font-semibold text-primary-red mb-2"><%= item.title %></h2>
-  <span class="block"><%= item.naznach %></span>
-  <img class="basis-96 min-h-0 mt-auto object-contain object-center max-w-[calc(100%-80px)] mx-auto" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/<%= item.poster %>" alt="<%= item.h1 %>">
+<li class="pto-item flex flex-col p-6 bg-white relative" data-process="<%= item.type_of_proccess %>">
+  <h2 class="text-3xl pc:text-2xl font-semibold text-primary-red mb-2"><%= item.title %></h2>
+  <span class="block pc:text-sm"><%= item.naznach %></span>
+  <img class="basis-96 pc:basis-48 min-h-0 mt-auto object-contain object-center max-w-[calc(100%-80px)] mx-auto" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/<%= item.poster %>" alt="<%= item.h1 %>">
   <a class="ui-button block mt-8" href="<%= ROUTES.ptoFood %><%= item.textId %>.html">Подробнее</a>
   <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
   <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>

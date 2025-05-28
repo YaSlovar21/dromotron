@@ -1,0 +1,34 @@
+.breadcrumbs {
+  padding: 12px 0;
+  position: relative;
+  font-size: 18px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+
+.breadcrumbs__link {
+  text-decoration: underline;
+  margin-bottom: 3px;
+  font-size: 14px;
+  font-weight: 400;
+  margin-right: 5px;
+  @apply text-primary-black
+}
+
+
+.breadcrumbs__link::after {
+  content: ' \2192';
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 600;
+  @apply text-primary-red
+}
+
+.breadcrumbs__link_type_here {
+  text-decoration: none;
+}
+.breadcrumbs__link_type_here::after {
+  content: '';
+}

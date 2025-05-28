@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>"  rel="canonical" />
+    <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename %>"  rel="canonical" />
   </head>
   <body class="page bg-primary-lightgray">
     <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
@@ -15,7 +15,12 @@
     </header>
     <main class="relative mt-10 mb-20">
       <div class="content">
-        <h1 class="up-title up-title_svg mt-12  mb-10 max-w-5xl"><%= title %></h1>
+        <div class="breadcrumbs">
+          <a class="breadcrumbs__link" href="/">Главная</a>
+          <a class="breadcrumbs__link" href="<%= ROUTES.ptoFood %>">Пищевые теплообменники</a>
+          <a class="breadcrumbs__link breadcrumbs__link_type_here" href="/<%= htmlWebpackPlugin.options.filename %>"><%= h1 %></a>
+        </div>
+        <h1 class="up-title up-title_svg mt-2  mb-10 max-w-5xl"><%= title %></h1>
         <div class="container-4 items-start">
           <img src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/<%= poster %>" alt="<%= title %>">
           <div class="col-span-2">
@@ -47,7 +52,7 @@
                 </li>
               <% }) %>
             </ul>
-          <button class="ui-button cta-button mt-16 mb-32 w-1/2">Запросить цену</button>
+          <button class="ui-button cta-button mt-16 mb-32 w-1/2" data-additional="<%= title.toLowerCase() %>">Запросить цену</button>
           </div>
         </div>
       <!--<img class="w-full mb-8" alt="пищевой теплообменник" src="<%=require('./images/_dr/food-hero.jpg')%>">-->

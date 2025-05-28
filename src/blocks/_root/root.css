@@ -67,6 +67,10 @@ h1,h2,h3,h4 {
   @apply text-primary-gray;
 }
 
+
+.hidden1 {
+  display: none;
+}
 /*
 .swiper-container {
     width: 100%;

@@ -1,10 +1,14 @@
 .router {
-
+  @apply  text-lg;
 }
 
 .router__fakecheckbox {
   border: 1.65px solid;
-  @apply relative rounded border-primary-red w-9 h-9 mr-3;
+  @apply  text-lg relative rounded border-primary-red w-9 h-9 mr-3;
+}
+
+.router__fakecheckbox_active {
+  @apply font-medium
 }
 
 .router__fakecheckbox_active::after {

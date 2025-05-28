@@ -16,31 +16,37 @@
     <main class="content relative mt-10 mb-20">
       <div class="breadcrumbs">
         <a class="breadcrumbs__link" href="/">Главная</a>
-        <a class="breadcrumbs__link breadcrumbs__link_type_here" href="<%= ROUTES.ptoFood %>">Пищевые теплообменники</a>
+        <a class="breadcrumbs__link" href="<%= ROUTES.ptoFood %>">Пищевые теплообменники</a>
+        <a class="breadcrumbs__link breadcrumbs__link_type_here" href="/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>"><%= h1 %></a>
       </div>
-      <h1 class="up-title up-title_svg up-title_h1 mb-10 mt-2 bg-primary-lightgray">Теплообменники для пищевой промышленности</h1>
+      <h1 class="up-title up-title_svg up-title_h1 mb-10 mt-2 bg-primary-lightgray"><%= h1 %></h1>
       <div class="container-4">
-        <img class="object-contain object-top" src="<%=require('./images/_dr/mo.png')%>" alt="Пищевые пластинчатые теплообменники">
+        <img src="<%=require('./images/_dr/mo.png')%>" alt="Пищевые пластинчатые теплообменники">
         <div class="col-span-2">
-          <p class="text-lg font-medium max-w-5xl">Использование пищевых теплообменников в сфере пищевой промышленности позволяет оптимизировать процессы охлаждения, нагрева и пастеризации, что, в свою очередь, способствует повышению производительности и снижению затрат. Эти устройства находят широкое применение в производстве напитков, молочных продуктов и других пищевых жидкостей или смесей. Выбор конкретного типа теплообменника зависит от требований к процессу и характеристик обрабатываемого продукта.</p>
-          <p class="text-lg font-medium max-w-5xl mt-3">Компания «Дромотрон» предлагает квалифицированный подбор пищевого теплообменника любой сложности, а также изготовление теплообменного аппарата.</p>
-          <a class="flex mt-6 text-xl items-center group hover:text-primary-red transition-all" href="<%= ROUTES.ptoFoodOpros %>">
-            <svg class="mr-2 size-6 stroke-primary-black group-hover:stroke-primary-red transition-all" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-            </svg>
-            Опросные листы для подбора пищевого теплообменника
-          </a>
+          <p class="text-lg font-medium max-w-5xl"><%= desc %></p>
+          <ul class="">
+            <% oprosFiles.filter(i=> i.sphere===oprosTextId).map((list)=> { %>
+              <li>
+                <a class="flex items-center py-4 text-base border-b border-primary-black" href="/files/<%= list.fileName%>">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  </svg>
+                  <%= list.name %>
+                </a>
+              </li>
+            <% }) %>
+          </ul>
         </div>
       </div>
 
       <!--<img class="w-full mb-8" alt="пищевой теплообменник" src="<%=require('./images/_dr/food-hero.jpg')%>">-->
-      <h2 class="up-title up-title_svg mt-12  mb-10 pto-items-title">Каталог пластинчатых теплообменников</h2>
+      <h2 class="up-title up-title_svg mt-12  mb-10 pto-items-title smooth-sect">Каталог пластинчатых теплообменников <%= title_sm %></h2>
       <div class="foodcatalog">
         <div class="aside">
-          <%= _.template(require('html-loader!./templates/router.html').default)({ROUTES: ROUTES, textId: 'all', isDevServer}) %>
+          <%= _.template(require('html-loader!./templates/router.html').default)({ROUTES: ROUTES, textId: textId, isDevServer}) %>
         </div>
-        <ul class="foodcatalog__grid">
-          <% ptoFoodCards.map((item) => { %>
+        <ul class="pto-items-container foodcatalog__grid">
+          <% foodCardsInCategory.map((item) => { %>
             <%= _.template(require('html-loader!./templates/card-pto.html').default)({ROUTES: ROUTES, item: item, isDevServer}) %>
           <% }) %>
         </ul>

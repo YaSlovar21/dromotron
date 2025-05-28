@@ -1,23 +1,39 @@
-<div class="bg-white p-7">
+<div class="bg-white p-7 sticky top-3">
   <h2 class="text-xl font-semibold mb-4">Сферы</h2>
   <ul class="">
     <li class="mb-2">
-      <a class="flex items-center" href="/">
-        <figure class="router__fakecheckbox router__fakecheckbox_active"></figure>
+      <a class="flex items-center" href="<%=ROUTES.ptoFood%>dlya-moloka/">
+        <figure class="router__fakecheckbox <%= textId && textId === 'dlya-moloka' ? 'router__fakecheckbox_active' : '' %>"></figure>
         <span class="">Для молока</span>
       </a>
     </li>
     <li class="mb-2">
-      <a class="flex items-center" href="/">
-        <figure class="router__fakecheckbox"></figure>
+      <a class="flex items-center" href="<%=ROUTES.ptoFood%>dlya-piva-i-susla/">
+        <figure class="router__fakecheckbox <%= textId && textId === 'dlya-piva-i-susla' ? 'router__fakecheckbox_active' : '' %>"></figure>
         <span class="">Для пива и сусла</span>
       </a>
     </li>
     <li>
-      <a class="flex items-center" href="/">
-        <figure class="router__fakecheckbox"></figure>
+      <a class="flex items-center" href="<%=ROUTES.ptoFood%>dlya-vina-i-sokov/">
+        <figure class="router__fakecheckbox <%= textId && textId === 'dlya-vina-i-sokov' ? 'router__fakecheckbox_active' : '' %>"></figure>
         <span class="">Для вина и соков</span>
       </a>
     </li>
   </ul>
+  <hr class="my-4">
+  <form name="selectProccess" class="flex flex-col">
+    <h2 class="text-xl font-semibold mb-4">Назначение теплообменника</h2>
+    <label class="mb-4">
+      <input name="process" value="пастеризация" type="checkbox">
+      <span>Пастеризатор</span>
+    </label>
+    <label class="mb-4">
+      <input name="process" value="нагрев" type="checkbox">
+      <span>Подоргеватель</span>
+    </label>
+    <label>
+      <input name="process" value="охлаждение" type="checkbox">
+      <span>Охладитель</span>
+    </label>
+  </form>
 </div>

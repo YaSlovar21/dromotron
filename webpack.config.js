@@ -29,7 +29,8 @@ function generatePtoPage(ptoFoodCard, isDevServer, oprosFiles, ptoFoodCards) {
   const textId = slugify(title);
   patchArr.push ({
     id,
-    textId
+    textId,
+    
   })
   generatedPaths.push(
     {
@@ -41,7 +42,6 @@ function generatePtoPage(ptoFoodCard, isDevServer, oprosFiles, ptoFoodCards) {
   )
 
   return new HtmlWebpackPlugin({
-    
     template: "./src/_food_item.html", // шаблон
     filename: `${ROUTES.ptoFood}${textId}.html`,
     templateParameters: {
@@ -53,7 +53,33 @@ function generatePtoPage(ptoFoodCard, isDevServer, oprosFiles, ptoFoodCards) {
       oprosFiles,
       ROUTES
     },
-    chunks: ["index"],
+    chunks: ["index", "cta", "form"],
+  })
+}
+
+function generatePtoCategoryHtmlPlugin(ptoCategory, ptoFoodCards, oprosFiles, isDevServer, galleryCards) {
+  const {seo_desc, id, textId, h1, desc, title_sm, seo_title} = ptoCategory;
+  generatedPaths.push(
+    {
+      path: `${ROUTES.ptoFood}${textId}`,
+      lastmod: dateNow,
+      priority: 0.8,
+      changefreq: 'monthly'
+    }
+  )
+  return new HtmlWebpackPlugin({
+    template: "./src/_food_category.html", // шаблон
+    filename: `${ROUTES.ptoFood}${textId}/index.html`,
+    templateParameters: {
+      ...ptoCategory, 
+      foodCardsInCategory: ptoFoodCards.filter(i=> i.categoryTextId===textId),
+      isDevServer,
+      canonicalURL,
+      oprosFiles,
+      galleryCards,
+      ROUTES
+    },
+    chunks: ["index", "category", "routerfilter"],
   })
 }
 
@@ -62,11 +88,15 @@ function ptoFoodHtmlPlugins(ptoFoodCards, isDevServer, oprosFiles) {
   return ptoFoodCards.map(c => generatePtoPage(c, isDevServer, oprosFiles, ptoFoodCards));
 }
 
+function ptoCatsHtmlPlugins(ptoCategories, ptoFoodCards, oprosFiles, isDevServer, galleryCards) {
+  return ptoCategories.map(c => generatePtoCategoryHtmlPlugin(c,  ptoFoodCards, oprosFiles, isDevServer, galleryCards))
+}
 
 //function generateConfig(infoBlogData, isDevServer) {
-function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles , ptoFoodCards1) {
+function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles , ptoFoodCards1, galleryCards, ptoCategories) {
   const ptoFoodCards = ptoFoodCards1.map(i=> ({...i, textId: slugify(i.title)}));
   const htmlPtoPlugins = ptoFoodHtmlPlugins(ptoFoodCards, isDevServer, oprosFiles);
+  const htmlPtoCatsPlugins = ptoCatsHtmlPlugins(ptoCategories, ptoFoodCards, oprosFiles, isDevServer, galleryCards)
   //const htmlArticlesPlugins = generateBlogPagesHtmlPlugins(infoBlogData, isDevServer);
   //const htmlSpecPagesPluginst = generateSpecPagesHtmlPlugins(isDevServer);
   console.log(refs);
@@ -74,7 +104,9 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
     entry: {
       index: "./src/pages/index.js",
       form: "./src/pages/form.js",
-      cta: "./src/pages/cta-reaction.js"
+      cta: "./src/pages/cta-reaction.js",
+      category: './src/pages/category.js',
+      routerfilter: './src/pages/router-filter.js'
     },
     output: {
       path: path.resolve(__dirname, "dist"),
@@ -290,6 +322,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
           isDevServer,
           oprosFiles,
           ptoFoodCards,
+          galleryCards
         },
         title: "Теплообменники для пищевой промышленности",
         meta: {
@@ -298,7 +331,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         },
         filename: `${ROUTES.ptoFood.split('/')[1]}/index.html`,
         template: "./src/_food.html", // путь к файлу index.html
-        chunks: ["index"],
+        chunks: ["index", "routerfilter"],
       }),
       new HtmlWebpackPlugin({
         templateParameters: { 
@@ -354,7 +387,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         filename: "[name].css",
       }),
       new SitemapPlugin({ base: canonicalURL, paths: paths.concat(generatedPaths).sort((a,b)=> b.priority - a.priority) }),
-    ].concat(htmlPtoPlugins)//, htmlTisPlugins, htmlArticlesPlugins,htmlSpecPagesPluginst),
+    ].concat(htmlPtoCatsPlugins, htmlPtoPlugins)//, htmlTisPlugins, htmlArticlesPlugins,htmlSpecPagesPluginst),
   }
 };
 
@@ -382,6 +415,17 @@ function refsMapper(items) {
     ...i, 
     tags: JSON.parse(i.tags),
     poster: `refs/${i.poster}`
+  }))
+}
+
+function galleryMapper(images) {
+  return images.map(c => ({...c, consumersIds: JSON.parse(c.consumersIds)}));
+}
+
+function ptoFoodItemMapper(cards) {
+  return cards.map(c=> ({
+    ...c,
+    poster: `${c.n_sect}sect13.png` //-----------------------------------------КОСТЫЛЬ!!!!!!!!!-----------------------------------------------
   }))
 }
 
@@ -432,9 +476,25 @@ module.exports = () => {
             },
           }).then(res => res.json()),
 
+           //data[5] - gallery
+           fetch1('https://api.dromotron.ru/gallery', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
+            },
+          }).then(res => res.json()),
+
+          //data[6] - пищевые теплообменники карточки
+          fetch1('https://api.dromotron.ru/data/pto_categories', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
+            },
+          }).then(res => res.json()),
+
         ])
         .then((data) => {
-          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] , data[4] ));
+          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] , ptoFoodItemMapper(data[4]), galleryMapper(data[5]), data[6] ));
         })
      
   });
