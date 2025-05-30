@@ -14,19 +14,45 @@
         <%=_.template(require('html-loader!./insets/asides/inner-header.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
     </header>
     <main class="content relative mt-10 mb-20">
-      <h1 class="up-title up-title_svg up-title_h1 mb-10 bg-primary-lightgray">О производстве</h1>
-      <div class="grid grid-cols-3 gap-10">
-        <img class="contrast-125" src="<%=require('./images/_dr/view1.png')%>" alt="фото цеха по производству коплектующих для теплообменников 1">
-        <img class="contrast-125" src="<%=require('./images/_dr/view2.png')%>" alt="фото цеха по производству коплектующих для теплообменников 2">
-        <img class="contrast-125" src="<%=require('./images/_dr/view3.png')%>" alt="фото цеха по производству коплектующих для теплообменников 3">
+      <div class="breadcrumbs">
+        <a class="breadcrumbs__link" href="/">Главная</a>
+        <a class="breadcrumbs__link breadcrumbs__link_type_here" href="/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>">О компании</a>
+      </div>
+      <h1 class="up-title up-title_svg up-title_h1 mt-2 bg-primary-lightgray">О производстве</h1>
+      <div class="container-2">
+        <div>
+          <h1 class="text-3xl font-bold mb-4">О компании "Дромотрон"</h1>
+          <p class="text-xl mb-8">
+            ООО "Дромотрон" — это производственная компания, специализирующаяся на изготовлении комплектующих для разборных пластинчатых теплообменников и пищевых пластинчатых теплообменников. Наш уникальный опыт и технологии позволяют нам обеспечивать высокое качество продукции и удовлетворять потребности самых требовательных клиентов.
+          </p>
+
+          <h2 class="text-2xl font-bold">Наши уникальные преимущества</h2>
+          <ul class="container-2 gap-5 text-lg leading-tight my-4">
+            <li>Большой и уникальный опыт сотрудников в производстве сложных деталей теплообменников и экспертном подборе теплообменных аппаратов.</li>
+            <li>Расположение производства на площадке, где можно обеспечить полный цикл производства теплообменников.</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold my-4">Производим:</h2>
+          <ul class="gap-5 text-lg leading-tight list-inside list-disc max-w-[70%]">
+            <li>Комплектующие для теплообменников разборных пластинчатых (рамы, плиты, станины, облицовка из нержавеющей стали).</li>
+            <li>Пищевые пластинчатые теплообменники (одноступенчатые и многоступенчатые).</li>
+          </ul>
+
+        </div>
+
+        <div class="grid grid-cols-2 gap-5">
+          <img class="contrast-125" src="<%=require('./images/_dr/view1.png')%>" alt="фото цеха по производству коплектующих для теплообменников 1">
+          <img class="contrast-125" src="<%=require('./images/_dr/view2.png')%>" alt="фото цеха по производству коплектующих для теплообменников 2">
+          <img class="contrast-125" src="<%=require('./images/_dr/view3.png')%>" alt="фото цеха по производству коплектующих для теплообменников 3">
+        </div>
       </div>
       <h2 class="up-title up-title_svg mt-14 mb-10">Производство комплектующих для теплообменников</h2>
       <ul class="container-4 items-start">
         <% refs.filter(ref => ref.tags.includes('kompls')).map((ref)=> { %>
           <li class="flex flex-col-reverse">
-            <h3 class="text-xl font-bold text-primary-black mt-5 mb-3 uppercase"><%= ref.name %></h3>
+            <h3 class="text-xl font-medium text-primary-black mt-5 mb-3"><%= ref.title %></h3>
             <div class="w-full py-12 relative bg-white flex items-center justify-center ">
-              <img class="w-2/3 transition-all duration-200 group-hover:scale-110" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/<%= ref.poster %>" alt="<%= ref.name %>">
+              <img class="w-2/3 transition-all duration-200 group-hover:scale-110" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/gallery/<%= ref.fileName %>" alt="<%= ref.name %>">
               <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
               <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
               <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
@@ -39,9 +65,9 @@
         <ul class="container-4 items-start">
           <% refs.filter(ref => ref.tags.includes('pto')).map((ref)=> { %>
             <li class="flex flex-col-reverse relative">
-              <h3 class="text-xl font-bold text-primary-black mt-5 mb-3 uppercase"><%= ref.name %></h3>
+              <h3 class="text-xl font-medium text-primary-black mt-5 mb-3"><%= ref.title %></h3>
               <div class="w-full py-12 relative bg-white flex items-center justify-center ">
-                <img class="w-2/3 transition-all duration-200 group-hover:scale-110" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/<%= ref.poster %>" alt="<%= ref.name %>">
+                <img class="w-2/3 transition-all duration-200 group-hover:scale-110" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/gallery/<%= ref.fileName %>" alt="<%= ref.name %>">
                 <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
                 <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
                 <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>

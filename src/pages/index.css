@@ -2,6 +2,9 @@
 @import url(../blocks/_root/root.css);
 @import url(../vendor/fonts/fonts.css);
 
+
+@import url(../blocks/link-beauty/link-beauty.css);
+
 @import url(../blocks/breadcrumbs/breadcrumbs.css);
 @import url(../blocks/nav/nav.css);
 @import url(../blocks/highliter/highliter.css);

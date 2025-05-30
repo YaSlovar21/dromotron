@@ -61,7 +61,7 @@ function generatePtoCategoryHtmlPlugin(ptoCategory, ptoFoodCards, oprosFiles, is
   const {seo_desc, id, textId, h1, desc, title_sm, seo_title} = ptoCategory;
   generatedPaths.push(
     {
-      path: `${ROUTES.ptoFood}${textId}`,
+      path: `${ROUTES.ptoFood}${textId}/`,
       lastmod: dateNow,
       priority: 0.8,
       changefreq: 'monthly'
@@ -99,7 +99,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
   const htmlPtoCatsPlugins = ptoCatsHtmlPlugins(ptoCategories, ptoFoodCards, oprosFiles, isDevServer, galleryCards)
   //const htmlArticlesPlugins = generateBlogPagesHtmlPlugins(infoBlogData, isDevServer);
   //const htmlSpecPagesPluginst = generateSpecPagesHtmlPlugins(isDevServer);
-  console.log(refs);
+  console.log(generatedPaths.map(i=>i.path));
   return {
     entry: {
       index: "./src/pages/index.js",
@@ -303,7 +303,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         templateParameters: { 
           canonicalURL,
           ROUTES,
-          refs,
+          refs: galleryCards.filter(c => c.consumersIds.includes('refs')),
           isDevServer,
         },
         title: "О производстве пластинчатых теплообменников в компании Дромотрон",

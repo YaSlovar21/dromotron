@@ -1,0 +1,15 @@
+.link-beauty {
+  transition: opacity .2s linear;
+}
+
+.link-beauty:hover {
+  opacity: .6;
+}
+
+.link-beauty_moveup {
+  transition: transform .2s linear;
+}
+
+.link-beauty_moveup:hover {
+  transform: translate(0px , -10px);
+}

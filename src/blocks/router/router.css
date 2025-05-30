@@ -7,6 +7,7 @@
   @apply  text-lg relative rounded border-primary-red w-9 h-9 mr-3;
 }
 
+
 .router__fakecheckbox_active {
   @apply font-medium
 }
@@ -14,7 +15,16 @@
 .router__fakecheckbox_active::after {
   content: '';
   position: absolute;
+
   top: 6.5px;
   left: 6.5px;
-  @apply bg-primary-red w-[calc(100%-13px)] h-[calc(100%-13px)];
+  @apply bg-primary-red transition-all w-[calc(100%-13px)] h-[calc(100%-13px)];
+}
+
+.router___itemwcheckbox:hover .router__fakecheckbox::after {
+  content: '';
+  position: absolute;
+  top: 6.5px;
+  left: 6.5px;
+  @apply bg-primary-red bg-opacity-60 w-[calc(100%-13px)] h-[calc(100%-13px)];
 }
