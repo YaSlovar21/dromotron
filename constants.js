@@ -24,8 +24,38 @@ const standartClasses = {
   ctaButtonClass: 'cta-button',
 }
 
+
+
+ const sequence = [
+  "title",
+  "teploobmennik",
+  "steel_mark_aisi",
+  "thinkness",
+  "pattern",
+  "holes",
+  "weight",
+  "price",
+  "availability",
+];
+
+
+const dict = {
+  "title": "Наименование пластины",
+  "availability": "Наличие, шт.",
+  "holes": "Расположение отверстий",
+  "pattern": "Рисунок",
+  "pattern_img_num": "Рисунок",
+  "price": "Цена, руб. с НДС",
+  "steel_mark_aisi": "Марка стали",
+  "teploobmennik": "Типоразмер",
+  "thinkness": "Толщина",
+  "weight": "Вес, кг"
+};
+
 module.exports = {
   ROUTES_SITEMAP: ROUTES,
   ROUTES: {...ROUTES, ...ROUTES_SPEC},
   standartClasses,
+  sequence,
+  dict
 }

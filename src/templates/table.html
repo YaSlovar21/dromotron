@@ -1,0 +1,18 @@
+<table class="w-full border-collapse border border-slate-400">
+    <thead>
+        <tr>
+            <% d.sequence.map((key) => { %> 
+                <th class="p-2 border border-slate-400"><%= d['dict'][key] ? d['dict'][key] : key %></th>
+            <% }) %>
+        </tr>
+    </thead>
+    <tbody>
+        <%  tableData.map((item) => { %>
+        <tr class="odd:bg-blue-50">
+            <% d.sequence.map((key) => { %>
+                <td class="first:whitespace-nowrap first:font-medium p-2 border border-slate-300"><%= item[key] === null ? '-' : item[key]  %></td>
+            <% }) %>
+        </tr>
+        <% }) %>
+    </tbody>
+</table>

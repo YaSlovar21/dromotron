@@ -10,7 +10,7 @@ const canonicalURL = 'https://www.dromotron.ru'
 
 const { paths } = require('./sitemap');
 
-const { ROUTES } = require('./constants');
+const { ROUTES, sequence, dict } = require('./constants');
 
 const {slugify} = require('transliteration');
   //конфиг для генератора url-адресов страниц
@@ -92,8 +92,10 @@ function ptoCatsHtmlPlugins(ptoCategories, ptoFoodCards, oprosFiles, isDevServer
   return ptoCategories.map(c => generatePtoCategoryHtmlPlugin(c,  ptoFoodCards, oprosFiles, isDevServer, galleryCards))
 }
 
+
+
 //function generateConfig(infoBlogData, isDevServer) {
-function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles , ptoFoodCards1, galleryCards, ptoCategories) {
+function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles , ptoFoodCards1, galleryCards, ptoCategories, platesData) {
   const ptoFoodCards = ptoFoodCards1.map(i=> ({...i, textId: slugify(i.title)}));
   const htmlPtoPlugins = ptoFoodHtmlPlugins(ptoFoodCards, isDevServer, oprosFiles);
   const htmlPtoCatsPlugins = ptoCatsHtmlPlugins(ptoCategories, ptoFoodCards, oprosFiles, isDevServer, galleryCards)
@@ -280,7 +282,30 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         template: "./src/_kompl.html", // путь к файлу index.html
         chunks: ["index", "cta", "form"],
       }),
-      
+
+      //-----ПЛАСТИНЫ--------------
+      new HtmlWebpackPlugin({
+        templateParameters: { 
+          canonicalURL,
+          ROUTES,
+          isDevServer,
+          kompls: categories,
+          isTemplate: false,
+          platesData,
+          dictDataObj: {
+            dict,
+            sequence
+          }
+        },
+        title: "Пластины для пластинчатых теплообменников | прайс на пластины",
+        meta: {
+          keywords: "пластины  к пластинчатым теплообменникам, прайслист 100 видов пластин",
+          description: `Комплектующие пластины к пластинчатым теплообменникам от производителя`,
+        },
+        filename: "komplektuyushchie-dlya-teploobmennikov/plates/index.html",
+        template: "./src/_kompl_plates.html", // путь к файлу index.html
+        chunks: ["index", "cta", "form"],
+      }),
        //пробная сборка template
         new HtmlWebpackPlugin({
         templateParameters: { 
@@ -429,72 +454,46 @@ function ptoFoodItemMapper(cards) {
   }))
 }
 
+const initFetchObj = {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8',
+  },
+  agent: proxyAgent
+}
+
 module.exports = () => {
   const isDevServer = process.env.WEBPACK_SERVE;
   console.log(isDevServer);
   return new Promise((resolve, reject) => {
       Promise.all([
           //data[0] - categories
-          fetch1('https://api.dromotron.ru/data/categories', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-            },
-          }).then(res => res.json()), 
+          fetch1('https://api.dromotron.ru/data/categories', initFetchObj).then(res => res.json()), 
 
           //data[1] - uslugi
-          fetch1('https://api.dromotron.ru/data/uslugi', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-            },
-          }).then(res => res.json()), 
+          fetch1('https://api.dromotron.ru/data/uslugi', initFetchObj).then(res => res.json()), 
 
 
            //data[2] - refs
-           fetch1('https://api.dromotron.ru/data/refs', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-            },
-          }).then(res => res.json()), 
+           fetch1('https://api.dromotron.ru/data/refs', initFetchObj).then(res => res.json()), 
 
           //data[3] - oprosnie listy
-          fetch1('https://api.dromotron.ru/data/oprosnye-listy', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjIjoiZHJvbW90cm9uIiwiaWF0IjoxNzQyMjAxMjE0fQ.uDGcewQnXnfoc64I7tiTcvo6hpeblN-5QN2xc0MUz0k'
-            },
-          }).then(res => res.json()), 
+          fetch1('https://api.dromotron.ru/data/oprosnye-listy', initFetchObj).then(res => res.json()), 
 
           //data[4] - пищевые теплообменники карточки
-          fetch1('https://api.dromotron.ru/data/pto_products', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-            },
-          }).then(res => res.json()),
+          fetch1('https://api.dromotron.ru/data/pto_products', initFetchObj).then(res => res.json()),
 
-           //data[5] - gallery
-           fetch1('https://api.dromotron.ru/gallery', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-            },
-          }).then(res => res.json()),
+          //data[5] - gallery
+          fetch1('https://api.dromotron.ru/gallery', initFetchObj).then(res => res.json()),
 
           //data[6] - пищевые теплообменники карточки
-          fetch1('https://api.dromotron.ru/data/pto_categories', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-            },
-          }).then(res => res.json()),
+          fetch1('https://api.dromotron.ru/data/pto_categories', initFetchObj).then(res => res.json()),
 
+          //data[7] - пластины
+          fetch1('https://api.dromotron.ru/data/price_catalog', initFetchObj).then(res => res.json()),
         ])
         .then((data) => {
-          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] , ptoFoodItemMapper(data[4]), galleryMapper(data[5]), data[6] ));
+          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] , ptoFoodItemMapper(data[4]), galleryMapper(data[5]), data[6], data[7] ));
         })
      
   });
