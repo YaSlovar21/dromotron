@@ -16,14 +16,14 @@
     <main class="content contacts-sect relative mt-10 mb-20">
       <h1 class="up-title up-title_svg up-title_h1 mb-10">Комплектующие для теплообменников</h1>
       <ul class="container-4 gap-10">
-        <% kompls.map((category) => { %>
+        <% kompls.filter(c=>!c.parentCategory).map((category) => { %>
           <li class="flex flex-col p-6 bg-white relative">
             <h2 class="text-3xl font-semibold text-primary-red mb-2"><%= category.name %></h2>
             <img class="basis-96 min-h-0 object-contain object-center max-w-[calc(100%-80px)] mx-auto" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/categories/<%= category.images[0] %>" alt="<%= category.name %>">
             <% if (!category.linkPath) { %>
               <button class="ui-button block mt-8 cta-button" data-additional="<%= category.name.toLowerCase()  %>">Запросить стоимость</button>
             <% } else { %>
-              <a class="ui-button flex justify-center mt-8" href="<%= category.linkPath %>">Смотреть прайс</a>
+              <a class="ui-button flex justify-center mt-8" href="/<%= category.linkPath %>/">Смотреть прайс</a>
             <% } %>
             <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
             <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
@@ -32,6 +32,7 @@
           </li>
         <% }) %>
       </ul>
+
       <%= _.template(require('html-loader!./insets/form-section-test.html').default)({title: "Предоставим КП на комплектующие к теплообменникам"}) %>
     </main>
     <%= _.template(require('html-loader!./insets/asides/inner-footer.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>

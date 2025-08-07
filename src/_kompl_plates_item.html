@@ -4,7 +4,7 @@
     <%= require(`html-loader!./inner-google${isDevServer ? '-dev-server' : ''}.html`).default %>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title>Пластины теплообменника <%= name %> <%= steel_mark_array.map((p,i)=>` ${p}`) %> толщиной <%= thinkness_array.map(t=>` ${t} мм`) %></title>
     <link rel="icon" href="https://www.dromotron.ru/favicon.svg" type="image/svg+xml" />
     <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>"  rel="canonical" />
   </head>
@@ -19,28 +19,23 @@
         <a class="breadcrumbs__link" href="<%= ROUTES.kompls %>">Комплектующие к теплообменникам</a>
         <a class="breadcrumbs__link breadcrumbs__link_type_here" href="<%= ROUTES.ptoFood %>">Прайс на теплообменные пластины</a>
       </div>
-      <h1 class="up-title up-title_svg up-title_h1 mb-10 mt-2">Пластины для теплообменников</h1>
-      <ul class="container-4 gap-10">
-        <% kompls.filter(c=>c.parentCategory && c.parentCategory===1).map((category) => { %>
-          <li class="flex flex-col p-6 bg-white relative">
-            <h2 class="text-3xl font-semibold text-primary-red mb-2"><%= category.name %></h2>
-            <img class="basis-80 min-h-0 object-contain object-center w-full mx-auto" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/plates/<%= category.imgUrl %>" alt="<%= category.name %>">
-            <% if (!category.linkPath) { %>
-              <button class="ui-button block mt-8 cta-button" data-additional="<%= category.name.toLowerCase()  %>">Запросить стоимость</button>
-            <% } else { %>
-              <a class="ui-button flex justify-center mt-8" href="/<%= category.linkPath %>/">Смотреть прайс</a>
-            <% } %>
-            <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
-            <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
-            <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
-            <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
-          </li>
-        <% }) %>
-      </ul>
+      <h1 class="up-title up-title_svg up-title_h1 mb-10 mt-2">Пластины для теплообменников <%= name %></h1>
+
+      <div class="">
+        <h2 class="">Исполнения пластин <%= name %></h2>
+        <ul class="grid grid-cols-5 gap-2">
+          <% images.map((i)=> { %>
+            <li class="flex flex-col p-6 bg-white relative group">
+              <img class="basis-96 min-h-0 object-contain object-center w-full mx-auto transition-all duration-500 group-hover:scale-150" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/plates/<%= i.filename %>" alt="Пластина <%= name %> <%= i.pattern %> <%= i.holes %>">
+              <h3 class="">Пластина <%= name %> <%= i.pattern %> <%= i.holes %></h3>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
       <section class="mb-10 mt-20">
-        <h2 class="up-title mb-5 w-full up-title_svg">Номенклатура теплообменных пластин</h2>
+        <h2 class="up-title mb-5 w-full up-title_svg">Номенклатура теплообменных пластин  <%= name %></h2>
         <div class="overflow-x-auto">
-          <%= _.template(require('html-loader!./templates/table.html').default)({tableData: platesData, d:dictDataObj}) %>
+          <%= _.template(require('html-loader!./templates/table.html').default)({tableData: platesDataForSubcat, d:dictDataObj}) %>
         </div>
         <p class="my-4 text-lg">Прайс-лист на теплообменные пластины будет пополнятся. Запросить полный прайс сейчас можно по email: <a class="text-primary-red" href="mailto:info@dromotron.ru">info@dromotron.ru</a></p>
       </section>

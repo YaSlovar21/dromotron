@@ -13,6 +13,7 @@ const { paths } = require('./sitemap');
 const { ROUTES, sequence, dict } = require('./constants');
 
 const {slugify} = require('transliteration');
+const { plateSubcategoriesMapper } = require('./utils');
   //конфиг для генератора url-адресов страниц
   slugify.config({
     unknown: '',
@@ -83,6 +84,27 @@ function generatePtoCategoryHtmlPlugin(ptoCategory, ptoFoodCards, oprosFiles, is
   })
 }
 
+function generatePlateSubcategoryPlugin(isDevServer, plateCatItem, platesData) {
+  generatedPaths.push({path: `/${plateCatItem.linkPath}/`, lastmod: dateNow, priority: 0.8, changefreq: 'monthly' });
+  const { categoryTextId } = plateCatItem;
+
+  return new HtmlWebpackPlugin({
+    template: "./src/_kompl_plates_item.html", // шаблон
+    filename: `${plateCatItem.linkPath}/index.html`,
+    templateParameters: {
+      ...plateCatItem, 
+      isDevServer,
+      canonicalURL,
+      ROUTES,
+      platesDataForSubcat: platesData.filter(i => i.textId===categoryTextId),
+      dictDataObj: {
+        dict,
+        sequence
+      }
+    },
+    chunks: ["index"],
+  })
+}
 
 function ptoFoodHtmlPlugins(ptoFoodCards, isDevServer, oprosFiles) {
   return ptoFoodCards.map(c => generatePtoPage(c, isDevServer, oprosFiles, ptoFoodCards));
@@ -92,6 +114,9 @@ function ptoCatsHtmlPlugins(ptoCategories, ptoFoodCards, oprosFiles, isDevServer
   return ptoCategories.map(c => generatePtoCategoryHtmlPlugin(c,  ptoFoodCards, oprosFiles, isDevServer, galleryCards))
 }
 
+function platesSubCatsHtmlPlugins(isDevserver, dataDb, platesData){
+  return dataDb.map(c => generatePlateSubcategoryPlugin(isDevserver, c, platesData));
+}
 
 
 //function generateConfig(infoBlogData, isDevServer) {
@@ -101,7 +126,13 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
   const htmlPtoCatsPlugins = ptoCatsHtmlPlugins(ptoCategories, ptoFoodCards, oprosFiles, isDevServer, galleryCards)
   //const htmlArticlesPlugins = generateBlogPagesHtmlPlugins(infoBlogData, isDevServer);
   //const htmlSpecPagesPluginst = generateSpecPagesHtmlPlugins(isDevServer);
-  console.log(generatedPaths.map(i=>i.path));
+
+  const platesSubcategories = plateSubcategoriesMapper(categories.filter(i=> i.parentCategory===1));
+  console.log(platesSubcategories);
+  const platesSubcategoriesPlugins = platesSubCatsHtmlPlugins(isDevServer, platesSubcategories, platesData);
+
+  console.log(generatedPaths.map(i => i.path));
+
   return {
     entry: {
       index: "./src/pages/index.js",
@@ -299,7 +330,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         },
         title: "Пластины для пластинчатых теплообменников | прайс на пластины",
         meta: {
-          keywords: "пластины  к пластинчатым теплообменникам, прайслист 100 видов пластин",
+          keywords: "пластины  к пластинчатым теплообменникам, прайслист на пластины",
           description: `Комплектующие пластины к пластинчатым теплообменникам от производителя`,
         },
         filename: "komplektuyushchie-dlya-teploobmennikov/plates/index.html",
@@ -412,7 +443,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         filename: "[name].css",
       }),
       new SitemapPlugin({ base: canonicalURL, paths: paths.concat(generatedPaths).sort((a,b)=> b.priority - a.priority) }),
-    ].concat(htmlPtoCatsPlugins, htmlPtoPlugins)//, htmlTisPlugins, htmlArticlesPlugins,htmlSpecPagesPluginst),
+    ].concat(htmlPtoCatsPlugins, htmlPtoPlugins, platesSubcategoriesPlugins) // htmlTisPlugins, htmlArticlesPlugins,htmlSpecPagesPluginst),
   }
 };
 
