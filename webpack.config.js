@@ -106,6 +106,40 @@ function generatePlateSubcategoryPlugin(isDevServer, plateCatItem, platesData) {
   })
 }
 
+function generatePlatePagesPlugins(isDevServer, plateDataArr, platesSubcategories) {
+  
+  
+
+  function generatePlatePagePlugin(isDevServer, plateData) {
+    generatedPaths.push({path: `/${plateData.linkPath}`, lastmod: dateNow, priority: 0.7, changefreq: 'monthly' });
+
+    const platesWithSameTextId = plateDataArr.filter(p => p.textId===plateData.textId && p.id!==plateData.id);
+    const categoryInfo = platesSubcategories.filter(p=> p.categoryTextId = plateData.textId);
+    return new HtmlWebpackPlugin({
+      template: "./src/_kompl_plate_page.html", // шаблон
+      filename: `${plateData.linkPath}`,
+      templateParameters: {
+        plate_expl: plateData, 
+        platesWithSameTextId, // все типоразмеры кроме того что отрисовываем (много, около 40 , на будущее под фильтры по: металлу, толщине, H,L)
+        categoryInfo, //там лежит замаппированный массив объектов images plast-ti077-1004-H
+        dict: dict,
+        isDevServer,
+        canonicalURL,
+        ROUTES,
+        dictDataObj: {
+          dict,
+          sequence
+        }
+      },
+      chunks: ["index", "cta", "form"],
+    })
+  }
+
+  return plateDataArr.map(p => generatePlatePagePlugin(isDevServer, p))
+}
+
+
+
 function ptoFoodHtmlPlugins(ptoFoodCards, isDevServer, oprosFiles) {
   return ptoFoodCards.map(c => generatePtoPage(c, isDevServer, oprosFiles, ptoFoodCards));
 }
@@ -130,6 +164,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
   const platesSubcategories = plateSubcategoriesMapper(categories.filter(i=> i.parentCategory===1));
   console.log(platesSubcategories);
   const platesSubcategoriesPlugins = platesSubCatsHtmlPlugins(isDevServer, platesSubcategories, platesData);
+  const platePagesPlugins =generatePlatePagesPlugins(isDevServer, platesData,platesSubcategories);
 
   console.log(generatedPaths.map(i => i.path));
 
@@ -443,7 +478,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         filename: "[name].css",
       }),
       new SitemapPlugin({ base: canonicalURL, paths: paths.concat(generatedPaths).sort((a,b)=> b.priority - a.priority) }),
-    ].concat(htmlPtoCatsPlugins, htmlPtoPlugins, platesSubcategoriesPlugins) // htmlTisPlugins, htmlArticlesPlugins,htmlSpecPagesPluginst),
+    ].concat(htmlPtoCatsPlugins, htmlPtoPlugins, platesSubcategoriesPlugins, platePagesPlugins) // htmlTisPlugins, htmlArticlesPlugins,htmlSpecPagesPluginst),
   }
 };
 

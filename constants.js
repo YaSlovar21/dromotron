@@ -39,6 +39,25 @@ const standartClasses = {
 ];
 
 
+const plate_expl = {
+  availability: "Много",
+  decimal_test: null,
+  holes: "1234",
+  id: 1,
+  image_name: "plast-ti025-1234-H.png",
+  pattern: "H",
+  pattern_img_num: 1,
+  price: "316",
+  steel_mark: "1.4401/AISI316",
+  steel_mark_aisi: "AISI316",
+  teploobmennik: "ТИ025",
+  teploobmennik_num: "025",
+  textId: "ti025",
+  thinkness: "0.4",
+  title: "Пластина ТИ025 1.4401/AISI316 0.4mm H 1234",
+  weight: "0.136",
+};
+
 const dict = {
   "title": "Наименование пластины",
   "availability": "Наличие, шт.",

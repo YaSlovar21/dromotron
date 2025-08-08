@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <%= require(`html-loader!./inner-google${isDevServer ? '-dev-server' : ''}.html`).default %>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="icon" href="https://www.dromotron.ru/favicon.svg" type="image/svg+xml" />
+    <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>"  rel="canonical" />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "<%= plate_expl.title %>",
+        "image": "https://www.dromotron.ru/api-images/plates/<%= plate_expl.image_name %>",
+        "description": "Пластина теплообменника <%= plate_expl.teploobmennik %> из стали <%= plate_expl.steel_mark_aisi %>, толщиной <%= plate_expl.thinkness %> мм",
+        "sku": "<%= plate_expl.id %>",
+        "brand": {
+          "@type": "Brand",
+          "name": "Dromotron"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>",
+          "priceCurrency": "RUB",
+          "price": "<%= plate_expl.price %>",
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition"
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "Типоразмер",
+            "value": "<%= plate_expl.teploobmennik %>"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Марка стали",
+            "value": "<%= plate_expl.steel_mark_aisi %>"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Толщина",
+            "value": "<%= plate_expl.thinkness %> мм"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Вес",
+            "value": "<%= plate_expl.weight %> кг"
+          }
+        ]
+      }
+      </script>
+  </head>
+  <body class="page bg-primary-lightgray">
+    <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
+    <header class="header__up py-8">
+        <%=_.template(require('html-loader!./insets/asides/inner-header.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
+    </header>
+    <main class="content relative mt-10 mb-20"  itemscope itemtype="http://schema.org/Product">
+      <h1 class="up-title up-title_svg up-title_h1 mb-10 mt-2" itemprop="name"><%= plate_expl.title %></h1>
+      <div class="bg-primary-white rounded-lg shadow-md overflow-hidden flex laptop:max-w-full laptop:flex-col" >
+        <!-- Изображение пластины -->
+        <div class="w-[50%] olpc:w-[40%] laptop:w-full p-8 pc:p-6 mvpc:p-5 olpc:p-4 laptop:p-4 mobile:p-3 flex items-center justify-center bg-primary-lightgray">
+          <img
+            src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/plates/<%= plate_expl.image_name %>"
+            alt="<%= plate_expl.title %>"
+            class="max-h-[400px] pc:max-h-[350px] mvpc:max-h-[300px] olpc:max-h-[250px] laptop:max-h-[220px] mobile:max-h-[180px] object-contain"
+            itemprop="image"
+          >
+        </div>
+
+        <!-- Информация о пластине -->
+        <div class="w-[50%] olpc:w-[60%] laptop:w-full p-8 pc:p-6 mvpc:p-5 olpc:p-4 laptop:p-4 mobile:p-3">
+          <!-- Заголовок -->
+          <div class="mb-8 laptop:mb-6 mobile:mb-4">
+            <h1 class="text-5xl pc:text-5xl mvpc:text-4xl olpc:text-lg font-bold text-primary-black font-['YFF']" >Характеристики</h1>
+            <div class="w-20 h-1 bg-primary-red mt-4"></div>
+            <!-- SKU -->
+            <meta itemprop="sku" content="<%= plate_expl.id %>">
+            <!-- URL товара -->
+            <link itemprop="url" href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>">
+          </div>
+
+          <!-- Характеристики -->
+          <div class="grid grid-cols-2 pc:grid-cols-2 mvpc:grid-cols-2 olpc:grid-cols-1 laptop:grid-cols-2 mobile:grid-cols-1 gap-6 pc:gap-5 mvpc:gap-4 olpc:gap-3 laptop:gap-4 mobile:gap-3">
+            <% _.forEach(dict, function(value, key) { %>
+              <% if (plate_expl[key] && key !== 'title' && key !== 'image_name' && key !== 'pattern_img_num') { %>
+                <div class="mb-2">
+                  <h3 class="text-base pc:text-[15px] mvpc:text-sm olpc:text-xs font-medium text-primary-gray"><%= value %></h3>
+                  <p class="mt-1 text-xl pc:text-lg mvpc:text-base olpc:text-sm font-semibold text-primary-black"
+                    <% if (key === 'price') { %>
+                      itemprop="offers" itemscope itemtype="http://schema.org/Offer"
+                    <% } %>
+                  >
+                    <% if (key === 'price') { %>
+                      <span itemprop="price" content="<%= plate_expl[key] %>"><%= plate_expl[key] %></span>
+                      <span itemprop="priceCurrency" content="RUB">₽</span>
+                      <link itemprop="availability" href="http://schema.org/InStock">
+                      <link itemprop="url" href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>">
+                      <meta itemprop="itemCondition" content="http://schema.org/NewCondition">
+                    <% } else if (key === 'weight') { %>
+                      <span itemprop="weight" content="<%= plate_expl[key] %>"><%= plate_expl[key] %></span> кг
+                    <% } else if (key === 'thinkness') { %>
+                      <span itemprop="depth" content="<%= plate_expl[key] %>"><%= plate_expl[key] %></span> мм
+                    <% } else if (key === 'steel_mark_aisi') { %>
+                      <span itemprop="material" content="<%= plate_expl[key] %>"><%= plate_expl[key] %></span>
+                    <% } else if (key === 'teploobmennik') { %>
+                      <span itemprop="model" content="<%= plate_expl[key] %>"><%= plate_expl[key] %></span>
+                    <% } else { %>
+                      <%= plate_expl[key] %>
+                    <% } %>
+                  </p>
+                </div>
+              <% } %>
+            <% }); %>
+          </div>
+
+          <!-- Кнопка заказа -->
+          <div class="mt-12 pc:mt-10 mvpc:mt-8 olpc:mt-6 laptop:mt-8 mobile:mt-6">
+            <button class="ui-button cta-button  w-1/2" data-additional="<%= plate_expl.title.toLowerCase() %>">Заказать пластину</button>
+          </div>
+
+          <!-- Дополнительные метаданные -->
+          <meta itemprop="brand" content="Dromotron">
+          <div itemprop="description" style="display:none">
+            Пластина теплообменника <%= plate_expl.teploobmennik %> из стали <%= plate_expl.steel_mark_aisi %>, толщиной <%= plate_expl.thinkness %> мм
+          </div>
+        </div>
+      </div>
+      <%= _.template(require('html-loader!./insets/form-section-test.html').default)({title: "Предоставим КП на комплектующие к теплообменникам"}) %>
+    </main>
+    <%= _.template(require('html-loader!./insets/asides/inner-footer.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
+  </body>
+</html>

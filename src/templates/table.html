@@ -1,16 +1,21 @@
 <table class="w-full border-collapse border border-slate-400">
     <thead>
         <tr>
-            <% d.sequence.map((key) => { %> 
-                <th class="p-2 border border-slate-400"><%= d['dict'][key] ? d['dict'][key] : key %></th>
+            <% d.sequence.map((key) => { %>
+                <th class="p-2 border border-slate-400 font-['YFF'] text-3xl"><%= d['dict'][key] ? d['dict'][key] : key %></th>
             <% }) %>
         </tr>
     </thead>
     <tbody>
         <%  tableData.map((item) => { %>
-        <tr class="odd:bg-blue-50">
-            <% d.sequence.map((key) => { %>
-                <td class="first:whitespace-nowrap first:font-medium p-2 border border-slate-300"><%= item[key] === null ? '-' : item[key]  %></td>
+        <tr class="odd:bg-slate-50 relative">
+            <% d.sequence.map((key, index) => { %>
+                <td class="first:whitespace-nowrap first:font-medium p-2 border border-slate-300">
+                  <%= item[key] === null ? '-' : item[key]  %>
+                  <% if (item.linkPath && index===d.sequence.length-1) { %>
+                    <a class="absolute top-0 left-0 w-full h-full opacity-0" href="/<%=item.linkPath%>">Ссылка</a>
+                  <% } %>
+                </td>
             <% }) %>
         </tr>
         <% }) %>
