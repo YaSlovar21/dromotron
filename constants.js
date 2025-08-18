@@ -1,6 +1,7 @@
 const ROUTES = {
   //основные категории
     kompls: '/komplektuyushchie-dlya-teploobmennikov/',
+    kompls_plates: '/komplektuyushchie-dlya-teploobmennikov/plates/',
     ptoFood: '/pishchevye-teploobmenniki/',
     ptoFoodOpros: '/pishchevye-teploobmenniki/oprosnye-listy/',
     uslugi: '/uslugi/',

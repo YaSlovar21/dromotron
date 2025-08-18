@@ -60,6 +60,14 @@
         <%=_.template(require('html-loader!./insets/asides/inner-header.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
     </header>
     <main class="content relative mt-10 mb-20"  itemscope itemtype="http://schema.org/Product">
+      <div class="breadcrumbs">
+        <a class="breadcrumbs__link" href="/">Главная</a>
+        <a class="breadcrumbs__link" href="<%= ROUTES.kompls %>">Комплектующие к теплообменникам</a>
+        <a class="breadcrumbs__link" href="<%= ROUTES.kompls_plates %>">Прайс на теплообменные пластины</a>
+        <a class="breadcrumbs__link" href="<%= ROUTES.kompls_plates %><%= plate_expl.textId %>/"><%= plate_expl.teploobmennik  %></a>
+        <a class="breadcrumbs__link breadcrumbs__link_type_here" href="/<%= plate_expl.linkPath %>"><%= plate_expl.title  %></a>
+
+      </div>
       <h1 class="up-title up-title_svg up-title_h1 mb-10 mt-2" itemprop="name"><%= plate_expl.title %></h1>
       <div class="bg-primary-white rounded-lg shadow-md overflow-hidden flex laptop:max-w-full laptop:flex-col" >
         <!-- Изображение пластины -->
