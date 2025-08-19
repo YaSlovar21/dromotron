@@ -4,7 +4,7 @@
     <%= require(`html-loader!./inner-google${isDevServer ? '-dev-server' : ''}.html`).default %>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title>Пластина <%= plate_expl.teploobmennik %>  <%= plate_expl.steel_mark_aisi %>  <%= plate_expl.thinkness %> мм для пластинчатого теплообменника</title>
     <link rel="icon" href="https://www.dromotron.ru/favicon.svg" type="image/svg+xml" />
     <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>"  rel="canonical" />
 

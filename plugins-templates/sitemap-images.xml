@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <% galleryItems.map((img)=> { %> 
+        <url>
+            <loc>https://www.termoblok.ru/about/gallery/<%= img.textId %>.html</loc>
+            <image:image>
+                <image:loc>https://www.termoblok.ru/api-images/gallery/<%= img.fileName %></image:loc>
+                <% if (img.desc)  { %>
+                    <image:caption><%= img.desc %></image:caption>
+                <% } %>
+                <% if (img.geo_location)  { %>
+                     <image:geo_location><%= img.geo_location %></image:geo_location>
+                <% } %>
+                <% if (img.title)  { %>
+                    <image:title><%= img.title %></image:title>
+                <% } %>
+            </image:image>
+        </url> 
+    <% }) %>
+</urlset>

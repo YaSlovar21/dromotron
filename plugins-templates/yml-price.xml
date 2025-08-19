@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yml_catalog date="2025-08-19T09:25:00+07:00">
+    <shop>
+        <name>Dromotron</name>
+        <company>ООО "Дромотрон"</company>
+        <url>https://www.dromotron.ru</url>
+        <currencies>
+            <currency id="RUR" rate="1"/>
+        </currencies>
+        <categories>
+            <category id="1">Пластины для пластинчатых теплообменников</category>
+            <category id="40" parentId="1">Пластины для теплообменника ТИ025</category>
+            <category id="41" parentId="1">Пластины для теплообменника ТИ077</category>
+            <category id="42" parentId="1">Пластины для теплообменника ТИ09</category>
+            <category id="43" parentId="1">Пластины для теплообменника ТИ12</category>
+            <category id="44" parentId="1">Пластины для теплообменника ТИ13</category>
+            <category id="45" parentId="1">Пластины для теплообменника ТИ18</category>
+            <category id="46" parentId="1">Пластины для теплообменника ТИ16.5</category>
+            <category id="47" parentId="1">Пластины для теплообменника ТИ17</category>
+            <category id="48" parentId="1">Пластины для теплообменника ТИ32</category>
+            <category id="49" parentId="1">Пластины для теплообменника ТИ28</category>
+            <category id="50" parentId="1">Пластины для теплообменника ТИ45</category>
+            <category id="51" parentId="1">Пластины для теплообменника ТИ65</category>
+            <category id="52" parentId="1">Пластины для теплообменника ТИ52</category>
+            <category id="53" parentId="1">Пластины для теплообменника ТИ82</category>
+        </categories>
+        <!--<promos>
+            <promo id="Y_Museum_Christmas" type="promo code">
+                <start-date>2024-01-01</start-date>
+                <end-date>2024-01-10</end-date>
+                <promo-code>Y_CHRISTMAS2024</promo-code>
+                <discount unit="percent">25</discount>
+                <url>https://yetanothershop.ru/promos/christmas2024</url>
+                <purchase>
+                    <product>offer-id="5410103000010"</product>
+                    <product>offer-id="5410103000008"</product>
+                </purchase>
+            </promo>
+        </promos>-->
+        <offers>
+            <% platesData.map((plate)=> { %>
+                <offer id="<%= plate.id %>">
+                    <name><%= plate.title %></name>
+                    <url>https://www.dromotron.ru/<%= plate.linkPath %></url>
+                    <price><%= plate.price %></price>
+                    <currencyId>RUR</currencyId>
+                    <categoryId><%= plate.categoryNumId %></categoryId>
+                    <picture>https://www.dromotron.ru/api-images/plates/<%= plate.image_name %></picture>
+                    <description>
+                        <![CDATA[
+                            Пластина для теплообменника <%= plate.teploobmennik %> из стали <%= plate.steel_mark_aisi %> (<%= plate.steel_mark %>), 
+                            толщиой <%= plate.thinkness %> мм.  Рисунок <%= plate.pattern %> (угол излома <%= plate.pattern==='H' ? '>90°' : '<90°' %>), 
+                            расположение отверстий <%= plate.holes %><%= plate.holes==='1004' || plate.holes==='0230' ? ' (поворотная)' : '' %><%= plate.holes==='0000' ? ' (глухая)' : '' %>. Вес данной пластины для теплообменника составляет <%= plate.weight %> кг.
+                        ]]>
+                    </description>
+                    <param name="Вес пластины" unit="кг"><%= plate.weight %></param>
+                    <param name="Расположение отверстий"><%= plate.holes %></param>
+                    <param name="Толщина металла" unit="мм"><%= plate.thinkness %></param>
+                    <param name="Рисунок"><%= plate.pattern %></param>
+                    <param name="Марка стали"><%= plate.steel_mark_aisi %></param>
+                    <param name="Марка стали(расширенная)"><%= plate.steel_mark %></param>
+                    <param name="Типоразмер теплообменника"><%= plate.teploobmennik %></param>
+                </offer>
+            <% }) %>
+        </offers>
+    </shop>
+</yml_catalog>

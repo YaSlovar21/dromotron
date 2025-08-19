@@ -14,6 +14,7 @@ const { ROUTES, sequence, dict } = require('./constants');
 
 const {slugify} = require('transliteration');
 const { plateSubcategoriesMapper } = require('./utils');
+const XmlGeneratorPlugin = require('./plugins/XmlGeneratorPlugin');
   //конфиг для генератора url-адресов страниц
   slugify.config({
     unknown: '',
@@ -338,6 +339,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
           isDevServer,
           kompls: categories,
           isTemplate: false,
+          plates_count_total: platesData.length
         },
         title: "Пластины, уплотнения, плиты и другие комплектующие к теплообменникам",
         meta: {
@@ -472,6 +474,18 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         chunks: ["index"],
       }),
   
+      new XmlGeneratorPlugin({
+        filename: 'price-yml.xml',
+        /*template: `<?xml version="1.0"?>
+          <config>
+            <app><%= name %></app>
+            <version><%= version %></version>
+          </config>`,*/
+        template: 'yml-price.xml',
+        data: {
+          platesData
+        },
+      }),
 
       new CleanWebpackPlugin(),
       new MiniCssExtractPlugin({
@@ -559,7 +573,7 @@ module.exports = () => {
           fetch1('https://api.dromotron.ru/data/price_catalog', initFetchObj).then(res => res.json()),
         ])
         .then((data) => {
-          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] , ptoFoodItemMapper(data[4]), galleryMapper(data[5]), data[6], data[7] ));
+          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] , ptoFoodItemMapper(data[4]), galleryMapper(data[5]), data[6], data[7].filter(i=>i.textId!=='ti116' && i.textId!=='ti95') ));
         })
      
   });
