@@ -10,7 +10,7 @@ const canonicalURL = 'https://www.dromotron.ru'
 
 const { paths } = require('./sitemap');
 
-const { ROUTES, sequence, dict } = require('./constants');
+const { ROUTES, dictPlate, sequencePlate, dictUplot, sequenceUplot } = require('./constants');
 
 const {slugify} = require('transliteration');
 const { plateSubcategoriesMapper } = require('./utils');
@@ -99,8 +99,8 @@ function generatePlateSubcategoryPlugin(isDevServer, plateCatItem, platesData) {
       ROUTES,
       platesDataForSubcat: platesData.filter(i => i.textId===categoryTextId),
       dictDataObj: {
-        dict,
-        sequence
+        dict: dictPlate,
+        sequence: sequencePlate
       }
     },
     chunks: ["index"],
@@ -123,13 +123,13 @@ function generatePlatePagesPlugins(isDevServer, plateDataArr, platesSubcategorie
         plate_expl: plateData, 
         platesWithSameTextId, // все типоразмеры кроме того что отрисовываем (много, около 40 , на будущее под фильтры по: металлу, толщине, H,L)
         categoryInfo, //там лежит замаппированный массив объектов images plast-ti077-1004-H
-        dict: dict,
+        dict: dictPlate,
         isDevServer,
         canonicalURL,
         ROUTES,
         dictDataObj: {
-          dict,
-          sequence
+          dict: dictPlate,
+          sequence: sequencePlate
         }
       },
       chunks: ["index", "cta", "form"],
@@ -155,7 +155,7 @@ function platesSubCatsHtmlPlugins(isDevserver, dataDb, platesData){
 
 
 //function generateConfig(infoBlogData, isDevServer) {
-function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles , ptoFoodCards1, galleryCards, ptoCategories, platesData) {
+function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles , ptoFoodCards1, galleryCards, ptoCategories, platesData, uplotsData) {
   const ptoFoodCards = ptoFoodCards1.map(i=> ({...i, textId: slugify(i.title)}));
   const htmlPtoPlugins = ptoFoodHtmlPlugins(ptoFoodCards, isDevServer, oprosFiles);
   const htmlPtoCatsPlugins = ptoCatsHtmlPlugins(ptoCategories, ptoFoodCards, oprosFiles, isDevServer, galleryCards)
@@ -330,7 +330,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
           description: `Комплектующие для теплообменников, пластины и уплотнения пластинчатых теплообменников. Теплообменники для пищевой промышленности в сборе.`,
         },
         template: "./src/index.html", // путь к файлу index.html
-        chunks: ["index", "form"],
+        chunks: ["index","cta", "form"],
       }),
       new HtmlWebpackPlugin({
         templateParameters: { 
@@ -361,8 +361,8 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
           isTemplate: false,
           platesData,
           dictDataObj: {
-            dict,
-            sequence
+            dict: dictPlate,
+            sequence: sequencePlate
           }
         },
         title: "Пластины для пластинчатых теплообменников | прайс на пластины",
@@ -372,6 +372,29 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         },
         filename: "komplektuyushchie-dlya-teploobmennikov/plates/index.html",
         template: "./src/_kompl_plates.html", // путь к файлу index.html
+        chunks: ["index", "cta", "form"],
+      }),
+      //-----Уплотнения--------------
+      new HtmlWebpackPlugin({
+        templateParameters: { 
+          canonicalURL,
+          ROUTES,
+          isDevServer,
+          //kompls: categories,
+          isTemplate: false,
+          uplotsData,
+          dictDataObj: {
+            dict: dictUplot,
+            sequence: sequenceUplot
+          }
+        },
+        title: "Уплотнения для пластинчатых теплообменников EPDM, NBR | прайс",
+        meta: {
+          keywords: "уплотнение теплообменника, купить уплотнения теплообменнка",
+          description: `Уплотнения (уплотнительные прокладки) для пластин в пластинчатых теплообменниках, цены от производителя`,
+        },
+        filename: "komplektuyushchie-dlya-teploobmennikov/uplots/index.html",
+        template: "./src/_kompl_uplots.html", // путь к файлу index.html
         chunks: ["index", "cta", "form"],
       }),
        //пробная сборка template
@@ -534,6 +557,13 @@ function ptoFoodItemMapper(cards) {
   }))
 }
 
+function temporaryUplotsMapper(uplots) {
+  return uplots.map(u=> ({
+    ...u,
+    linkPath: null
+  }))
+}
+
 const initFetchObj = {
   method: 'GET',
   headers: {
@@ -571,9 +601,12 @@ module.exports = () => {
 
           //data[7] - пластины
           fetch1('https://api.dromotron.ru/data/price_catalog', initFetchObj).then(res => res.json()),
+
+          //data[8] - уплотнения
+          fetch1('https://api.dromotron.ru/data/price_catalog_uplots', initFetchObj).then(res => res.json()),
         ])
         .then((data) => {
-          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] , ptoFoodItemMapper(data[4]), galleryMapper(data[5]), data[6], data[7].filter(i=>i.textId!=='ti116' && i.textId!=='ti95') ));
+          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] , ptoFoodItemMapper(data[4]), galleryMapper(data[5]), data[6], data[7].filter(i=>i.textId!=='ti116' && i.textId!=='ti95'),  temporaryUplotsMapper(data[8]) ));
         })
      
   });

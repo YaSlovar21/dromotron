@@ -20,13 +20,94 @@
         <%=_.template(require('html-loader!./insets/asides/inner-header.html').default)({ROUTES: ROUTES, page: 'main'}) %>
     </div>
     <div class="hero relative overflow-hidden content">
-      <h1 class="text-[185px] font-['YFF'] mt-20 mb-0 text-white max-w-[1150px] uppercase leading-[90%] mobile:text-6xl">Производство комплектующих <br>для теплообменников</h1>
-      <p class="mt-5 text-white mb-5 max-w-xs">Российское производство комплектующих для теплообменного оборудования</p>
-      <a class="ui-button block mb-5 max-w-[400px] w-full text-center bg-primary-red" href="#products">Подробнее</a>
+      <h1 class="text-[185px] font-['YFF'] mt-20 mb-28 text-white max-w-[1150px] uppercase leading-[90%] mobile:text-6xl">Производство комплектующих <br>для теплообменников</h1>
+      <!--<p class="mt-5 text-white mb-5 max-w-xs">Российское производство комплектующих для теплообменного оборудования</p>
+      <a class="ui-button block mb-5 max-w-[400px] w-full text-center bg-primary-red" href="#products">Подробнее</a>-->
       <img class="absolute right-0 -bottom-20 w-[572px] mobile:w-1/2 mobile:bottom-0" src="<%=require('./images/bg-hero.svg')%>" alt="пластина теплообменника схематично">
     </div>
   </header>
   <main class="content">
+ <!-- Заголовок и вступление
+ <h2 class="up-title up-title_svg row-span-3">О компании</h2>-->
+    <section class="mb-12 mt-[60px]">
+
+      <p class="text-3xl text-primary-black font-medium leading-normal max-w-[1400px] mvpc:text-2xl laptop:text-xl">
+        <span class="block">Дромотрон — производитель комплектующих для пластинчатых теплообменников.</span>Мы изготавливаем и реализуем полный спектр <strong class="font-semibold text-primary">комплектующих</strong>, деталей для теплообменников <span class="whitespace-nowrap">марки «ТИ»</span>, для других марок изготавливаем индивидуально. Также основной специализацией являются <strong class="font-semibold text-primary">теплообменники пищевого исполнения</strong>: мы изготавливаем как комплектующие (облицовка из нержавеющей стали, вставки из нержавейки, рамы многосекционных теплообменных аппаратов и другое) так и рассчитываем и изготавливаем теплообменный аппарат под ключ.
+      </p>
+    </section>
+
+    <div class="grid grid-cols-6 gap-12  laptop:grid-cols-1 laptop:*:col-span-1">
+
+      <!-- Левая колонка: Комплектующие -->
+      <section  class="col-span-2">
+          <h2 class="text-4xl mvpc:text-3xl font-bold leading-none text-primary-black mb-5 tracking-tighter">Комплектующие</h2>
+          <ul class="space-y-3">
+              <li class="flex items-start">
+                  <svg class="h-6 w-6 text-prborder-primary-red flex-shrink-0 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Пластины для пластинчатых теплообменников</span>
+              </li>
+              <li class="flex items-start">
+                  <svg class="h-6 w-6 text-prborder-primary-red flex-shrink-0 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Уплотнения для теплообменников (ТИ, Sondex)</span>
+              </li>
+              <li class="flex items-start">
+                  <svg class="h-6 w-6 text-prborder-primary-red flex-shrink-0 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Плиты и станины для теплообменников под покраску</span>
+              </li>
+              <li class="flex items-start">
+                  <svg class="h-6 w-6 text-prborder-primary-red flex-shrink-0 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Специальные детали для пищевых теплообменников</span>
+              </li>
+          </ul>
+      </section>
+
+      <!-- Правая колонка: Экспертиза и Решения -->
+      <section class="col-span-2 olpc:col-span-3">
+          <div class="mb-8">
+              <h2 class="text-4xl mvpc:text-3xl font-bold leading-none text-primary-red mb-5 tracking-tighter">Пищевое исполнение — наша ключевая экспертиза</h2>
+              <p class="text-xl font-medium text-primary-gray">
+                  Мы не просто поставляем детали, мы проектируем и собираем теплообменные аппараты «под ключ», которые соответствуют высоким требованиям к эффективности.
+              </p>
+          </div>
+
+          <div>
+              <h3 class="text-xl font-semibold text-primary mb-4">Решаем ваши технологические задачи:</h3>
+              <ul class="space-y-3">
+                  <li class="flex items-start">
+                      <svg class="h-6 w-6 text-prborder-primary-red flex-shrink-0 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span><strong>Пластинчатые пастеризаторы и охладители</strong> для молочной отрасли, пивоварения, производства вин и прочего.</span>
+                  </li>
+                  <li class="flex items-start">
+                      <svg class="h-6 w-6 text-prborder-primary-red flex-shrink-0 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span><strong>Многоступенчатые теплообменники</strong> с секциями сепарации, гомогенизации и многое другое.</span>
+                  </li>
+              </ul>
+          </div>
+      </section>
+    </div>
+
+    <!-- Призыв к действию (CTA) -->
+    <section class="mt-16 p-8 bg-primary-white  border-l-4 border-primary-red">
+      <h3 class="text-2xl font-bold text-primary mb-4">Получите расчёт и консультацию для вашего проекта!</h3>
+      <p class="text-lg text-gray-700 mb-6">Мы найдём нестандартное решение для оптимизации вашего технологического процесса.</p>
+      <button class="p-4 border rounded-lg border-primary-red text-center text-primary-red text-xl lowercase cta-button" data-additional="расчёт теплообменного оборудования и стоимости комплектующих">
+          Заказать расчёт
+      </a>
+    </section>
+
+    <!--
     <section class="my-[130px] container-2 items-start">
       <h2 class="up-title up-title_svg row-span-3">О компании</h2>
       <div>
@@ -35,9 +116,10 @@
         <a class="ui-button max-w-[400px] mt-8" href="<%= ROUTES.about %>">Подробнее</a>
       </div>
     </section>
-    <section id="products">
+    -->
+    <section class="mt-[130px]" id="products">
       <h2 class="up-title up-title_svg">Категории товаров</h2>
-      <ul class="container-2">
+      <ul class="container-2 olpc:grid-cols-1">
         <li class="relative group bg-white p-[30px] container-2 items-stretch h-full mobile:flex">
           <div class="flex flex-col">
             <h3 class="text-4xl mvpc:text-3xl font-bold leading-none text-primary-red mb-5 tracking-tighter">Комплектующие для тепллобменников</h3>
@@ -127,7 +209,7 @@
               <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
               <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
             </div>
-            <h3 class="text-xl font-bold text-primary-black mt-5 mb-3 uppercase"><%= ref.name %></h3>
+            <h3 class="text-xl font-semibold text-primary-black mt-5 mb-3"><%= ref.name %></h3>
             <p class="text-primary-gray text-base"><%= ref.desc %></p>
         </li>
         <% }); %>
