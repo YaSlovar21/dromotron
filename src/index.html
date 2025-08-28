@@ -9,7 +9,6 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link href="<%= canonicalURL %>"  rel="canonical" />
 </head>
-
 <body class="page bg-primary-lightgray">
   <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
   <% if (isDevServer) { %>
@@ -39,7 +38,7 @@
     <div class="grid grid-cols-6 gap-12  laptop:grid-cols-1 laptop:*:col-span-1">
 
       <!-- Левая колонка: Комплектующие -->
-      <section  class="col-span-2">
+      <section  class="col-span-2 flex flex-col items-start">
           <h2 class="text-4xl mvpc:text-3xl font-bold leading-none text-primary-black mb-5 tracking-tighter">Комплектующие</h2>
           <ul class="space-y-3">
               <li class="flex items-start">
@@ -67,6 +66,11 @@
                   <span>Специальные детали для пищевых теплообменников</span>
               </li>
           </ul>
+          <button class="p-3 mt-auto border rounded-lg border-primary-red bg-primary-red text-center text-primary-white text-xl lowercase cta-button hover:bg-opacity-75" data-additional="расчёт теплообменного оборудования и стоимости комплектующих">
+            Заказать расчёт оборудования
+          </button>
+
+
       </section>
 
       <!-- Правая колонка: Экспертиза и Решения -->
@@ -98,14 +102,14 @@
       </section>
     </div>
 
-    <!-- Призыв к действию (CTA) -->
+    <!-- Призыв к действию (CTA)
     <section class="mt-16 p-8 bg-primary-white  border-l-4 border-primary-red">
       <h3 class="text-2xl font-bold text-primary mb-4">Получите расчёт и консультацию для вашего проекта!</h3>
       <p class="text-lg text-gray-700 mb-6">Мы найдём нестандартное решение для оптимизации вашего технологического процесса.</p>
       <button class="p-4 border rounded-lg border-primary-red text-center text-primary-red text-xl lowercase cta-button" data-additional="расчёт теплообменного оборудования и стоимости комплектующих">
           Заказать расчёт
       </a>
-    </section>
+    </section> -->
 
     <!--
     <section class="my-[130px] container-2 items-start">
@@ -165,6 +169,56 @@
         </li>
       </ul>
     </section>
+    <section class="mt-[130px]">
+      <h2 class="up-title up-title_svg text-5xl before:w-2 before:h-2">Мы производим и реализуем</h2>
+      <ul class="grid grid-cols-6 pc:grid-cols-4 mvpc:grid-cols-3 olpc:grid-cols-2 mobile:grid-cols-1 gap-2">
+        <% mainpagecats.map((c)=> { %>
+          <li class="bg-primary-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+              <div class="flex p-2 relative h-full">
+                <!-- Изображение -->
+                <div class="w-16 h-16 laptop:w-12 laptop:h-12 mobile:w-10 mobile:h-10 mobilesm:w-8 mobilesm:h-8 bg-primary-lightgray flex items-center justify-center p-2 rounded">
+                  <img
+                    src="https://www.dromotron.ru<%= c.poster %>"
+                    alt="Пластины для теплообменников"
+                    class="max-h-full max-w-full object-contain"
+                  >
+                </div>
+                <div class="pl-4 flex flex-col flex-grow">
+                  <h3 class="text-lg laptop:text-base mobile:text-base mobilesm:text-sm font-semibold text-primary-black mb-2 line-clamp-2">
+                    <%= c.title %>
+                  </h3>
+                  <p class="text-primary-gray text-sm laptop:text-xs mobile:text-xs mobilesm:text-xs mt-auto">
+                    <%= c.desc %>
+                  </p>
+                </div>
+                <% if (c.linkPage) { %>
+                  <a href="/komplektuyushchie-dlya-teploobmennikov/plates/" class="block h-full">
+                    <span class="inset0"></span>
+                  </a>
+                <% } %>
+              </div>
+          </li>
+        <% }) %>
+      </ul>
+    </section>
+    <section class="my-[130px]">
+      <h2 class="up-title up-title_svg text-5xl before:w-2 before:h-2">Примеры оборудования и комплектующих</h2>
+      <ul  class="grid grid-cols-4 items-start gap-10 olpc:grid-cols-2 olpc:gap-5 laptop:grid-cols-1">
+        <% refs.map((ref, i)=> { %>
+        <li class="group">
+            <div class="w-full py-12 relative bg-white flex items-center justify-center ">
+              <img class="w-2/3 transition-all duration-200 group-hover:scale-110" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/<%= ref.poster %>" alt="<%= ref.name %>">
+              <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
+              <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
+              <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
+              <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
+            </div>
+            <h3 class="text-xl font-semibold text-primary-black mt-5 mb-3"><%= ref.name %></h3>
+            <p class="text-primary-gray text-base"><%= ref.desc %></p>
+        </li>
+        <% }); %>
+      </ul>
+    </section>
     <section class="container-2 my-[130px] relative">
       <h2 class="up-title up-title_svg">Услуги</h2>
       <img class="absolute left-0 bottom-0 w-[calc(50%-40px)] mobile:relative mobile:w-full" src="<%=require('./images/_dr/test-laser.png')%>" alt="лазерная и плазменная резка металла">
@@ -197,24 +251,7 @@
         <li class="list-adv__item">Короткий срок выполнения заявок</li>
       </ul>
     </section>
-    <section class="my-[130px]">
-      <h2 class="up-title up-title_svg">Примеры работ</h2>
-      <ul  class="grid grid-cols-4 items-start gap-10 olpc:grid-cols-2 olpc:gap-5 laptop:grid-cols-1">
-        <% refs.map((ref, i)=> { %>
-        <li class="group">
-            <div class="w-full py-12 relative bg-white flex items-center justify-center ">
-              <img class="w-2/3 transition-all duration-200 group-hover:scale-110" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/<%= ref.poster %>" alt="<%= ref.name %>">
-              <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
-              <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
-              <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
-              <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
-            </div>
-            <h3 class="text-xl font-semibold text-primary-black mt-5 mb-3"><%= ref.name %></h3>
-            <p class="text-primary-gray text-base"><%= ref.desc %></p>
-        </li>
-        <% }); %>
-      </ul>
-    </section>
+
     <%= _.template(require('html-loader!./insets/form-section-test.html').default)({title: false}) %>
   </main>
   <%= _.template(require('html-loader!./insets/asides/inner-footer.html').default)({ROUTES: ROUTES, page: 'main'}) %>

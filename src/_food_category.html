@@ -7,6 +7,7 @@
     <title><%= seo_title %></title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link href="<%= canonicalURL %><%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>"  rel="canonical" />
+    
   </head>
   <body class="page bg-primary-lightgray">
     <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>

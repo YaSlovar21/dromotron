@@ -155,7 +155,7 @@ function platesSubCatsHtmlPlugins(isDevserver, dataDb, platesData){
 
 
 //function generateConfig(infoBlogData, isDevServer) {
-function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles , ptoFoodCards1, galleryCards, ptoCategories, platesData, uplotsData) {
+function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles , ptoFoodCards1, galleryCards, ptoCategories, platesData, uplotsData, mainpagecats) {
   const ptoFoodCards = ptoFoodCards1.map(i=> ({...i, textId: slugify(i.title)}));
   const htmlPtoPlugins = ptoFoodHtmlPlugins(ptoFoodCards, isDevServer, oprosFiles);
   const htmlPtoCatsPlugins = ptoCatsHtmlPlugins(ptoCategories, ptoFoodCards, oprosFiles, isDevServer, galleryCards)
@@ -322,6 +322,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
           isDevServer,
           uslugiList,
           refs,
+          mainpagecats,
           newsData: [], //infoBlogData.filter(i=> i.type.includes('news')).toSorted((a,b) => b.id - a.id),
         },
         title: "Производство комплектующих для пластинчатых теплообменников",
@@ -604,9 +605,12 @@ module.exports = () => {
 
           //data[8] - уплотнения
           fetch1('https://api.dromotron.ru/data/price_catalog_uplots', initFetchObj).then(res => res.json()),
+
+          //data[9] - категории на главной
+          fetch1('https://api.dromotron.ru/data/mainpagecats', initFetchObj).then(res => res.json()),
         ])
         .then((data) => {
-          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] , ptoFoodItemMapper(data[4]), galleryMapper(data[5]), data[6], data[7].filter(i=>i.textId!=='ti116' && i.textId!=='ti95'),  temporaryUplotsMapper(data[8]) ));
+          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] , ptoFoodItemMapper(data[4]), galleryMapper(data[5]), data[6], data[7].filter(i=>i.textId!=='ti116' && i.textId!=='ti95'),  temporaryUplotsMapper(data[8]), data[9] ));
         })
      
   });
