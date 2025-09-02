@@ -14,6 +14,29 @@ export default class FormValidatorNew {
     this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
 
+    this._showErrorsAnimationClasses = ['translate-x-10', 'opacity-0'];
+    this._showErrorsTransitionsClasses = ['transition-all', 'duration-300'];
+
+    Array.from(this._formElement.querySelectorAll('.form__input-error')).map(i=> i.classList.add(...this._showErrorsAnimationClasses, ...this._showErrorsTransitionsClasses));
+  }
+
+  _animateErrMessage(el) {
+    console.log('пытаемся анимировать', el)
+    el.classList.add(...this._showErrorsAnimationClasses); // cкрываем
+    requestAnimationFrame(() => {
+      // Добавляем transition и убираем начальные классы
+      el.classList.add(...this._showErrorsTransitionsClasses);
+      el.classList.remove(...this._showErrorsAnimationClasses);
+
+      // Ждем завершения анимации и убираем transition
+      const onTransitionEnd = () => {
+        el.removeEventListener('transitionend', onTransitionEnd);
+        el.classList.remove(...this._showErrorsTransitionsClasses);
+      };
+
+      el.addEventListener('transitionend', onTransitionEnd);
+      setTimeout(onTransitionEnd, 350); // fallback
+    });
   }
 
   _showInputError(inputElement, errorMessage) {
@@ -21,12 +44,14 @@ export default class FormValidatorNew {
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._errorClass);
+    this._animateErrMessage(errorElement);
   };
 
   _hideInputError(inputElement) {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
+    errorElement.classList.add(...this._showErrorsAnimationClasses);
     errorElement.textContent = '';
   };
 
@@ -59,7 +84,7 @@ export default class FormValidatorNew {
   _showErrors(inputList, buttonElement) {
     inputList.forEach((inputElement) => {
       this._checkInputValidity(inputElement);
-      this._toggleButtonState(inputList, buttonElement);
+      //this._toggleButtonState(inputList, buttonElement);
   });
   }
 
@@ -86,61 +111,19 @@ export default class FormValidatorNew {
   showErrors() {
     this._inputList.forEach((inputElement) => {
         this._checkInputValidity(inputElement);
-        this.toggleButtonState(this._inputList, this._buttonElement);
+        //this.toggleButtonState(this._inputList, this._buttonElement);
     });
   }
 
-  showErrorsForStep(inputsWithButton) {
-
-  }
 
   _setEventListeners() {
-    //const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    //const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
-    //this.toggleButtonState(this._inputList, this._buttonElement);
-
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this.toggleButtonState();
+        //this.toggleButtonState();
       });
     });
   };
-
- _setStepEventListeners(someFormSets) {
-  someFormSets.forEach((inputListAndButton) => {
-    const inputStepList = inputListAndButton.inputs;
-    const buttonForList = inputListAndButton.button;
-    console.log(`123 ${buttonForList}`);
-    inputStepList.forEach((inputElement) => {
-      inputElement.addEventListener('input', () => {
-        this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputStepList, buttonForList);
-      });
-    });
-/*
-    buttonForList.addEventListener("click", (evt)=> {
-        evt.preventDefault();
-
-        console.log(`123 ${this._hasInvalidInput(inputStepList)}`);
-        if (this._hasInvalidInput(inputStepList)) {
-
-          this._showErrors(inputStepList, buttonForList);
-          this._toggleButtonState(inputStepList, buttonForList);
-        }
-    })
-    this._formElement.addEventListener("submit", (evt)=> {
-      evt.preventDefault();
-
-      console.log(`123 ${this._hasInvalidInput(inputStepList)}`);
-      if (this._hasInvalidInput(inputStepList)) {
-
-        this._showErrors(inputStepList, buttonForList);
-        this._toggleButtonState(inputStepList, buttonForList);
-      }
-  })*/
- })
-}
 
 enableValidation() {
     this._formElement.addEventListener('submit', (evt) => {
@@ -148,34 +131,6 @@ enableValidation() {
     });
     this._setEventListeners();
   };
-
-checkStep(number) {
-  const inputStepList = this._sets[number].inputs;
-  const buttonForList = this._sets[number].button;
-  if (this._hasInvalidInput(inputStepList)) {
-
-      this._showErrors(inputStepList, buttonForList);
-      this._toggleButtonState(inputStepList, buttonForList);
-      return false;
-  }
-  return true;
-}
-enableStepValidation() {
-  this._sets = [];
-
-  const firstStepFieldset = this._formElement.querySelector('.first-step');
-  const firstStepButton = firstStepFieldset.querySelector('.first-step-button');
-  const firstStepInputList = Array.from(firstStepFieldset.querySelectorAll(this._inputSelector));
-  this._sets.push({inputs: firstStepInputList, button: firstStepButton});
-
-  const secondStepFieldset = this._formElement.querySelector('.second-step');
-  const secondStepButton = secondStepFieldset.querySelector('.second-step-button');
-  const secondtepInputList = Array.from(secondStepFieldset.querySelectorAll(this._inputSelector));
-  this._sets.push({inputs: secondtepInputList, button: secondStepButton});
-
-  this._setStepEventListeners(this._sets);
-}
-
 }
 
 
