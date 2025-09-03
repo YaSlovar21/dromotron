@@ -14,7 +14,7 @@ export default class FormValidatorNew {
     this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
 
-    this._showErrorsAnimationClasses = ['translate-x-10', 'opacity-0'];
+    this._showErrorsAnimationClasses = ['translate-x-5', 'opacity-0'];
     this._showErrorsTransitionsClasses = ['transition-all', 'duration-300'];
 
     Array.from(this._formElement.querySelectorAll('.form__input-error')).map(i=> i.classList.add(...this._showErrorsAnimationClasses, ...this._showErrorsTransitionsClasses));
@@ -118,12 +118,15 @@ export default class FormValidatorNew {
 
   _setEventListeners() {
     this._inputList.forEach((inputElement) => {
+      let timeoutId = null;
       inputElement.addEventListener('input', () => {
-        this._checkInputValidity(inputElement);
-        //this.toggleButtonState();
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          this._checkInputValidity(inputElement);
+        }, 400);
       });
     });
-  };
+  }
 
 enableValidation() {
     this._formElement.addEventListener('submit', (evt) => {

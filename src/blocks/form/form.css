@@ -43,7 +43,7 @@
 .form__input-error {
     font-size: 10px;
     letter-spacing: .04em;
-    color: var(--theme-main-color);
+    /*color: var(--theme-main-color);*/
     opacity: 0;
     position: absolute;
     bottom: 2px;

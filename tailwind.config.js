@@ -3,7 +3,7 @@ module.exports = {
   content: ["./src/**/*.html"],
   safelist: [
     'opacity-10',
-    'translate-x-10',
+    'translate-x-5',
     'duration-300',
   ],
   theme: {

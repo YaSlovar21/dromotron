@@ -108,9 +108,6 @@ function generatePlateSubcategoryPlugin(isDevServer, plateCatItem, platesData) {
 }
 
 function generatePlatePagesPlugins(isDevServer, plateDataArr, platesSubcategories) {
-  
-  
-
   function generatePlatePagePlugin(isDevServer, plateData) {
     generatedPaths.push({path: `/${plateData.linkPath}`, lastmod: dateNow, priority: 0.7, changefreq: 'monthly' });
 
@@ -139,6 +136,37 @@ function generatePlatePagesPlugins(isDevServer, plateDataArr, platesSubcategorie
   return plateDataArr.map(p => generatePlatePagePlugin(isDevServer, p))
 }
 
+
+
+function generatePlatePagesPlugins(isDevServer, uplotsDataArr, uplotsSubcategories) {
+
+  function generatePlatePagePlugin(isDevServer, uplotData) {
+    generatedPaths.push({path: `/${uplotData.linkPath}`, lastmod: dateNow, priority: 0.7, changefreq: 'monthly' });
+
+    const uplotsWithSameTextId = uplotsDataArr.filter(p => p.textId===plateData.textId && p.id!==plateData.id);
+    //const categoryInfo = platesSubcategories.filter(p=> p.categoryTextId = plateData.textId);
+    return new HtmlWebpackPlugin({
+      template: "./src/_kompl_uplot_page.html", // шаблон
+      filename: `${uplotData.linkPath}`,
+      templateParameters: {
+        uplot_expl: uplotData, 
+        uplotsWithSameTextId, // все типоразмеры кроме того что отрисовываем (много, около 40 , на будущее под фильтры по: металлу, толщине, H,L)
+        //categoryInfo, //там лежит замаппированный массив объектов images plast-ti077-1004-H
+        dict: dictUplot,
+        isDevServer,
+        canonicalURL,
+        ROUTES,
+        dictDataObj: {
+          dict: dictUplot,
+          sequence: sequenceUplot
+        }
+      },
+      chunks: ["index", "cta", "form"],
+    })
+  }
+
+  return uplotsDataArr.map(p => generatePlatePagePlugin(isDevServer, p))
+}
 
 
 function ptoFoodHtmlPlugins(ptoFoodCards, isDevServer, oprosFiles) {
@@ -610,7 +638,7 @@ module.exports = () => {
           fetch1('https://api.dromotron.ru/data/mainpagecats', initFetchObj).then(res => res.json()),
         ])
         .then((data) => {
-          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] , ptoFoodItemMapper(data[4]), galleryMapper(data[5]), data[6], data[7].filter(i=>i.textId!=='ti116' && i.textId!=='ti95'),  temporaryUplotsMapper(data[8]), data[9] ));
+          resolve(generateConfig(isDevServer, categoriesMapper(data[0]), categoriesMapper(data[1]), refsMapper(data[2]), data[3] , ptoFoodItemMapper(data[4]), galleryMapper(data[5]), data[6], data[7].filter(i=>i.textId!=='ti116' && i.textId!=='ti95'),  data[8], data[9] ));
         })
      
   });
