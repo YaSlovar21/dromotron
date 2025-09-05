@@ -14,7 +14,7 @@
         "@context": "https://schema.org",
         "@type": "Product",
         "name": "<%= plate_expl.title %>",
-        "image": "https://www.dromotron.ru/api-images/plates/<%= plate_expl.image_name %>",
+        "image": "https://www.dromotron.ru/<%= plate_expl.image_name %>",
         "description": "Пластина теплообменника <%= plate_expl.teploobmennik %> из стали <%= plate_expl.steel_mark_aisi %>, толщиной <%= plate_expl.thinkness %> мм",
         "sku": "<%= plate_expl.id %>",
         "brand": {
@@ -59,7 +59,7 @@
     <header class="header__up py-8">
         <%=_.template(require('html-loader!./insets/asides/inner-header.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
     </header>
-    <main class="content relative mt-10 mb-20"  itemscope itemtype="http://schema.org/Product">
+    <main class="product-page-main content relative mt-10 mb-20" data-uniqueid="<%= plate_expl.linkPath %>"  itemscope itemtype="http://schema.org/Product">
       <div class="breadcrumbs">
         <a class="breadcrumbs__link" href="/">Главная</a>
         <a class="breadcrumbs__link" href="<%= ROUTES.kompls %>">Комплектующие к теплообменникам</a>
@@ -73,7 +73,7 @@
         <!-- Изображение пластины -->
         <div class="w-[50%] olpc:w-[40%] laptop:w-full p-8 pc:p-6 mvpc:p-5 olpc:p-4 laptop:p-4 mobile:p-3 flex items-center justify-center bg-primary-lightgray">
           <img
-            src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/plates/<%= plate_expl.image_name %>"
+            src="<%= plate_expl.image_name %>"
             alt="<%= plate_expl.title %>"
             class="max-h-[400px] pc:max-h-[350px] mvpc:max-h-[300px] olpc:max-h-[250px] laptop:max-h-[220px] mobile:max-h-[180px] object-contain"
             itemprop="image"
@@ -127,8 +127,12 @@
           </div>
 
           <!-- Кнопка заказа -->
-          <div class="mt-12 pc:mt-10 mvpc:mt-8 olpc:mt-6 laptop:mt-8 mobile:mt-6">
-            <button class="ui-button cta-button  w-1/2" data-additional="<%= plate_expl.title.toLowerCase() %>">Заказать</button>
+          <div class="mt-12 flex pc:mt-10 mvpc:mt-8 olpc:mt-6 laptop:mt-8 mobile:mt-6">
+            <!--<button class="ui-button cta-button  w-1/2" data-additional="<%= plate_expl.title.toLowerCase() %>">В корзину</button>-->
+            <button class="cart-button ui-button w-1/2 mr-4">В корзину</button>
+            <div class="cart-main-control">
+
+            </div>
           </div>
 
           <!-- Дополнительные метаданные -->
@@ -141,5 +145,26 @@
       <%= _.template(require('html-loader!./insets/form-section-test.html').default)({title: "Предоставим КП на комплектующие к теплообменникам"}) %>
     </main>
     <%= _.template(require('html-loader!./insets/asides/inner-footer.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
+    <script id="item-data" type="application/json">
+      <%= JSON.stringify(plate_expl) %>
+    </script>
+    <template id="product-card-template">
+      <div class="product-card flex bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 pc:rounded-lg mvpc:rounded-md">
+          <div class="flex items-center gap-2 p-4">
+            <button class="cart-btn-minus w-8 h-8 bg-primary-lightgray rounded-md flex items-center justify-center
+                           hover:bg-gray-200 transition-colors pc:w-7 pc:h-7 mvpc:w-6 mvpc:h-6">
+              <span class="text-primary-black text-lg pc:text-base mvpc:text-sm">-</span>
+            </button>
+
+            <input type="text" class="cart-quantity w-12 h-8 border border-primary-lightgray rounded-md text-center
+                                      text-primary-black pc:w-10 pc:h-7 mvpc:w-8 mvpc:h-6 mvpc:text-sm" value="1">
+
+            <button class="cart-btn-plus w-8 h-8 bg-primary-lightgray rounded-md flex items-center justify-center
+                          hover:bg-gray-200 transition-colors pc:w-7 pc:h-7 mvpc:w-6 mvpc:h-6">
+              <span class="text-primary-black text-lg pc:text-base mvpc:text-sm">+</span>
+            </button>
+          </div>
+      </div>
+    </template>
   </body>
 </html>

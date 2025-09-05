@@ -81,6 +81,9 @@
   .ui-button {
     @apply transition-all ease-in-out duration-200 p-3 text-white bg-primary-red hover:bg-transparent hover:text-primary-red rounded-md border-[1.5px] border-primary-red text-lg lowercase flex justify-center laptop:text-sm;
   }
+  .ui-button[disabled] {
+    @apply border-transparent bg-transparent text-primary-red;
+  }
   .ui-button-text {
     @apply transition-all duration-200 py-3 px-0 text-primary-red rounded-md text-lg lowercase flex  laptop:text-sm;
   }

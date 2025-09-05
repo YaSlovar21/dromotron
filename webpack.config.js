@@ -129,7 +129,7 @@ function generatePlatePagesPlugins(isDevServer, plateDataArr, platesSubcategorie
           sequence: sequencePlate
         }
       },
-      chunks: ["index", "cta", "form"],
+      chunks: ["index", "cta", "form", "product"],
     })
   }
 
@@ -138,7 +138,7 @@ function generatePlatePagesPlugins(isDevServer, plateDataArr, platesSubcategorie
 
 
 
-function generatePlatePagesPlugins(isDevServer, uplotsDataArr, uplotsSubcategories) {
+function generateUplotsPagesPlugins(isDevServer, uplotsDataArr, uplotsSubcategories) {
 
   function generatePlatePagePlugin(isDevServer, uplotData) {
     generatedPaths.push({path: `/${uplotData.linkPath}`, lastmod: dateNow, priority: 0.7, changefreq: 'monthly' });
@@ -203,7 +203,9 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
       form: "./src/pages/form.js",
       cta: "./src/pages/cta-reaction.js",
       category: './src/pages/category.js',
-      routerfilter: './src/pages/router-filter.js'
+      product: './src/pages/product-page.js',
+      routerfilter: './src/pages/router-filter.js',
+      cart: './src/pages/cart.js',
     },
     output: {
       path: path.resolve(__dirname, "dist"),
@@ -525,7 +527,21 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         template: "./src/contacts.html", // путь к файлу index.html
         chunks: ["index"],
       }),
-  
+      new HtmlWebpackPlugin({
+        templateParameters: { 
+          canonicalURL,
+          ROUTES,
+          isDevServer
+        },
+        title: "Корзина",
+        meta: {
+          keywords: "корзина покупок пластин",
+          description: `Соберите заказ на пластины, уплотнения и другие комплектующие для теплообменника`,
+        },
+        filename: `${ROUTES.cart.split('/')[1]}/index.html`,
+        template: "./src/cart.html", // путь к файлу index.html
+        chunks: ["index", "cart"],
+      }),
       new XmlGeneratorPlugin({
         filename: 'price-yml.xml',
         /*template: `<?xml version="1.0"?>
@@ -598,7 +614,7 @@ const initFetchObj = {
   headers: {
     'Content-Type': 'application/json;charset=utf-8',
   },
-  agent: proxyAgent
+  //agent: proxyAgent
 }
 
 module.exports = () => {

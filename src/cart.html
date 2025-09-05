@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <%= require(`html-loader!./inner-google${isDevServer ? '-dev-server' : ''}.html`).default %>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>"  rel="canonical" />
+  </head>
+  <body class="page bg-primary-lightgray">
+    <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
+    <header class="header__up py-8">
+        <%=_.template(require('html-loader!./insets/asides/inner-header.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
+    </header>
+    <main class="content relative mt-10 mb-20">
+      <div class="breadcrumbs">
+        <a class="breadcrumbs__link" href="/">Главная</a>
+        <a class="breadcrumbs__link breadcrumbs__link_type_here" href="<%= ROUTES.cart %>">Корзина</a>
+      </div>
+      <h1 class="up-title up-title_svg up-title_h1 mb-10 mt-2 bg-primary-lightgray">Корзина</h1>
+
+      <div class="cart my-32 py-4 w-1/2">
+        <!--<p class="text-xl">Тут будут ваши комплектующие к теплоомбеннику.</p>-->
+        <div class="cart-preloader border-[6px] border-opacity-80 border-primary-red rounded-full w-16 h-16 animate-spin border-t-[6px] border-t-red-400 mx-auto"></div>
+      </div>
+
+    </main>
+    <%= _.template(require('html-loader!./insets/asides/inner-footer.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
+  </body>
+  <template id="product-card-template">
+    <div class="product-card flex bg-white rounded-xl shadow-md overflow-hidden mb-4 hover:shadow-lg transition-shadow duration-300
+                pc:rounded-lg mvpc:rounded-md">
+      <img class="card__image w-48 h-48 object-cover
+                   pc:h-44 mvpc:h-40 laptop:h-36 mobile:h-32" src="" alt="">
+
+      <div class="p-4 pc:p-3 mvpc:p-2">
+        <h3 class="card__title text-primary-black text-lg font-semibold mb-2 line-clamp-2
+                    pc:text-base mvpc:text-sm laptop:text-base mobile:text-sm"></h3>
+
+        <div class="flex items-center justify-between mb-3 mvpc:mb-2">
+          <div class="card__price text-primary-red text-xl font-bold
+                       pc:text-lg mvpc:text-base laptop:text-lg mobile:text-base"></div>
+          <div class="card__weight text-primary-gray text-sm
+                       mvpc:text-xs mobile:text-xs"></div>
+        </div>
+
+        <div class="flex items-center gap-2 mb-3 mvpc:mb-2">
+          <button class="cart-btn-minus w-8 h-8 bg-primary-lightgray rounded-md flex items-center justify-center
+                         hover:bg-gray-200 transition-colors pc:w-7 pc:h-7 mvpc:w-6 mvpc:h-6">
+            <span class="text-primary-black text-lg pc:text-base mvpc:text-sm">-</span>
+          </button>
+
+          <input type="text" class="cart-quantity w-12 h-8 border border-primary-lightgray rounded-md text-center
+                                    text-primary-black pc:w-10 pc:h-7 mvpc:w-8 mvpc:h-6 mvpc:text-sm" value="1">
+
+          <button class="cart-btn-plus w-8 h-8 bg-primary-lightgray rounded-md flex items-center justify-center
+                        hover:bg-gray-200 transition-colors pc:w-7 pc:h-7 mvpc:w-6 mvpc:h-6">
+            <span class="text-primary-black text-lg pc:text-base mvpc:text-sm">+</span>
+          </button>
+        </div>
+
+        <a class="card__link w-full bg-primary-red text-primary-white py-2 px-4 rounded-md text-center block
+                  hover:bg-red-600 transition-colors pc:py-1.5 pc:px-3 pc:text-sm mvpc:py-1 mvpc:px-2 mvpc:text-xs" href="">
+          Подробнее
+        </a>
+      </div>
+    </div>
+  </template>
+</html>

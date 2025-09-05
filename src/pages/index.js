@@ -1,7 +1,5 @@
 import './tw.css';
 import './index.css';
-
-
 import '../images/favicon.svg';
 
 import Api from '../js/components/Api.js';
@@ -9,6 +7,7 @@ import Popup from '../js/components/Popup';
 import PopupWithForm from '../js/components/PopupWithForm';
 import { renderLoading } from '../js/utils/utils';
 import FormValidatorNew from '../js/components/FormValidatorNew';
+import Cart from '../js/components/Cart';
 
 const formValidatorConfig = {
   inputSelector: '.raschet-bem__input',
@@ -73,8 +72,6 @@ callBackPopupOpenButton.addEventListener("mousedown", () => {
   popupCallBack.open();
 })
 
-
-
 /* MARKETING
 function goalCallback () {
     console.log('запрос в Метрику успешно отправлен');
@@ -91,3 +88,21 @@ navMobileButton.addEventListener('click', () => {
     popupMenu.open();
     console.log('111');
 });
+
+
+export const cart = new Cart();
+
+const cartHeaderLink = document.querySelector('.header-cart-link');
+
+ export function checkCartLinkState() {
+  const count = cart.getTotalQuantity();
+  if (count > 0) {
+    cartHeaderLink.querySelector('.header-cart-link-count').textContent = `(${count})`;
+    cartHeaderLink.style.display = 'flex';
+  } else {
+    cartHeaderLink.querySelector('.header-cart-link-count').textContent = ``;
+    //cartHeaderLink.style.display = 'none';
+  }
+}
+
+checkCartLinkState();

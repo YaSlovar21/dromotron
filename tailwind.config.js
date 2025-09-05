@@ -1,3 +1,5 @@
+const { cssProseObj } = require('./constants');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.html"],
@@ -9,27 +11,11 @@ module.exports = {
   theme: {
     extend: {
       typography: ({ theme }) => ({
-        termoblok: {
-          css: {
-            '--tw-prose-body' : '#f2f2f2',
-            '--tw-prose-headings' : '#e2e8f0',
-            '--tw-prose-lead' : '#d7d7d7',
-            '--tw-prose-links' : '#F36D4A',
-            '--tw-prose-bold' : '#171717',
-            '--tw-prose-counters' : '#737373',
-            '--tw-prose-bullets' : '#ff5e3a',
-            '--tw-prose-hr' : '#e5e5e5',
-            '--tw-prose-quotes' : '#f2f2f2',
-            '--tw-prose-quote-borders' : '#e5e5e5',
-            '--tw-prose-captions' : '#a3a2a2',
-            '--tw-prose-code' : '#171717',
-            '--tw-prose-pre-code' : '#e5e5e5',
-            '--tw-prose-pre-bg' : '#262626',
-            '--tw-prose-th-borders' : '#773838',
-            '--tw-prose-td-borders' : '#773838',
-          },
+        dromotron: {
+          css: cssProseObj, // это не важно
         },
       }),
+      // pc first верстка (класс для адаптации выглядит так "text-xl mvpc:text-lg ...")
       screens: {
         'pc': {'max': '1620px'},
         'mvpc': {'max': '1441px'},
@@ -46,7 +32,6 @@ module.exports = {
           gray: '#7D7B7B',
           white: '#fff'
         },
-
       }
     }
   },
