@@ -20,6 +20,23 @@
         <a class="breadcrumbs__link breadcrumbs__link_type_here" href="<%= ROUTES.kompls_uplots %>">Прайс на уплотнения для теплообменников</a>
       </div>
       <h1 class="up-title up-title_svg up-title_h1 mb-10 mt-2">Уплотнения для теплообменников</h1>
+      <ul class="container-4 gap-10">
+        <% kompls.filter(c=>c.parentCategory && c.parentCategory===2).map((category) => { %>
+          <li class="flex flex-col p-6 bg-white relative">
+            <h2 class="text-3xl font-semibold text-primary-red mb-2"><%= category.name %></h2>
+            <img class="basis-80 min-h-0 object-contain object-center w-full mx-auto" src="<%= isDevServer ? 'https://www.dromotron.ru' : '' %>/api-images/uplots/<%= category.imgUrl %>" alt="<%= category.name %>">
+            <% if (!category.linkPath) { %>
+              <button class="ui-button block mt-8 cta-button" data-additional="<%= category.name.toLowerCase()  %>">Запросить стоимость</button>
+            <% } else { %>
+              <a class="ui-button flex justify-center mt-8" href="/<%= category.linkPath %>/">Смотреть прайс</a>
+            <% } %>
+            <figure class="highliter highliter_top-left"><div class="highliter__element"></div></figure>
+            <figure class="highliter highliter_bottom-right"><div class="highliter__element"></div></figure>
+            <figure class="highliter highliter_top-right"><div class="highliter__element"></div></figure>
+            <figure class="highliter highliter_bottom-left"><div class="highliter__element"></div></figure>
+          </li>
+        <% }) %>
+      </ul>
       <section class="mb-10 mt-20">
         <h2 class="up-title mb-5 w-full up-title_svg">Номенклатура уплотнений</h2>
         <div class="overflow-x-auto">

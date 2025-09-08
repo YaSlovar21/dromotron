@@ -25,6 +25,8 @@ let generatedPaths = [];
 const patchArr = []
 
 const dateNow = (new Date()).toString();
+const dateNowUtc = (new Date()).toISOString().slice(0, 19) + '+07:00';
+
 
 function generatePtoPage(ptoFoodCard, isDevServer, oprosFiles, ptoFoodCards) {
   const { capacity, desc, h1, heatent, max_pressue, id, naznach, pto_frame,refrigerant,title,type_of_proccess } = ptoFoodCard;
@@ -137,19 +139,40 @@ function generatePlatePagesPlugins(isDevServer, plateDataArr, platesSubcategorie
 }
 
 
+function generateUplotsSubcategoryPlugin(isDevServer, uplotsSubItem, uplotsData) {
+  generatedPaths.push({path: `/${uplotsSubItem.linkPath}/`, lastmod: dateNow, priority: 0.8, changefreq: 'monthly' });
+  const { categoryTextId } = uplotsSubItem;
+
+  return new HtmlWebpackPlugin({
+    template: "./src/_kompl_uplots_itemsubcat.html", // шаблон
+    filename: `${uplotsSubItem.linkPath}/index.html`,
+    templateParameters: {
+      ...uplotsSubItem, 
+      isDevServer,
+      canonicalURL,
+      ROUTES,
+      uplotsDataForSubcat: uplotsData.filter(i => i.textId===categoryTextId),
+      dictDataObj: {
+        dict: dictUplot,
+        sequence: sequenceUplot
+      }
+    },
+    chunks: ["index"],
+  })
+}
 
 function generateUplotsPagesPlugins(isDevServer, uplotsDataArr, uplotsSubcategories) {
 
   function generatePlatePagePlugin(isDevServer, uplotData) {
     generatedPaths.push({path: `/${uplotData.linkPath}`, lastmod: dateNow, priority: 0.7, changefreq: 'monthly' });
 
-    const uplotsWithSameTextId = uplotsDataArr.filter(p => p.textId===plateData.textId && p.id!==plateData.id);
+    const uplotsWithSameTextId = uplotsDataArr.filter(p => p.textId===uplotsDataArr.textId && p.id!==uplotsDataArr.id);
     //const categoryInfo = platesSubcategories.filter(p=> p.categoryTextId = plateData.textId);
     return new HtmlWebpackPlugin({
       template: "./src/_kompl_uplot_page.html", // шаблон
       filename: `${uplotData.linkPath}`,
       templateParameters: {
-        uplot_expl: uplotData, 
+        uplots_expl: uplotData, 
         uplotsWithSameTextId, // все типоразмеры кроме того что отрисовываем (много, около 40 , на будущее под фильтры по: металлу, толщине, H,L)
         //categoryInfo, //там лежит замаппированный массив объектов images plast-ti077-1004-H
         dict: dictUplot,
@@ -164,7 +187,6 @@ function generateUplotsPagesPlugins(isDevServer, uplotsDataArr, uplotsSubcategor
       chunks: ["index", "cta", "form"],
     })
   }
-
   return uplotsDataArr.map(p => generatePlatePagePlugin(isDevServer, p))
 }
 
@@ -181,6 +203,9 @@ function platesSubCatsHtmlPlugins(isDevserver, dataDb, platesData){
   return dataDb.map(c => generatePlateSubcategoryPlugin(isDevserver, c, platesData));
 }
 
+function uplotsSubCatsHtmlPlugins(isDevServer, uplotsSubItem, uplotsData) {
+  return uplotsSubItem.map(c => generateUplotsSubcategoryPlugin(isDevServer, c, uplotsData));
+}
 
 //function generateConfig(infoBlogData, isDevServer) {
 function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles , ptoFoodCards1, galleryCards, ptoCategories, platesData, uplotsData, mainpagecats) {
@@ -191,9 +216,14 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
   //const htmlSpecPagesPluginst = generateSpecPagesHtmlPlugins(isDevServer);
 
   const platesSubcategories = plateSubcategoriesMapper(categories.filter(i=> i.parentCategory===1));
+  const uplotsSubcategories = plateSubcategoriesMapper(categories.filter(i=> i.parentCategory===2));
+
   console.log(platesSubcategories);
   const platesSubcategoriesPlugins = platesSubCatsHtmlPlugins(isDevServer, platesSubcategories, platesData);
+  const uplotsSubcategoriesPlugins = uplotsSubCatsHtmlPlugins(isDevServer, uplotsSubcategories, uplotsData);
+
   const platePagesPlugins =generatePlatePagesPlugins(isDevServer, platesData,platesSubcategories);
+  const uplotsPagesPlugins = generateUplotsPagesPlugins(isDevServer, uplotsData);
 
   console.log(generatedPaths.map(i => i.path));
 
@@ -411,7 +441,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
           canonicalURL,
           ROUTES,
           isDevServer,
-          //kompls: categories,
+          kompls: categories,
           isTemplate: false,
           uplotsData,
           dictDataObj: {
@@ -531,7 +561,8 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         templateParameters: { 
           canonicalURL,
           ROUTES,
-          isDevServer
+          isDevServer,
+          platesData
         },
         title: "Корзина",
         meta: {
@@ -551,7 +582,8 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
           </config>`,*/
         template: 'yml-price.xml',
         data: {
-          platesData
+          platesData,
+          dateNowUtc
         },
       }),
 
@@ -560,7 +592,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         filename: "[name].css",
       }),
       new SitemapPlugin({ base: canonicalURL, paths: paths.concat(generatedPaths).sort((a,b)=> b.priority - a.priority) }),
-    ].concat(htmlPtoCatsPlugins, htmlPtoPlugins, platesSubcategoriesPlugins, platePagesPlugins) // htmlTisPlugins, htmlArticlesPlugins,htmlSpecPagesPluginst),
+    ].concat(htmlPtoCatsPlugins, htmlPtoPlugins, platesSubcategoriesPlugins, platePagesPlugins, uplotsPagesPlugins, uplotsSubcategoriesPlugins) // htmlTisPlugins, htmlArticlesPlugins,htmlSpecPagesPluginst),
   }
 };
 

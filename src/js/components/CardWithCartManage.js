@@ -20,20 +20,20 @@ export default class CardWithCartManage extends CardWithDynamicObj {
   }
 
   updateCard() {
-    console.log('this._cart', this._cart.getItems());
+    //console.log('this._cart', this._cart.getItems());
     const inCartItems = this._cart.getItems();
     const q = inCartItems[this._cardObj.linkPath]?.quantity || 0;
     if (q===0)
       this._handleSomeElementNull();
     else
-      console.log(this._dynamicRenderer._elementsMap.get('_quantityInput'));
+      //console.log(this._dynamicRenderer._elementsMap.get('_quantityInput'));
       this._dynamicRenderer.updateField('_quantityInput', q);
   }
 
   _setEventListeners() {
     super._setEventListeners();
-    console.log( this._dynamicRenderer._elementsMap.get('_plusBtn'));
-    console.log( this._dynamicRenderer._elementsMap.get('_minusBtn'));
+    //console.log( this._dynamicRenderer._elementsMap.get('_plusBtn'));
+    //console.log( this._dynamicRenderer._elementsMap.get('_minusBtn'));
 
     this._dynamicRenderer._elementsMap.get('_plusBtn').element.addEventListener('click', () => {this._handleIncreaseInCart(this._cardObj)});
     this._dynamicRenderer._elementsMap.get('_minusBtn').element.addEventListener('click', () => { this._handleDecreaceInCart(this._cardObj)});

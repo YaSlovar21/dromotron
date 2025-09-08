@@ -27,8 +27,8 @@ export default class CardWithDynamicObj {
       //console.log(this._dynamicRenderer._configBySelector);
 
       this._dynamicRenderer._configElementsMap(this._element); // сгенерировали карту
-      console.log(this._elementsMap);
-      console.log('this._cardObj', this._cardObj);
+      //console.log(this._elementsMap);
+      //console.log('this._cardObj', this._cardObj);
       this._dynamicRenderer._renderObj(this._cardObj); // отрендерели по карте данные
 
       this.addStyles();

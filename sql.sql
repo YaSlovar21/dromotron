@@ -31,7 +31,7 @@ UPDATE `api.dromotron.ru/price_catalog_uplots`
 SET decimal_test = price * CAST("2.57" AS Decimal(22, 9));
 
 $upd = (
-SELECT
+    SELECT
     id,
     CAST (
         CAST(
@@ -45,8 +45,8 @@ SELECT
         )
     AS Decimal(22,9)
     )
-AS decimal_test1
-FROM `api.dromotron.ru/price_catalog_uplots`
+    AS decimal_test1
+    FROM `api.dromotron.ru/price_catalog_uplots`
 );
 
 UPDATE `api.dromotron.ru/price_catalog_uplots` ON

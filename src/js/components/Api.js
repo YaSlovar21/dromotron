@@ -28,8 +28,20 @@ export default class Api {
       .then((response) => {
           return this._isResponseOk(response);
       })
+    }
 
-  }
+    sendCartForm(formDataJson) {
+     return fetch(`${this._baseUrl}/forms/cart-form`, {
+        method : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formDataJson),
+    })
+    .then((response) => {
+        return this._isResponseOk(response);
+    });
+    }
 
 
     sendCallForm(formDataJson) {

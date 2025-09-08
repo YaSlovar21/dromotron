@@ -19,14 +19,42 @@
         <a class="breadcrumbs__link breadcrumbs__link_type_here" href="<%= ROUTES.cart %>">Корзина</a>
       </div>
       <h1 class="up-title up-title_svg up-title_h1 mb-10 mt-2 bg-primary-lightgray">Корзина</h1>
-
-      <div class="cart my-32 py-4 w-1/2">
-        <!--<p class="text-xl">Тут будут ваши комплектующие к теплоомбеннику.</p>-->
-        <div class="cart-preloader border-[6px] border-opacity-80 border-primary-red rounded-full w-16 h-16 animate-spin border-t-[6px] border-t-red-400 mx-auto"></div>
+      <div class="flex  my-32">
+        <div class="cart py-4 w-1/2 mr-10">
+          <!--<p class="text-xl">Тут будут ваши комплектующие к теплоомбеннику.</p>-->
+          <div class="cart-preloader border-[6px] border-opacity-80 border-primary-red rounded-full w-16 h-16 animate-spin border-t-[6px] border-t-red-400 mx-auto"></div>
+        </div>
+        <div class="sticky top-5 self-start">
+          <h3 class="up-title text-4xl">Итого</h3>
+          <div class="flex text-6xl text-primary-red items-end"><p class="cart-total-price mr-3  font-['Yff']"></p><span class="block text-3xl mb-2">руб.</span></div>
+          <form class="w-full mt-8 pt-14"  method="post" action="#" id="cartForm" name="cartForm" novalidate>
+            <div class="flex flex-wrap justify-between mobile:flex-col">
+                <label class="form__field basis-full mb-4">
+                  <span class="form__label-title block pl-0">Как к Вам обращаться</span>
+                  <input class="form__input form__input_up raschet-bem__input_type_flex" placeholder="Ваше имя или организация" type="text" name="name" id="name-input" required minlength="1">
+                  <span class="form__input-error text-primary-red name-input-error"></span>
+                </label>
+                <label class="form__field basis-full  mb-4">
+                  <span class="form__label-title block pl-0">Ваш телефон</span>
+                  <input placeholder="Телефон" type="tel" name="tel" id="tel-input" class="form__input form__input_up raschet-bem__input_type_flex" required minlength="1">
+                  <span class="form__input-error text-primary-red tel-input-error"></span>
+                </label>
+                <label class="form__field basis-full mb-4">
+                  <span class="form__label-title block pl-0">Email, куда будет отправлен счёт</span>
+                  <input  placeholder="E-mail" type="email" name="email" id="email-input" class="form__input form__input_up raschet-bem__input_type_flex" required minlength="1">
+                  <span class="form__input-error text-primary-red email-input-error"></span>
+                </label>
+            </div>
+            <button class="ui-button cart-submit-button w-full" type="submit">Отправить</button>
+        </form>
+        </div>
       </div>
 
     </main>
     <%= _.template(require('html-loader!./insets/asides/inner-footer.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
+    <script id="plates-data" type="application/json">
+      <%= JSON.stringify(platesData) %>
+    </script>
   </body>
   <template id="product-card-template">
     <div class="product-card flex bg-white rounded-xl shadow-md overflow-hidden mb-4 hover:shadow-lg transition-shadow duration-300

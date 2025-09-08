@@ -17,6 +17,8 @@ const fromCart = cart.getItem(uniqueId); //дописал метод котор�
 
 
 const buttonAddToCart = document.querySelector('.cart-button');
+const linkToCart = document.querySelector('.cart-link');
+
 
 const cartSection = new Section({
   data: [],
@@ -58,10 +60,12 @@ function checkStatusInCart() {
   if (fromCart) {
     buttonAddToCart.textContent = 'В корзине';
     buttonAddToCart.disabled = true;
+    linkToCart.style.visibility = 'visible';
     cartSection.renderItems();
   } else {
     buttonAddToCart.textContent = 'В корзину';
     buttonAddToCart.disabled = false;
+    linkToCart.style.visibility = 'hidden';
     cartSection.clear();
   }
 }

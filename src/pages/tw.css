@@ -43,6 +43,8 @@
   .inset0 {
     @apply absolute top-0 left-0 w-full h-full;
   }
+
+  @import url(../blocks/form/form.css);
 }
 
 @layer components {

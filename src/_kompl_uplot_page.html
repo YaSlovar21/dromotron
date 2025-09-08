@@ -4,7 +4,7 @@
     <%= require(`html-loader!./inner-google${isDevServer ? '-dev-server' : ''}.html`).default %>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Пластина <%= plate_expl.teploobmennik %>  <%= plate_expl.steel_mark_aisi %>  <%= plate_expl.thinkness %> мм (тип <%= plate_expl.pattern %> <%= plate_expl.holes %>) купить для пластинчатого теплообменника</title>
+    <title>Уплотнение <%= uplots_expl.teploobmennik %> <%= uplots_expl.material %> (<%= uplots_expl.type %>) купить для пластинчатого теплообменника</title>
     <link rel="icon" href="https://www.dromotron.ru/favicon.svg" type="image/svg+xml" />
     <link href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>"  rel="canonical" />
 
@@ -13,10 +13,10 @@
       {
         "@context": "https://schema.org",
         "@type": "Product",
-        "name": "<%= plate_expl.title %>",
-        "image": "https://www.dromotron.ru/<%= plate_expl.image_name %>",
-        "description": "Пластина теплообменника <%= plate_expl.teploobmennik %> из стали <%= plate_expl.steel_mark_aisi %>, толщиной <%= plate_expl.thinkness %> мм",
-        "sku": "<%= plate_expl.id %>",
+        "name": "<%= uplots_expl.title %>",
+        "image": "https://www.dromotron.ru/<%= uplots_expl.image_name %>",
+        "description": "Уплотнение для теплообменника <%= uplots_expl.teploobmennik %>, материал: <%= uplots_expl.material %>, тип: <%= uplots_expl.type %>",
+        "sku": "<%= uplots_expl.id %>",
         "brand": {
           "@type": "Brand",
           "name": "Dromotron"
@@ -25,7 +25,7 @@
           "@type": "Offer",
           "url": "<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>",
           "priceCurrency": "RUB",
-          "price": "<%= plate_expl.price %>",
+          "price": "<%= uplots_expl.price %>",
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition"
         },
@@ -33,22 +33,22 @@
           {
             "@type": "PropertyValue",
             "name": "Типоразмер",
-            "value": "<%= plate_expl.teploobmennik %>"
+            "value": "<%= uplots_expl.teploobmennik %>"
           },
           {
             "@type": "PropertyValue",
-            "name": "Марка стали",
-            "value": "<%= plate_expl.steel_mark_aisi %>"
+            "name": "Материал",
+            "value": "<%= uplots_expl.material %>"
           },
           {
             "@type": "PropertyValue",
-            "name": "Толщина",
-            "value": "<%= plate_expl.thinkness %> мм"
+            "name": "Тип",
+            "value": "<%= uplots_expl.type %>"
           },
           {
             "@type": "PropertyValue",
             "name": "Вес",
-            "value": "<%= plate_expl.weight %> кг"
+            "value": "<%= uplots_expl.weight %> кг"
           }
         ]
       }
@@ -59,89 +59,94 @@
     <header class="header__up py-8">
         <%=_.template(require('html-loader!./insets/asides/inner-header.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
     </header>
-    <main class="product-page-main content relative mt-10 mb-20" data-uniqueid="<%= plate_expl.linkPath %>"  itemscope itemtype="http://schema.org/Product">
+    <main class="product-page-main content relative mt-10 mb-20" data-uniqueid="<%= uplots_expl.linkPath %>"  itemscope itemtype="http://schema.org/Product">
       <div class="breadcrumbs">
         <a class="breadcrumbs__link" href="/">Главная</a>
         <a class="breadcrumbs__link" href="<%= ROUTES.kompls %>">Комплектующие к теплообменникам</a>
-        <a class="breadcrumbs__link" href="<%= ROUTES.kompls_plates %>">Прайс на теплообменные пластины</a>
-        <a class="breadcrumbs__link" href="<%= ROUTES.kompls_plates %><%= plate_expl.textId %>/"><%= plate_expl.teploobmennik  %></a>
-        <a class="breadcrumbs__link breadcrumbs__link_type_here" href="/<%= plate_expl.linkPath %>"><%= plate_expl.title  %></a>
-
+        <a class="breadcrumbs__link" href="<%= ROUTES.kompls_uplots %>">Уплотнения для теплообменников</a>
+        <a class="breadcrumbs__link" href="<%= ROUTES.kompls_uplots %><%= uplots_expl.textId %>/"><%= uplots_expl.teploobmennik  %></a>
+        <a class="breadcrumbs__link breadcrumbs__link_type_here" href="/<%= uplots_expl.linkPath %>"><%= uplots_expl.title  %></a>
       </div>
-      <h1 class="up-title up-title_svg up-title_h1 mb-10 mt-2" itemprop="name"><%= plate_expl.title %></h1>
+      <h1 class="up-title up-title_svg up-title_h1 mb-10 mt-2" itemprop="name"><%= uplots_expl.title %></h1>
       <div class="bg-primary-white rounded-lg shadow-md overflow-hidden flex laptop:max-w-full laptop:flex-col" >
-        <!-- Изображение пластины -->
+        <!-- Изображение уплотнения -->
         <div class="w-[50%] olpc:w-[40%] laptop:w-full p-8 pc:p-6 mvpc:p-5 olpc:p-4 laptop:p-4 mobile:p-3 flex items-center justify-center bg-primary-lightgray">
           <img
-            src="<%= plate_expl.image_name %>"
-            alt="<%= plate_expl.title %>"
+            src="https://www.dromotron.ru/api-images/uplots/<%= uplots_expl.image_name %>"
+            alt="<%= uplots_expl.title %>"
             class="max-h-[400px] pc:max-h-[350px] mvpc:max-h-[300px] olpc:max-h-[250px] laptop:max-h-[220px] mobile:max-h-[180px] object-contain"
             itemprop="image"
           >
         </div>
 
-        <!-- Информация о пластине -->
+        <!-- Информация об уплотнении -->
         <div class="w-[50%] olpc:w-[60%] laptop:w-full p-8 pc:p-6 mvpc:p-5 olpc:p-4 laptop:p-4 mobile:p-3">
           <!-- Заголовок -->
           <div class="mb-8 laptop:mb-6 mobile:mb-4">
             <h1 class="text-5xl pc:text-5xl mvpc:text-4xl olpc:text-lg font-bold text-primary-black font-['YFF']" >Характеристики</h1>
             <div class="w-20 h-1 bg-primary-red mt-4"></div>
             <!-- SKU -->
-            <meta itemprop="sku" content="<%= plate_expl.id %>">
+            <meta itemprop="sku" content="<%= uplots_expl.id %>">
             <!-- URL товара -->
             <link itemprop="url" href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>">
           </div>
 
           <!-- Характеристики -->
           <div class="grid grid-cols-2 pc:grid-cols-2 mvpc:grid-cols-2 olpc:grid-cols-1 laptop:grid-cols-2 mobile:grid-cols-1 gap-6 pc:gap-5 mvpc:gap-4 olpc:gap-3 laptop:gap-4 mobile:gap-3">
-            <% _.forEach(dict, function(value, key) { %>
-              <% if (plate_expl[key] && key !== 'title' && key !== 'image_name' && key !== 'pattern_img_num') { %>
-                <div class="mb-2">
-                  <h3 class="text-base pc:text-[15px] mvpc:text-sm olpc:text-xs font-medium text-primary-gray"><%= value %></h3>
-                  <p class="mt-1 text-xl pc:text-lg mvpc:text-base olpc:text-sm font-semibold text-primary-black"
-                    <% if (key === 'price') { %>
-                      itemprop="offers" itemscope itemtype="http://schema.org/Offer"
-                    <% } %>
-                  >
-                    <% if (key === 'price') { %>
-                      <span itemprop="price" content="<%= plate_expl[key] %>"><%= plate_expl[key] %></span>
-                      <span itemprop="priceCurrency" content="RUB">₽</span>
-                      <link itemprop="availability" href="http://schema.org/InStock">
-                      <link itemprop="url" href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>">
-                      <meta itemprop="itemCondition" content="http://schema.org/NewCondition">
-                    <% } else if (key === 'weight') { %>
-                      <span itemprop="weight" content="<%= plate_expl[key] %>"><%= plate_expl[key] %></span> кг
-                    <% } else if (key === 'thinkness') { %>
-                      <span itemprop="depth" content="<%= plate_expl[key] %>"><%= plate_expl[key] %></span> мм
-                    <% } else if (key === 'steel_mark_aisi') { %>
-                      <span itemprop="material" content="<%= plate_expl[key] %>"><%= plate_expl[key] %></span>
-                    <% } else if (key === 'teploobmennik') { %>
-                      <span itemprop="model" content="<%= plate_expl[key] %>"><%= plate_expl[key] %></span>
-                    <% } else { %>
-                      <%= plate_expl[key] %>
-                    <% } %>
-                  </p>
-                </div>
-              <% } %>
-            <% }); %>
+            <div class="mb-2">
+              <h3 class="text-base pc:text-[15px] mvpc:text-sm olpc:text-xs font-medium text-primary-gray">Типоразмер</h3>
+              <p class="mt-1 text-xl pc:text-lg mvpc:text-base olpc:text-sm font-semibold text-primary-black" itemprop="model">
+                <%= uplots_expl.teploobmennik %>
+              </p>
+            </div>
+
+            <div class="mb-2">
+              <h3 class="text-base pc:text-[15px] mvpc:text-sm olpc:text-xs font-medium text-primary-gray">Материал</h3>
+              <p class="mt-1 text-xl pc:text-lg mvpc:text-base olpc:text-sm font-semibold text-primary-black" itemprop="material">
+                <%= uplots_expl.material %>
+              </p>
+            </div>
+
+            <div class="mb-2">
+              <h3 class="text-base pc:text-[15px] mvpc:text-sm olpc:text-xs font-medium text-primary-gray">Тип</h3>
+              <p class="mt-1 text-xl pc:text-lg mvpc:text-base olpc:text-sm font-semibold text-primary-black">
+                <%= uplots_expl.type %>
+              </p>
+            </div>
+
+            <div class="mb-2">
+              <h3 class="text-base pc:text-[15px] mvpc:text-sm olpc:text-xs font-medium text-primary-gray">Цена</h3>
+              <p class="mt-1 text-xl pc:text-lg mvpc:text-base olpc:text-sm font-semibold text-primary-black" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                <span itemprop="price" content="<%= uplots_expl.price %>"><%= uplots_expl.price %></span>
+                <span itemprop="priceCurrency" content="RUB">₽</span>
+                <link itemprop="availability" href="http://schema.org/InStock">
+                <link itemprop="url" href="<%= canonicalURL %>/<%= htmlWebpackPlugin.options.filename.split('index.html')[0] %>">
+                <meta itemprop="itemCondition" content="http://schema.org/NewCondition">
+              </p>
+            </div>
+
+            <div class="mb-2">
+              <h3 class="text-base pc:text-[15px] mvpc:text-sm olpc:text-xs font-medium text-primary-gray">Вес</h3>
+              <p class="mt-1 text-xl pc:text-lg mvpc:text-base olpc:text-sm font-semibold text-primary-black" itemprop="weight">
+                <%= uplots_expl.weight %> кг
+              </p>
+            </div>
           </div>
 
-          <!-- Кнопка заказа -->
+          <!-- Кнопка заказа
           <div class="mt-12 flex pc:mt-10 mvpc:mt-8 olpc:mt-6 laptop:mt-8 mobile:mt-6">
-            <!--<button class="ui-button cta-button  w-1/2" data-additional="<%= plate_expl.title.toLowerCase() %>">В корзину</button>-->
-            <div class=" w-1/2 mr-4">
-              <button class="cart-button ui-button">В корзину</button>
-              <a class="cart-link text-primary-gray block" href="<%= ROUTES.cart %>">Перейти в корзину</a>
-            </div>
-            <div class="cart-main-control">
+            <button class="cart-button ui-button w-1/2 mr-4">В корзину</button>
+            <div class="cart-main-control"></div>
+          </div>-->
+          <div class="mt-12 flex pc:mt-10 mvpc:mt-8 olpc:mt-6 laptop:mt-8 mobile:mt-6">
+            <button class="ui-button cta-button  w-1/2" data-additional="<%= uplots_expl.title.toLowerCase() %>">Заказать</button>
 
-            </div>
           </div>
 
           <!-- Дополнительные метаданные -->
           <meta itemprop="brand" content="Dromotron">
           <div itemprop="description" style="display:none">
-            Пластина теплообменника <%= plate_expl.teploobmennik %> из стали <%= plate_expl.steel_mark_aisi %>, толщиной <%= plate_expl.thinkness %> мм
+            Уплотнение для теплообменника <%= uplots_expl.teploobmennik %>, материал: <%= uplots_expl.material %>, тип: <%= uplots_expl.type %>
           </div>
         </div>
       </div>
@@ -149,7 +154,7 @@
     </main>
     <%= _.template(require('html-loader!./insets/asides/inner-footer.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
     <script id="item-data" type="application/json">
-      <%= JSON.stringify(plate_expl) %>
+      <%= JSON.stringify(uplots_expl) %>
     </script>
     <template id="product-card-template">
       <div class="product-card flex bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 pc:rounded-lg mvpc:rounded-md">

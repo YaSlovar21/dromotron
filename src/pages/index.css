@@ -10,7 +10,8 @@
 @import url(../blocks/highliter/highliter.css);
 @import url(../blocks/list-adv/list-adv.css);
 @import url(../blocks/list-uslugi/list-uslugi.css);
-@import url(../blocks/form/form.css);
+
+/* @import url(../blocks/form/form.css); */
 
 
 @import url(../blocks/foodcatalog/foodcatalog.css);

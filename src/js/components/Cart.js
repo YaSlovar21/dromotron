@@ -62,10 +62,22 @@ export default class Cart {
   }
 
   // Получить общую стоимость
-  getTotalPrice() {
-      return Object.values(this.state).reduce((total, item) => {
-          return total + (item.price * item.quantity);
-      }, 0);
+  getTotalPrice(plates) {
+    // подправить потом
+    const cart_reduced = Object.keys(this.state).reduce((acc, key) => {
+      const { price } = plates[key]
+      acc[key] = {
+        ...this.state[key],
+        ...(price !== undefined && { price })
+      };
+      return acc;
+    }, {});
+    const totalPrice =  Object.values(cart_reduced).reduce((total, item) => {
+      console.log('Object.values(this.state).reduce((total, item)', item);
+        return total + (item.price * item.quantity);
+    }, 0);
+
+      return totalPrice;
   }
 
   // Очистить корзину
@@ -80,5 +92,19 @@ export default class Cart {
   // Получить все товары
   getItems() {
       return { ...this.state };
+  }
+
+  getItemsForSend(rawDataToReduce) {
+    // подправить потом
+    const cart_reduced = Object.keys(this.state).reduce((acc, key) => {
+      const { price, title } = rawDataToReduce[key];
+      acc[key] = {
+        ...this.state[key],
+        ...(price !== undefined && { price }),
+        ...(title !== undefined && { title })
+      };
+      return acc;
+    }, {});
+    return Object.values(cart_reduced);
   }
 }
