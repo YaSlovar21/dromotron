@@ -15,11 +15,12 @@ const { ROUTES, dictPlate, sequencePlate, dictUplot, sequenceUplot } = require('
 const {slugify} = require('transliteration');
 const { plateSubcategoriesMapper } = require('./utils');
 const XmlGeneratorPlugin = require('./plugins/XmlGeneratorPlugin');
-  //конфиг для генератора url-адресов страниц
-  slugify.config({
-    unknown: '',
-    replace: [['.', '-', '№']],
-  });
+
+//конфиг для генератора url-адресов страниц
+slugify.config({
+  unknown: '',
+  replace: [['.', '-', '№']],
+});
 
 let generatedPaths = [];
 const patchArr = []
@@ -27,6 +28,22 @@ const patchArr = []
 const dateNow = (new Date()).toString();
 const dateNowUtc = (new Date()).toISOString().slice(0, 19) + '+07:00';
 
+function generateSandboxPages(isDevServer, {configs}) {
+    return [
+        new HtmlWebpackPlugin({
+          templateParameters: {
+            isDevServer,
+            ROUTES,
+            canonicalURL: canonicalURL,
+          },
+          title: 'Песочница',
+          heading: 'Песочница',
+          template: "./src/sandbox.html",
+          filename: `sandbox.html`,
+          chunks: ["index",  "sandbox"],
+        })
+      ]
+}
 
 function generatePtoPage(ptoFoodCard, isDevServer, oprosFiles, ptoFoodCards) {
   const { capacity, desc, h1, heatent, max_pressue, id, naznach, pto_frame,refrigerant,title,type_of_proccess } = ptoFoodCard;
@@ -227,15 +244,20 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
 
   console.log(generatedPaths.map(i => i.path));
 
+  const baseEntries = {
+    index: "./src/pages/index.js",
+    form: "./src/pages/form.js",
+    cta: "./src/pages/cta-reaction.js",
+    category: './src/pages/category.js',
+    product: './src/pages/product-page.js',
+    routerfilter: './src/pages/router-filter.js',
+    cart: './src/pages/cart.js',
+  }
+
   return {
     entry: {
-      index: "./src/pages/index.js",
-      form: "./src/pages/form.js",
-      cta: "./src/pages/cta-reaction.js",
-      category: './src/pages/category.js',
-      product: './src/pages/product-page.js',
-      routerfilter: './src/pages/router-filter.js',
-      cart: './src/pages/cart.js',
+     ...baseEntries,
+     ...(isDevServer ? {sandbox: "./src/pages/_sandbox.js"} : {})
     },
     output: {
       path: path.resolve(__dirname, "dist"),
@@ -384,6 +406,10 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
           refs,
           mainpagecats,
           newsData: [], //infoBlogData.filter(i=> i.type.includes('news')).toSorted((a,b) => b.id - a.id),
+          ...(isDevServer ? {sandboxlinks: [{
+            name: 'Песочница с попапом',
+            link: '/sandbox.html'
+          }]} : {})
         },
         title: "Производство комплектующих для пластинчатых теплообменников",
         meta: {
@@ -573,6 +599,24 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         template: "./src/cart.html", // путь к файлу index.html
         chunks: ["index", "cart"],
       }),
+      new HtmlWebpackPlugin({
+        templateParameters: { 
+          canonicalURL,
+          ROUTES,
+          isDevServer,
+        },
+        title: "Политика возврата и обмена",
+        meta: {
+          keywords: "",
+          description: ``,
+        },
+        filename: `return-policy.html`,
+        template: "./src/return-policy.html", // путь к файлу index.html
+        chunks: ["index"],
+      }),
+
+      ...(isDevServer ? generateSandboxPages(isDevServer, {configs: null}) : []),
+
       new XmlGeneratorPlugin({
         filename: 'price-yml.xml',
         /*template: `<?xml version="1.0"?>

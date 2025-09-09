@@ -45,7 +45,7 @@
                     <price><%= plate.price %></price>
                     <currencyId>RUR</currencyId>
                     <categoryId><%= plate.categoryNumId %></categoryId>
-                    <picture>https://www.dromotron.ru/api-images/plates/<%= plate.image_name %></picture>
+                    <picture><%= plate.image_name %></picture>
                     <description>
                         <![CDATA[
                             Пластина для теплообменника <%= plate.teploobmennik %> из стали <%= plate.steel_mark_aisi %> (<%= plate.steel_mark %>), 

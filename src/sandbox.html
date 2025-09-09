@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <%= require(`html-loader!./inner-google${isDevServer ? '-dev-server' : ''}.html`).default %>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body class="page bg-primary-lightgray">
+    <%= require(`html-loader!./inner-metrika${isDevServer ? '-dev-server' : ''}.html`).default %>
+    <header class="header__up py-8 [&_img]:hidden">
+        <%=_.template(require('html-loader!./insets/asides/inner-header.html').default)({ROUTES: ROUTES, page: 'notmain'}) %>
+    </header>
+    <div class="content relative mt-10">
+      <h1 class="up-title up-title_svg up-title_h1 mb-10">Песочница</h1>
+      <div class="h-screen">
+
+      </div>
+      <%= require('html-loader!./insets/no-required-but-builded/popups-from-server.html').default %>
+    </div>
+  </body>
+</html>

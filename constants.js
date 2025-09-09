@@ -9,6 +9,8 @@ const ROUTES = {
     uslugi: '/uslugi/',
     about: '/about/',
     contacts: '/contacts/',
+
+    imgEmptySrc: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjwvc3ZnPg=='
 };
 
 const ROUTES_SPEC = {
@@ -27,9 +29,7 @@ const standartClasses = {
   ctaButtonClass: 'cta-button',
 }
 
-
-
- const sequencePlate = [
+const sequencePlate = [
   "title",
   "teploobmennik",
   "steel_mark_aisi",

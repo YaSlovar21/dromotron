@@ -251,9 +251,15 @@
         <li class="list-adv__item">Короткий срок выполнения заявок</li>
       </ul>
     </section>
-
     <%= _.template(require('html-loader!./insets/form-section-test.html').default)({title: false}) %>
   </main>
   <%= _.template(require('html-loader!./insets/asides/inner-footer.html').default)({ROUTES: ROUTES, page: 'main'}) %>
+  <% if (isDevServer) { %>
+    <div class="fixed top-10 right-10 bg-primary-gray rounded p-5">
+      <% sandboxlinks.map((i)=> { %>
+        <a class="block my-2" href="<%= i.link %>"><%= i.name %></a>
+      <% }) %>
+    </div>
+  <% } %>
 </body>
 </html>

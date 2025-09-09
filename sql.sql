@@ -56,3 +56,13 @@ UPDATE `api.dromotron.ru/price_catalog_uplots`
 SET material_sm	= Unicode::ToLower( CAST( String::SplitToList(material, " ")[0] AS Utf8))
 WHERE material_sm="fkm clip-on"
 
+
+---АГРЕГАЦИЯ И ЗАПИЛ В JSON
+$select = (
+SELECT firm_name, CAST("[\"" || Unicode::JoinFromList(AGGREGATE_LIST_DISTINCT(fileName) , "\",\"") || "\"]" AS Json) as offers
+FROM `ssk/commercial_offer`
+GROUP BY firm_name
+);
+
+UPSERT INTO `ssk/clients`
+SELECT * FROM $select;
