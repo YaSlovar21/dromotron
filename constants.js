@@ -22,6 +22,12 @@ const ROUTES_SPEC = {
   */
 };
 
+const additionalData = {
+  gateway_config: {
+    gateway: 'api.dromotron.ru',
+    cdnPopups: 'https://cdn.kupcov.com'
+  }
+}
 
 
 const standartClasses = {
@@ -141,7 +147,7 @@ module.exports = {
   dictPlate,
   sequenceUplot,
   dictUplot,
-
+  additionalData,
   //служебные
   cssProseObj
 }

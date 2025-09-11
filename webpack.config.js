@@ -10,7 +10,7 @@ const canonicalURL = 'https://www.dromotron.ru'
 
 const { paths } = require('./sitemap');
 
-const { ROUTES, dictPlate, sequencePlate, dictUplot, sequenceUplot } = require('./constants');
+const { ROUTES, dictPlate, sequencePlate, dictUplot, sequenceUplot, additionalData } = require('./constants');
 
 const {slugify} = require('transliteration');
 const { plateSubcategoriesMapper } = require('./utils');
@@ -33,7 +33,7 @@ function generateSandboxPages(isDevServer, {configs}) {
         new HtmlWebpackPlugin({
           templateParameters: {
             isDevServer,
-            ROUTES,
+            ROUTES, additionalData,
             canonicalURL: canonicalURL,
           },
           title: 'Песочница',
@@ -115,7 +115,7 @@ function generatePlateSubcategoryPlugin(isDevServer, plateCatItem, platesData) {
       ...plateCatItem, 
       isDevServer,
       canonicalURL,
-      ROUTES,
+      ROUTES, additionalData,
       platesDataForSubcat: platesData.filter(i => i.textId===categoryTextId),
       dictDataObj: {
         dict: dictPlate,
@@ -142,7 +142,7 @@ function generatePlatePagesPlugins(isDevServer, plateDataArr, platesSubcategorie
         dict: dictPlate,
         isDevServer,
         canonicalURL,
-        ROUTES,
+        ROUTES, additionalData,
         dictDataObj: {
           dict: dictPlate,
           sequence: sequencePlate
@@ -167,7 +167,7 @@ function generateUplotsSubcategoryPlugin(isDevServer, uplotsSubItem, uplotsData)
       ...uplotsSubItem, 
       isDevServer,
       canonicalURL,
-      ROUTES,
+      ROUTES, additionalData,
       uplotsDataForSubcat: uplotsData.filter(i => i.textId===categoryTextId),
       dictDataObj: {
         dict: dictUplot,
@@ -195,7 +195,7 @@ function generateUplotsPagesPlugins(isDevServer, uplotsDataArr, uplotsSubcategor
         dict: dictUplot,
         isDevServer,
         canonicalURL,
-        ROUTES,
+        ROUTES, additionalData,
         dictDataObj: {
           dict: dictUplot,
           sequence: sequenceUplot
@@ -400,7 +400,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
-          ROUTES,
+          ROUTES, additionalData,
           isDevServer,
           uslugiList,
           refs,
@@ -422,7 +422,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
-          ROUTES,
+          ROUTES, additionalData,
           isDevServer,
           kompls: categories,
           isTemplate: false,
@@ -442,7 +442,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
-          ROUTES,
+          ROUTES, additionalData,
           isDevServer,
           kompls: categories,
           isTemplate: false,
@@ -465,7 +465,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
-          ROUTES,
+          ROUTES, additionalData,
           isDevServer,
           kompls: categories,
           isTemplate: false,
@@ -488,7 +488,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
-          ROUTES,
+          ROUTES, additionalData,
           isDevServer,
           kompls: categories,
           isTemplate: true,
@@ -505,7 +505,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
-          ROUTES,
+          ROUTES, additionalData,
           refs: galleryCards.filter(c => c.consumersIds.includes('refs')),
           isDevServer,
         },
@@ -521,7 +521,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
-          ROUTES,
+          ROUTES, additionalData,
           isDevServer,
           oprosFiles,
           ptoFoodCards,
@@ -539,7 +539,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
-          ROUTES,
+          ROUTES, additionalData,
           isDevServer,
           oprosFiles
         },
@@ -555,7 +555,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
-          ROUTES,
+          ROUTES, additionalData,
           isDevServer,
           uslugiList,
         },
@@ -571,7 +571,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
-          ROUTES,
+          ROUTES, additionalData,
           isDevServer
         },
         title: "Контакты ООО Дромотрон",
@@ -586,7 +586,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
-          ROUTES,
+          ROUTES, additionalData,
           isDevServer,
           platesData
         },
@@ -602,7 +602,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
-          ROUTES,
+          ROUTES, additionalData,
           isDevServer,
         },
         title: "Политика возврата и обмена",
