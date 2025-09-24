@@ -437,7 +437,24 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         template: "./src/_kompl.html", // путь к файлу index.html
         chunks: ["index", "cta", "form"],
       }),
-
+      new HtmlWebpackPlugin({
+        templateParameters: { 
+          canonicalURL,
+          ROUTES, additionalData,
+          isDevServer,
+          kompls: categories,
+          isTemplate: true,
+          plates_count_total: platesData.length
+        },
+        title: "Пластины, уплотнения, плиты и другие комплектующие к теплообменникам",
+        meta: {
+          keywords: "пластины и уплотнения к пластинчатым теплообменникам, комплектующие для теплообменников",
+          description: `Комплектующие (пластины, уплотнения, плиты, станины, облицовка из нержавеющей стали) к пластинчатым теплообменникам от производителя`,
+        },
+        filename: "templates/komplektuyushchie-dlya-teploobmennikov/index.html",
+        template: "./src/_kompl.html", // путь к файлу index.html
+        chunks: ["index", "cta", "form"],
+      }),
       //-----ПЛАСТИНЫ--------------
       new HtmlWebpackPlugin({
         templateParameters: { 
@@ -484,7 +501,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         template: "./src/_kompl_uplots.html", // путь к файлу index.html
         chunks: ["index", "cta", "form"],
       }),
-       //пробная сборка template
+       /*пробная сборка template
         new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
@@ -501,7 +518,7 @@ function generateConfig(isDevServer, categories, uslugiList, refs , oprosFiles ,
         filename: "templates/komplektuyushchie-dlya-teploobmennikov.html",
         template: "!!html-loader!./src/_kompl.html", // путь к файлу index.html
         chunks: ["index", "cta", "form"],
-      }),
+      }),*/
       new HtmlWebpackPlugin({
         templateParameters: { 
           canonicalURL,
